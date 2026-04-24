@@ -2,7 +2,7 @@ pages:
   stage: deploy
   image: python:3.12-alpine
   before_script:
-    - pip install mkdocs mkdocs-material mkdocs-blog-plugin
+    - pip install mkdocs mkdocs-material mkdocs-blog-plugin pymdown-extensions
   script:
     - mkdocs build --strict
     - mv site public
