@@ -24,6 +24,7 @@ nav:
   - AI:
     - OpenCode Agents: AI/opencode-agents.md
     - OpenCode Best Practice: AI/opencode-best-practice.md
+    - CLAUDE.md: AI/claude-md.md
   - About: about.md
 
 markdown_extensions:
