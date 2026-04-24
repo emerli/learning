@@ -10,3 +10,4 @@ Welcome to the blog section.
 - [Java 8 → 25: Cambiamenti rilevanti](./posts/java-update.md)
 - [Spring Boot 2.7 → 4.0: Cambiamenti rilevanti](./posts/spring-update.md)
 - [OpenCode — Agenti, Subagenti e Strumenti MCP](./posts/opencode-agents.md)
+- [OpenCode — Best Practice per Agenti e Workflow](./posts/opencode-best-practice.md)
