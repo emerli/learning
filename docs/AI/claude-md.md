@@ -6,7 +6,7 @@ description: "Il mio file CLAUDE.md con le preferenze e regole per l'interazione
 
 # CLAUDE.md — Preferenze Globali
 
-Ecco il contenuto del mio file `CLAUDE.md` così come è configurato:
+Ecco il contenuto del mio file `CLAUDE.md` generico (~/.claude/CLAUDE.md) così come è configurato:
 
 ```text
 # Preferenze Globali
