@@ -7,7 +7,7 @@ repo_name: emanuele/learning
 repo_url: https://gitlab.com/emerli/learning
 
 theme:
-  name: readthedocs
+  name: simple-blog
 
 plugins:
   - search
