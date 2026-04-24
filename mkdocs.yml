@@ -1,10 +1,10 @@
 site_name: Learning Notes
 site_url: https://emerli.gitlab.io/learning
-site_description: Technical documentation and blog
+site_description: Technical documentation and notes
 site_author: ataru76
 
-repo_name: emanuele/learning
-repo_url: https://gitlab.com/emerli/learning
+repo_name: ataru76/learning
+repo_url: https://gitlab.com/ataru76/learning
 
 theme:
   name: gitbook
@@ -14,7 +14,13 @@ plugins:
 
 nav:
   - Home: index.md
-  - Blog: blog/index.md
+  - Clean Code: clean-code.md
+  - Principi SOLID: principi-solid.md
+  - Spring Boot Migrazione: spring-boot-migrazione-2.7-to-4.0.md
+  - Java Update: java-update.md
+  - Spring Boot Update: spring-update.md
+  - OpenCode Agents: opencode-agents.md
+  - OpenCode Best Practice: opencode-best-practice.md
   - About: about.md
 
 markdown_extensions:
