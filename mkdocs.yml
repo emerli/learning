@@ -7,7 +7,7 @@ repo_name: emanuele/learning
 repo_url: https://gitlab.com/emerli/learning
 
 theme:
-  name: simple-blog
+  name: gitbook
 
 plugins:
   - search
