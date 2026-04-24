@@ -1,0 +1,29 @@
+site_name: Learning Notes
+site_url: https://emerli.gitlab.io/learning
+site_description: Technical documentation and blog
+site_author: emanuele
+
+repo_name: emanuele/learning
+repo_url: https://gitlab.com/emerli/learning
+
+theme:
+  name: readthedocs
+
+plugins:
+  - search
+  - blog
+
+nav:
+  - Home: index.md
+  - Blog: blog/index.md
+  - About: about.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.mark
+  - pymdownx.todo
+  - admonition
+  - tables
+  - toc:
+      permalink: true

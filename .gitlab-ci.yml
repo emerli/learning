@@ -1,0 +1,13 @@
+pages:
+  stage: deploy
+  image: python:3.12-alpine
+  before_script:
+    - pip install mkdocs mkdocs-material mkdocs-blog-plugin
+  script:
+    - mkdocs build --strict
+    - mv site public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
