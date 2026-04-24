@@ -4,13 +4,18 @@ This site hosts technical documentation and learning notes.
 
 ## Topics
 
-- [Clean Code](clean-code.md)
-- [Principi SOLID](principi-solid.md)
-- [Spring Boot Migrazione 2.7 → 4.0](spring-boot-migrazione-2.7-to-4.0.md)
-- [Java Update](java-update.md)
-- [Spring Boot Update](spring-update.md)
-- [OpenCode Agents](opencode-agents.md)
-- [OpenCode Best Practice](opencode-best-practice.md)
+### Java
+- [Clean Code](Java/clean-code.md)
+- [Principi SOLID](Java/principi-solid.md)
+- [Java Update](Java/java-update.md)
+
+### Spring
+- [Spring Boot Migrazione 2.7 → 4.0](Spring/spring-boot-migrazione-2.7-to-4.0.md)
+- [Spring Boot Update](Spring/spring-update.md)
+
+### AI
+- [OpenCode Agents](AI/opencode-agents.md)
+- [OpenCode Best Practice](AI/opencode-best-practice.md)
 
 ## About
 
