@@ -22,6 +22,7 @@ This site hosts technical documentation and learning notes.
 - [OpenCode Agents](AI/opencode-agents.md)
 - [OpenCode Best Practice](AI/opencode-best-practice.md)
 - [CLAUDE.md](AI/claude-md.md)
+- [Spec Driven Development](AI/guida-sdd.md)
 
 ## About
 

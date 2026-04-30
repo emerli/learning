@@ -7,7 +7,7 @@ repo_name: ataru76/learning
 repo_url: https://gitlab.com/ataru76/learning
 
 theme:
-  name: gitbook
+  name: readthedocs
 
 plugins:
   - search
@@ -29,6 +29,12 @@ nav:
     - OpenCode Agents: AI/opencode-agents.md
     - OpenCode Best Practice: AI/opencode-best-practice.md
     - CLAUDE.md: AI/claude-md.md
+    - Spec Kit - Esempio Book API: AI/spec-kit-esempio-book-api.md
+    - OpenSpec - Esempio Book API: AI/openspec-esempio-book-api.md
+  - Agile:
+    - Open Practice Library: Agile/open-practice-library.md
+    - Scrum Ripasso: Agile/scrum-ripasso.md
+    - GoF Patterns: Agile/gof-patterns.md
   - About: about.md
 
 markdown_extensions:
