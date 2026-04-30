@@ -3,6 +3,8 @@
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
 A differenza di Spec Kit, usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti.
 
+> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit
+
 ---
 
 ## Installazione e Init

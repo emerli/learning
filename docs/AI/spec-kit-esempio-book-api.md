@@ -2,6 +2,8 @@
 
 Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica.
 
+> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-openspec
+
 ---
 
 ## Fase 1 — Constitution (`/speckit.constitution`)
