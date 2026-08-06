@@ -18,9 +18,8 @@ nav:
     - Clean Code: Java/clean-code.md
     - Principi SOLID: Java/principi-solid.md
     - Java Update: Java/java-update.md
-  - Spring:
-    - Spring Boot Migrazione: Spring/spring-boot-migrazione-2.7-to-4.0.md
-    - Spring Boot Update: Spring/spring-update.md
+    - Spring Boot Migrazione: Java/spring-boot-migrazione-2.7-to-4.0.md
+    - Spring Boot Update: Java/spring-update.md
   - Containers:
     - DevOps DevContainer: Containers/devops-devcontainer.md
     - Java Quarkus DevContainer: Containers/java-quarkus-devcontainer.md
@@ -35,11 +34,6 @@ nav:
     - Open Practice Library: Agile/open-practice-library.md
     - Scrum Ripasso: Agile/scrum-ripasso.md
     - GoF Patterns: Agile/gof-patterns.md
-  - Blog:
-    - Blog Index: blog/index.md
-    - Clean Code - Sintesi: blog/posts/clean-code.md
-    - Principi SOLID - Sintesi: blog/posts/principi-solid.md
-    - Guida alla Migrazione Spring Boot: blog/posts/spring-boot-migrazione-2.7-to-4.0.md
   - About: about.md
 
 markdown_extensions:

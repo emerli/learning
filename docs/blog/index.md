@@ -27,6 +27,7 @@ Welcome to the blog section.
 ## Java
 
 - [Java 8 → 25: Cambiamenti rilevanti per lo sviluppo](../Java/java-update.md)
+- [Spring Boot 2.7 → 4.0: Cambiamenti rilevanti per lo sviluppo](../Java/spring-update.md)
 
 ## Sicurezza Informatica
 
@@ -34,10 +35,6 @@ Welcome to the blog section.
 - [Information Gathering con Kali Linux](../SicurezzaInformatica/information-gathering-kali.md)
 - [Exploitation & Post-Exploitation — Checklist](../SicurezzaInformatica/exploitation-checklist.md)
 - [Linux Privilege Escalation — Guida Completa](../SicurezzaInformatica/linux-privilege-escalation.md)
-
-## Spring
-
-- [Spring Boot 2.7 → 4.0: Cambiamenti rilevanti per lo sviluppo](../Spring/spring-update.md)
 
 ## Blog Posts
 
