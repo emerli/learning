@@ -7,7 +7,7 @@ repo_name: ataru76/learning
 repo_url: https://gitlab.com/ataru76/learning
 
 theme:
-  name: readthedocs
+  name: simple-blog
 
 plugins:
   - search
