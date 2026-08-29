@@ -31,6 +31,12 @@ theme:
 plugins:
   - search:
       lang: it
+  - social:
+      # set MKDOCS_CARDS=false for a fast local `mkdocs serve`
+      cards: !ENV [MKDOCS_CARDS, true]
+      cards_layout_options:
+        background_color: "#0f1b2d"
+        color: "#ffffff"
   - blog:
       blog_dir: blog
       post_url_format: "{slug}"
