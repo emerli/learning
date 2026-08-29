@@ -164,13 +164,17 @@
    Stessa forma delle altre card, solo evidenziata con un anello colore
    accento e un'etichetta. */
 
+.md-post-card {
+  --latest-accent: #e11d48;
+}
+
 .md-post-card--featured {
-  border-color: var(--md-accent-fg-color);
-  box-shadow: 0 0 0 1px var(--md-accent-fg-color);
+  border-color: var(--latest-accent);
+  box-shadow: 0 0 0 1px var(--latest-accent);
 }
 
 .md-post-card--featured:hover {
-  box-shadow: 0 0 0 1px var(--md-accent-fg-color),
+  box-shadow: 0 0 0 1px var(--latest-accent),
     0 0.4rem 1.2rem rgba(0, 0, 0, 0.15);
 }
 
@@ -179,8 +183,8 @@
   margin-bottom: 0.3rem;
   padding: 0.08rem 0.4rem;
   border-radius: 0.15rem;
-  background: var(--md-accent-fg-color);
-  color: var(--md-accent-bg-color, #fff);
+  background: var(--latest-accent);
+  color: #fff;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.1em;
