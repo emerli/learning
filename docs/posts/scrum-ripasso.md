@@ -2,6 +2,7 @@
 date: 2026-04-30
 categories:
   - Agile
+draft: true
 ---
 
 # Ripasso Scrum - Guida strutturata

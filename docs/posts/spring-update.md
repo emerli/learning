@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Evoluzione di Spring Boot dalla versione 2.7 alla 4.0, con confronto su Quarkus"
 categories:
   - Java
+draft: true
 ---
 
 # Spring Boot 2.7 → 4.0: Cambiamenti rilevanti per lo sviluppo

@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Il mio devcontainer per mono dotnet"
 categories:
   - Containers
+draft: true
 ---
 
 # devcontainer.json — mono net47 devcontainer

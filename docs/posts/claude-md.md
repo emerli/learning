@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Il mio file CLAUDE.md con le preferenze e regole per l'interazione con gli agenti AI"
 categories:
   - AI
+draft: true
 ---
 
 # CLAUDE.md — Preferenze Globali

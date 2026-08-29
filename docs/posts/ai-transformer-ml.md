@@ -2,6 +2,7 @@
 date: 2026-08-05
 categories:
   - AI
+draft: true
 ---
 
 # Note su AI moderne, Transformer e progetto ML.NET

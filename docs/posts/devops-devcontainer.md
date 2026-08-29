@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Il mio devcontainer per devops"
 categories:
   - Containers
+draft: true
 ---
 
 # devcontainer.json — devops devcontainer

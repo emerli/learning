@@ -2,6 +2,7 @@
 date: 2026-07-13
 categories:
   - Sicurezza Informatica
+draft: true
 ---
 
 # Metasploitable 2 — Information Gathering Report

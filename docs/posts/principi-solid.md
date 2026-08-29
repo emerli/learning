@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Sintesi dei principi SOLID di Robert C. Martin (Uncle Bob)"
 categories:
   - Java
+draft: true
 ---
 
 # Principi SOLID - Sintesi

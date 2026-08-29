@@ -2,6 +2,7 @@
 date: 2026-04-30
 categories:
   - AI
+draft: true
 ---
 
 # Esempio OpenSpec - Book Management REST API

@@ -4,6 +4,7 @@ date: 2026-04-24
 description: "Il mio devcontainer per java quarkus"
 categories:
   - Containers
+draft: true
 ---
 
 # devcontainer.json — java quarkus devcontainer

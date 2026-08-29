@@ -2,6 +2,7 @@
 date: 2026-04-30
 categories:
   - AI
+draft: true
 ---
 
 # Esempio Spec Kit - Book Management REST API
