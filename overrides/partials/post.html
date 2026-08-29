@@ -1,75 +1,44 @@
 {#-
-  Override of Material's partials/post.html (blog list item)
-  Prepends the generated social card as a thumbnail linking to the post.
+  Override of Material's partials/post.html
+  Compact card for the Medium-style grid on blog.html.
+  Cover is generated per category (colour + icon), no image needed.
 -#}
-<article class="md-post md-post--excerpt">
-  {% if config.extra.social_cards %}
-    {% set social_card = "assets/images/social/" ~ post.url.rstrip("/") ~ ".png" %}
-    <a href="{{ post.url | url }}" class="md-post__thumb">
-      <img src="{{ social_card | url }}" alt="{{ post.title }}">
-    </a>
-  {% endif %}
-  <header class="md-post__header">
-    {% if post.authors %}
-      <nav class="md-post__authors md-typeset">
-        {% for author in post.authors %}
-          <span class="md-author">
-            <img src="{{ author.avatar | url }}" alt="{{ author.name }}">
-          </span>
-        {% endfor %}
-      </nav>
-    {% endif %}
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="{{ post.config.date.created }}">
-            {{- post.config.date.created | date -}}
-          </time>
-          {#- Collapse whitespace -#}
-        </li>
-        {% if post.categories %}
-          <li class="md-meta__item">
-            {{ lang.t("blog.categories.in") }}
-            {% for category in post.categories %}
-              <a href="{{ category.url | url }}" class="md-meta__link">
-                {{- category.title -}}
-              </a>
-              {%- if loop.revindex > 1 %}, {% endif -%}
-            {% endfor -%}
-          </li>
-        {% endif %}
-        {% if post.config.readtime %}
-          {% set time = post.config.readtime %}
-          <li class="md-meta__item">
-            {% if time == 1 %}
-              {{ lang.t("readtime.one") }}
-            {% else %}
-              {{ lang.t("readtime.other") | replace("#", time) }}
-            {% endif %}
-          </li>
-        {% endif %}
-        {% if post.config.pin %}
-          <span class="md-pin"></span>
-        {% endif %}
-      </ul>
-      {% if post.config.draft %}
-        <span class="md-draft">
-          {{ lang.t("blog.draft") }}
-        </span>
+{% set _cat = (post.categories | first).title if post.categories else "Note" %}
+{% set _slug = _cat | lower | replace(" ", "-") %}
+<article class="md-post-card{% if featured %} md-post-card--featured{% endif %}">
+  <a class="md-post-card__cover md-cover--{{ _slug }}" href="{{ post.url | url }}">
+    <span class="md-post-card__icon">
+      {%- if _slug == "java" -%}{% include ".icons/material/coffee.svg" %}
+      {%- elif _slug == "ai" -%}{% include ".icons/material/robot-outline.svg" %}
+      {%- elif _slug == "containers" -%}{% include ".icons/material/cube-outline.svg" %}
+      {%- elif _slug == "agile" -%}{% include ".icons/material/sync.svg" %}
+      {%- elif _slug == "sicurezza-informatica" -%}{% include ".icons/material/shield-lock-outline.svg" %}
+      {%- else -%}{% include ".icons/material/tag-outline.svg" %}{%- endif -%}
+    </span>
+    <span class="md-post-card__cat">{{ _cat }}</span>
+  </a>
+  <div class="md-post-card__body">
+    <div class="md-post-card__meta">
+      <time datetime="{{ post.config.date.created }}">
+        {{- post.config.date.created | date -}}
+      </time>
+      {% if post.config.readtime %}
+        <span aria-hidden="true">·</span>
+        <span>{{ post.config.readtime }} min</span>
       {% endif %}
     </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    {{ post.content }}
-    {% if post.more %}
-      <nav class="md-post__action">
-        <a href="{{ post.url | url }}">
-          {{ lang.t("blog.continue") }}
-        </a>
-      </nav>
-    {% endif %}
-    {% if post.config.pin %}
-      <hr>
-    {% endif %}
+    <h2 class="md-post-card__title">
+      <a href="{{ post.url | url }}">
+        {{- post.post.title | d(post.meta.title, true) | d(post.title, true) -}}
+      </a>
+    </h2>
+    {% set _body = post.content %}
+    {% if "</h2>" in _body %}{% set _body = _body.split("</h2>", 1) | last %}
+    {% elif "</h1>" in _body %}{% set _body = _body.split("</h1>", 1) | last %}{% endif %}
+    {% set _excerpt = post.meta.description or (_body | striptags | truncate(180, true)) %}
+    <p class="md-post-card__excerpt">{{ _excerpt }}</p>
+    <a class="md-post-card__more" href="{{ post.url | url }}">
+      {{ lang.t("blog.continue") }}
+    </a>
   </div>
 </article>

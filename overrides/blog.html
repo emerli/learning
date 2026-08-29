@@ -1,0 +1,26 @@
+{#-
+  Override of Material's blog.html
+  Renders the post list (index / category / archive) as a card grid.
+-#}
+{% extends "main.html" %}
+{% block container %}
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset md-blog-masthead">
+        {{ page.content }}
+      </header>
+      <div class="md-post-grid">
+        {% for post in posts %}
+          {% with featured = loop.first %}
+            {% include "partials/post.html" %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+      {% if pagination %}
+        {% block pagination %}
+          {% include "partials/pagination.html" %}
+        {% endblock %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -6,7 +6,7 @@
 -#}
 {% include "partials/tags.html" %}
 {% include "partials/actions.html" %}
-{% if page.file.src_uri.startswith("blog/posts/") and config.extra.social_cards %}
+{% if page.file.src_uri.startswith("posts/") and config.extra.social_cards %}
   {% set social_card = "assets/images/social/" ~ page.url.rstrip("/") ~ ".png" %}
   <img src="{{ social_card | url }}" alt="{{ page.title }}" class="md-post__hero">
 {% endif %}
