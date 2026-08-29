@@ -1,3 +1,9 @@
+---
+date: 2026-04-30
+categories:
+  - Agile
+---
+
 # Ripasso Scrum - Guida strutturata
 
 ## 3 Pilastri

@@ -1,3 +1,9 @@
+---
+date: 2026-07-13
+categories:
+  - Sicurezza Informatica
+---
+
 # Linux Privilege Escalation — Guida Completa
 
 ## Premessa

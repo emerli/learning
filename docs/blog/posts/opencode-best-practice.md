@@ -2,6 +2,8 @@
 title: "OpenCode — Best Practice per Agenti e Workflow"
 date: 2026-04-24
 description: "Guida pratica per usare al meglio gli agenti primari, i subagenti e la pianificazione in OpenCode"
+categories:
+  - AI
 ---
 
 # OpenCode — Best Practice per Agenti e Workflow

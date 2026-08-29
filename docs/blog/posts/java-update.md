@@ -2,6 +2,8 @@
 title: "Java 8 → 25: Cambiamenti rilevanti per lo sviluppo"
 date: 2026-04-24
 description: "Panoramica delle novità più importanti da Java 9 a Java 25, con focus su Quarkus"
+categories:
+  - Java
 ---
 
 # Java 8 → 25: Cambiamenti rilevanti per lo sviluppo

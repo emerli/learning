@@ -2,6 +2,8 @@
 title: "devcontainer.json — java quarkus devcontainer"
 date: 2026-04-24
 description: "Il mio devcontainer per java quarkus"
+categories:
+  - Containers
 ---
 
 # devcontainer.json — java quarkus devcontainer

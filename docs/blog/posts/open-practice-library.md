@@ -1,3 +1,9 @@
+---
+date: 2026-04-30
+categories:
+  - Agile
+---
+
 # Open Practice Library - Sintesi Pattern
 
 Fonte: https://openpracticelibrary.com/

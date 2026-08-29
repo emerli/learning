@@ -2,6 +2,8 @@
 title: "devcontainer.json — devops devcontainer"
 date: 2026-04-24
 description: "Il mio devcontainer per devops"
+categories:
+  - Containers
 ---
 
 # devcontainer.json — devops devcontainer

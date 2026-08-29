@@ -2,12 +2,12 @@
 
 ## Overview
 
-Blog/wiki tecnico personale (contenuti in italiano) costruito con **MkDocs** e tema
-`simple-blog`, pubblicato su **GitLab Pages**.
+Blog tecnico personale (contenuti in italiano) costruito con **Material for MkDocs** e il
+plugin `blog`, pubblicato su **GitLab Pages**.
 
 - **Sito**: https://koji76.gitlab.io/learning
 - **Repo**: https://gitlab.com/koji76/learning
-- **Tema**: [mkdocs-simple-blog](https://github.com/FernandoCelmer/mkdocs-simple-blog)
+- **Stack**: `mkdocs-material` + plugin `blog` (nativo) + `mkdocs-rss-plugin`
 
 ---
 
@@ -17,41 +17,50 @@ Blog/wiki tecnico personale (contenuti in italiano) costruito con **MkDocs** e t
 .
 ├── .gitlab-ci.yml          # pipeline GitLab Pages
 ├── .gitignore              # ignora site/
-├── mkdocs.yml              # configurazione + nav
+├── mkdocs.yml              # tema + plugin + nav + markdown_extensions
 └── docs/
-    ├── index.md            # homepage
+    ├── index.md            # landing
     ├── about.md
-    ├── blog/index.md       # indice completo (tutte le note per categoria)
-    ├── Java/               # Clean Code, SOLID, Java update, Spring Boot
-    ├── Containers/         # devcontainer.json (devops, quarkus, mono net47)
-    ├── AI/                 # SDD, Spec Kit, OpenSpec, OpenCode, Transformer/ML.NET
-    ├── Agile/              # Open Practice Library, Scrum, GoF
-    └── SicurezzaInformatica/  # recon, information gathering, exploitation, privesc
+    └── blog/
+        ├── index.md        # indice blog (lista generata dal plugin)
+        └── posts/          # un .md per post, tutti allo stesso livello
 ```
+
+Non ci sono più cartelle tematiche: la tassonomia è data dal campo `categories` nel
+frontmatter di ogni post. Indice, archivio per mese (`blog/archive/<anno>/`), pagine per
+categoria (`blog/category/<slug>/`) e feed RSS (`feed_rss_created.xml`) sono **generati** dal
+plugin — non si mantengono a mano.
+
+---
+
+## Frontmatter dei post
+
+```yaml
+---
+date: 2026-08-29          # obbligatorio
+categories:               # obbligatorio, valori ammessi in mkdocs.yml
+  - Java
+tags: [opzionale]
+title: "Titolo opzionale" # se assente usa l'H1
+description: "opzionale"
+---
+```
+
+Categorie ammesse (`categories_allowed` in `mkdocs.yml`):
+`Java`, `AI`, `Containers`, `Agile`, `Sicurezza Informatica`.
+Aggiungerne una nuova = aggiornare `categories_allowed`.
+
+`<!-- more -->` nel corpo definisce l'estratto in homepage/indice (`post_excerpt: optional`).
 
 ---
 
 ## Sviluppo locale
 
 ```bash
-pip install mkdocs mkdocs-simple-blog pymdown-extensions
-mkdocs serve            # http://localhost:8000
-mkdocs build --strict   # riproduce la CI
+pip install mkdocs-material mkdocs-rss-plugin
+mkdocs serve
+mkdocs build --strict     # come in CI
 ```
-
----
-
-## Aggiungere una pagina
-
-1. Crea il `.md` nella cartella tematica sotto `docs/`.
-2. Frontmatter YAML opzionale (`title`, `date`, `description`) — presente in gran parte
-   delle pagine Java/AI/Containers, assente in Agile/SicurezzaInformatica. Non è richiesto
-   dal tema.
-3. **Registra la pagina nel `nav` di `mkdocs.yml`.** Obbligatorio: la CI usa
-   `mkdocs build --strict` e fallisce se una pagina in `docs/` non è nel `nav`
-   (o se un link interno è rotto).
-4. Aggiungi il link in `docs/blog/index.md` (indice completo).
-5. Commit + push su `main` → deploy automatico.
 
 ---
 
@@ -59,25 +68,34 @@ mkdocs build --strict   # riproduce la CI
 
 Job `pages` in `.gitlab-ci.yml`, solo su branch di default:
 
-1. `pip install mkdocs mkdocs-simple-blog pymdown-extensions`
+1. `pip install "mkdocs-material==9.7.7" "mkdocs-rss-plugin==1.19.0"` (versioni pinnate)
 2. `mkdocs build --strict`
-3. `mv site public` → artifact `public/` pubblicato su Pages
+3. `mv site public` → artifact `public/`
 
-### Impostazioni Pages
-- Project visibility: Public
-- Pages visibility: Everyone
-- Se le modifiche non si applicano: Settings → Pages, disattiva e riattiva.
+### Trappole note
+- `--strict` fallisce se un post non ha `date` o ha una categoria non ammessa.
+- `rss` plugin configurato con `use_git: false` + `date_from_meta` → non dipende dalla
+  profondità del clone CI (shallow).
+- Il warning "MkDocs 2.0 / Material" a inizio build è informativo, non blocca.
+- Niente file binari nel repo.
 
 ---
 
 ## Convenzioni
 
-- `mkdocs.yml`: `site_url`, `repo_url`, `repo_name` puntano a `koji76/learning`.
-- Nessun plugin `blog`: l'elenco dei contenuti è manuale in `docs/blog/index.md`.
-- `markdown_extensions`: `pymdownx.highlight`, `pymdownx.mark`, `admonition`, `tables`, `toc`.
-  Non aggiungere estensioni non supportate (in passato `pymdownx.todo`/`task` hanno rotto la build).
-- Niente file binari nel repo (in passato erano stati committati un `.pdf` e un `.txt`
-  ridondanti, poi rimossi).
+- `mkdocs.yml`: `site_url`, `repo_url`, `repo_name` → `koji76/learning`.
+- `post_url_format: "{slug}"` → URL dei post senza data (`/blog/<slug>/`).
+- `markdown_extensions`: admonition, tables, attr_list, md_in_html, pymdownx
+  (highlight/inlinehilite/snippets/superfences/mark), toc.
+
+---
+
+## Stato / TODO
+
+- I contenuti dei post sono appunti di studio da rivedere: linguaggio, accuratezza,
+  aggiunta di estratti `<!-- more -->`, tag.
+- Valutare una sezione "Reference" separata dal flusso blog per i materiali non-articolo
+  (checklist, recon report, cheat-sheet).
 
 ---
 

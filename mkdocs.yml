@@ -1,54 +1,71 @@
 site_name: Learning Notes
 site_url: https://koji76.gitlab.io/learning
-site_description: Technical documentation and notes
+site_description: Appunti e sintesi tecniche
 site_author: koji76
 
 repo_name: koji76/learning
 repo_url: https://gitlab.com/koji76/learning
 
 theme:
-  name: simple-blog
+  name: material
+  language: it
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Tema scuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Tema chiaro
+  features:
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - search.suggest
+    - toc.follow
 
 plugins:
-  - search
+  - search:
+      lang: it
+  - blog:
+      blog_dir: blog
+      post_url_format: "{slug}"
+      post_excerpt: optional
+      archive_date_format: MMMM yyyy
+      categories_allowed:
+        - Java
+        - AI
+        - Containers
+        - Agile
+        - Sicurezza Informatica
+  - rss:
+      match_path: blog/posts/.*
+      use_git: false
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
 
 nav:
   - Home: index.md
-  - Java:
-    - Clean Code: Java/clean-code.md
-    - Principi SOLID: Java/principi-solid.md
-    - Java 8 → 25: Java/java-update.md
-    - Spring Boot Migrazione 2.7 → 4.0: Java/spring-boot-migrazione-2.7-to-4.0.md
-    - Spring Boot 2.7 → 4.0 Update: Java/spring-update.md
-  - Containers:
-    - DevOps DevContainer: Containers/devops-devcontainer.md
-    - Java Quarkus DevContainer: Containers/java-quarkus-devcontainer.md
-    - Mono .NET 4.7 DevContainer: Containers/mono-net47-devcontainer.md
-  - AI:
-    - Spec Driven Development — Guida Rapida: AI/guida-sdd.md
-    - Spec Kit — Esempio Book API: AI/spec-kit-esempio-book-api.md
-    - OpenSpec — Esempio Book API: AI/openspec-esempio-book-api.md
-    - OpenCode — Agenti e MCP: AI/opencode-agents.md
-    - OpenCode — Best Practice: AI/opencode-best-practice.md
-    - CLAUDE.md — Preferenze Globali: AI/claude-md.md
-    - Transformer e ML.NET: AI/ai-transformer-ml.md
-  - Agile:
-    - Open Practice Library: Agile/open-practice-library.md
-    - Ripasso Scrum: Agile/scrum-ripasso.md
-    - Pattern GoF: Agile/gof-patterns.md
-  - Sicurezza Informatica:
-    - Information Gathering con Kali: SicurezzaInformatica/information-gathering-kali.md
-    - Metasploitable 2 — Recon Report: SicurezzaInformatica/metasploitable-recon.md
-    - Exploitation & Post-Exploitation — Checklist: SicurezzaInformatica/exploitation-checklist.md
-    - Linux Privilege Escalation: SicurezzaInformatica/linux-privilege-escalation.md
-  - Indice completo: blog/index.md
+  - Blog:
+      - blog/index.md
   - About: about.md
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.mark
   - admonition
   - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.mark
   - toc:
       permalink: true

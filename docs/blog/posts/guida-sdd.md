@@ -2,6 +2,8 @@
 title: "Spec Driven Development (SDD) — Guida Rapida"
 date: 2026-04-29
 description: "Guida rapida allo Spec Driven Development: come usare la spec OpenAPI come fonte della verità"
+categories:
+  - AI
 ---
 
 # Spec Driven Development (SDD) — Guida Rapida

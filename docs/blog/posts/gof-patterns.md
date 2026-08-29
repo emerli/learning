@@ -1,3 +1,9 @@
+---
+date: 2026-04-30
+categories:
+  - Agile
+---
+
 # Pattern GoF - Recap
 
 ## Creazionali (5)

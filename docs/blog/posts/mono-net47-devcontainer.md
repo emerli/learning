@@ -2,6 +2,8 @@
 title: "devcontainer.json — mono net47 devcontainer"
 date: 2026-04-24
 description: "Il mio devcontainer per mono dotnet"
+categories:
+  - Containers
 ---
 
 # devcontainer.json — mono net47 devcontainer

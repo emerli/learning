@@ -1,3 +1,9 @@
+---
+date: 2026-08-05
+categories:
+  - AI
+---
+
 # Note su AI moderne, Transformer e progetto ML.NET
 
 Riepilogo di una conversazione esplorativa su come funzionano le AI moderne e su un possibile progetto pratico con ML.NET.

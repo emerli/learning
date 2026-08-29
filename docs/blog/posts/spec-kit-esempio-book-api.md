@@ -1,3 +1,9 @@
+---
+date: 2026-04-30
+categories:
+  - AI
+---
+
 # Esempio Spec Kit - Book Management REST API
 
 Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica.

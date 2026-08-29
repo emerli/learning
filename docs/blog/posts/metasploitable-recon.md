@@ -1,3 +1,9 @@
+---
+date: 2026-07-13
+categories:
+  - Sicurezza Informatica
+---
+
 # Metasploitable 2 — Information Gathering Report
 
 ## Info Target

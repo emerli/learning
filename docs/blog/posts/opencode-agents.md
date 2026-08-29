@@ -2,6 +2,8 @@
 title: "OpenCode — Agenti, Subagenti e Strumenti MCP"
 date: 2026-04-24
 description: "Guida completa all'architettura degli agenti di OpenCode, tool MCP e pattern di utilizzo"
+categories:
+  - AI
 ---
 
 # OpenCode — Agenti, Subagenti e Strumenti MCP

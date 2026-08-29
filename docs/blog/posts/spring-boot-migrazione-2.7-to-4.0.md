@@ -2,6 +2,8 @@
 title: "Guida alla Migrazione: Spring Boot 2.7 → 4.0"
 date: 2026-04-24
 description: "Checklist completa per migrare un progetto Spring Boot da 2.7 a 4.0 passando per 3.x"
+categories:
+  - Java
 ---
 
 # Guida alla Migrazione: Spring Boot 2.7 → 4.0

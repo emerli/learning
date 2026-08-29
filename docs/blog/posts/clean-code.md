@@ -2,6 +2,8 @@
 title: "Clean Code - Sintesi"
 date: 2026-04-24
 description: "Sintesi del libro Clean Code di Robert C. Martin (Uncle Bob)"
+categories:
+  - Java
 ---
 
 # Clean Code - Sintesi

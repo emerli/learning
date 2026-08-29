@@ -1,3 +1,9 @@
+---
+date: 2026-04-30
+categories:
+  - AI
+---
+
 # Esempio OpenSpec - Book Management REST API
 
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
