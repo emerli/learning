@@ -1,9 +1,15 @@
 pages:
   stage: deploy
   image: python:3.12-slim
+  variables:
+    # mkdocs-rss-plugin imports GitPython at load time; don't let it raise when
+    # resolving the git binary (we use use_git:false and dates from meta anyway)
+    GIT_PYTHON_REFRESH: quiet
   before_script:
-    # system libs required by the Material `social` plugin (Cairo + Pango + fonts)
+    # git: needed to clone the repo and by mkdocs-rss-plugin's GitPython import
+    # the rest: system libs for the Material `social` plugin (Cairo + Pango + fonts)
     - apt-get update && apt-get install -y --no-install-recommends
+      git
       libcairo2 libfreetype6 libpango-1.0-0 libpangocairo-1.0-0 libglib2.0-0
       libjpeg62-turbo fonts-dejavu-core
     - pip install "mkdocs-material[imaging]==9.7.7" "mkdocs-rss-plugin==1.19.0"
