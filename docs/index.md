@@ -1,5 +1,5 @@
 ---
-title: Learning Notes
+title: Home
 ---
 
 # Learning Notes
