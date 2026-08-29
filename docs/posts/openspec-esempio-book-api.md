@@ -1,16 +1,19 @@
 ---
+title: "OpenSpec — esempio: Book Management REST API"
 date: 2026-04-30
 categories:
   - AI
 draft: true
+slug: openspec-book-api
+description: "OpenSpec sullo stesso esempio: propose → apply → archive, le spec delta e il confronto con Spec Kit."
 ---
 
-# Esempio OpenSpec - Book Management REST API
+# OpenSpec — esempio: Book Management REST API
 
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
-A differenza di Spec Kit, usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti.
+A differenza di [Spec Kit](spec-kit-book-api.md), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](sdd-guida-rapida.md).
 
-> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit
+> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-openspec
 
 ---
 
@@ -232,51 +235,7 @@ L'agente AI implementa tutti i task:
 /opsx:apply
 ```
 
-Esempio di implementazione per il task 3.1:
-
-```java
-@RestController
-@RequestMapping("/api/v1/books")
-public class BookController {
-
-    private final BookService bookService;
-
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
-
-    @PostMapping
-    public ResponseEntity<BookResponse> create(@Valid @RequestBody BookRequest request) {
-        var book = bookService.create(request);
-        return ResponseEntity.status(201).body(book);
-    }
-
-    @GetMapping
-    public ResponseEntity<PagedResponse<BookResponse>> list(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(required = false) String genre) {
-        return ResponseEntity.ok(bookService.findAll(page, size, genre));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<BookResponse> get(@PathVariable Long id) {
-        return ResponseEntity.ok(bookService.findById(id));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<BookResponse> update(
-            @PathVariable Long id, @Valid @RequestBody BookRequest request) {
-        return ResponseEntity.ok(bookService.update(id, request));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        bookService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-}
-```
+Il codice prodotto è lo stesso che genererebbe qualsiasi altro flusso SDD sullo stesso `spec.md` — per il `BookController` completo vedi l'[articolo su Spec Kit](spec-kit-book-api.md#fase-5--implement). Qui la differenza sta nel **processo**, non nell'output: OpenSpec non ha gate obbligatori e, alla fine, archivia il change aggiornando le spec persistenti.
 
 ---
 
@@ -307,27 +266,24 @@ openspec/changes/archive/
 
 ## Spec Delta — la differenza chiave
 
-Se in futuro aggiungiamo un "Remember me" all'autenticazione, OpenSpec genera un **spec delta**:
+Se in futuro aggiungiamo un campo `rating` (0–5) ai libri, OpenSpec non riscrive `spec.md`: genera un **spec delta**, un diff sui requisiti.
 
 ```markdown
-### Requirement: Session expiration
-- The system SHALL expire sessions after a configured duration.
-+ The system SHALL support configurable session expiration periods.
+### Requirement: Create book
+- WHEN a user submits valid book data (title, author, ISBN, year, genre)
++ WHEN a user submits valid book data (title, author, ISBN, year, genre, rating)
+- THEN the system SHALL create the book and return it with a generated id
++ THEN the system SHALL create the book, defaulting rating to null if omitted,
++   and return it with a generated id
 
-#### Scenario: Default session timeout
-- GIVEN a user has authenticated
-- WHEN 24 hours pass without activity
-+ WHEN 24 hours pass without "Remember me"
-- THEN invalidate the session token
-
-+ #### Scenario: Extended session with remember me
-+ - GIVEN user checks "Remember me" at login
-+ - WHEN 30 days have passed
-+ - THEN invalidate the session token
-+ - AND clear the persistent cookie
++ #### Scenario: Rating out of range
++ - GIVEN the catalog is available
++ - WHEN a user submits a book with rating outside 0–5
++ - THEN the system SHALL respond with HTTP 400
++ - AND include validation error details
 ```
 
-Le righe con `-` vengono rimosse, quelle con `+` vengono aggiunte. Questo rende le **PR review molto più efficaci** — il reviewer vede l'impatto sui requisiti prima del codice.
+Le righe con `-` vengono rimosse, quelle con `+` aggiunte. Questo rende le **PR review molto più efficaci**: il reviewer vede l'impatto sui requisiti prima ancora del codice. All'`archive`, il delta viene fuso nella `spec.md` persistente.
 
 ---
 
@@ -340,5 +296,5 @@ Le righe con `-` vengono rimosse, quelle con `+` vengono aggiunte. Questo rende 
 | Tracking modifiche | Task completati in tasks.md | Spec delta (diff dei requisiti) |
 | Spec persistenti | `.specify/features/` | `openspec/specs/` (rimangono come doc viva) |
 | Principio | Process-driven, greenfield-first | Leggero, brownfield-first |
-| Cli | `specify init/extension/workflow` | `openspec init/update/config` |
+| CLI | `specify init/extension/workflow` | `openspec init/update/config` |
 | Dashboard | No (solo CLI) | Sì (web UI) |

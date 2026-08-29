@@ -1,15 +1,18 @@
 ---
+title: "Spec Kit — esempio: Book Management REST API"
 date: 2026-04-30
 categories:
   - AI
 draft: true
+slug: spec-kit-book-api
+description: "GitHub Spec Kit su un esempio reale: constitution → specify → plan → tasks → implement, e cosa fa davvero la CLI."
 ---
 
-# Esempio Spec Kit - Book Management REST API
+# Spec Kit — esempio: Book Management REST API
 
-Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica.
+Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](sdd-guida-rapida.md).
 
-> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-openspec
+> **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit
 
 ---
 
@@ -192,7 +195,7 @@ public class BookController {
 
 ## Nota su OpenAPI
 
-Spec Kit non genera un `openapi.yaml` nativamente. Il contrato API vive nel `spec.md` in linguaggio naturale.
+Spec Kit non genera un `openapi.yaml` nativamente. Il contratto API vive nel `spec.md` in linguaggio naturale.
 Se serve un OpenAPI esplicito:
 
 1. **Richiederlo nello spec** — aggiungere che il deliverable include un file OpenAPI

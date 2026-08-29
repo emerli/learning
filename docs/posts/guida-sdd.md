@@ -1,17 +1,25 @@
 ---
 title: "Spec Driven Development (SDD) — Guida Rapida"
 date: 2026-04-29
-description: "Guida rapida allo Spec Driven Development: come usare la spec OpenAPI come fonte della verità"
+description: "Come usare la spec come fonte della verità: contratto vs logica, quando aggiornarla, scaffolding a build time, e dove entra l'AI."
 categories:
   - AI
 draft: true
+slug: sdd-guida-rapida
 ---
 
 # Spec Driven Development (SDD) — Guida Rapida
 
 ## 1. Cos'è lo SDD
 
-Lo **Spec Driven Development** è un approccio in cui la **specifica** (contratto API, schemi dati) viene scritta **prima** del codice e funge da **fonte della verità** per tutto il ciclo di sviluppo.
+Lo **Spec Driven Development** è un approccio in cui la **specifica** viene scritta **prima** del codice e funge da **fonte della verità** per tutto il ciclo di sviluppo.
+
+Ci sono due scuole, a seconda di cosa sia la "spec":
+
+- **Contratto formale** — un file macchina, tipicamente **OpenAPI** (`api.yaml`), da cui si genera lo scaffolding. È il taglio di questa guida.
+- **Spec in linguaggio naturale** — requisiti e scenari scritti in Markdown, che un **agente AI** legge ed esegue. Vedi gli esempi pratici con [Spec Kit](spec-kit-esempio-book-api.md) e [OpenSpec](openspec-esempio-book-api.md).
+
+I principi sotto (contratto vs logica, quando aggiornare la spec) valgono per entrambe.
 
 ---
 
