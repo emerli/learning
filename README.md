@@ -1,7 +1,7 @@
 # Learning Notes
 
-Blog personale di appunti e sintesi tecniche (in italiano), costruito con
-[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) e il suo plugin `blog`,
+Ispirato dal second brain ho voluto realizzare questo Blog tecnico personale (contenuti in italiano) per salvare e condividere la mia esperienza.
+Per minimizzare l'effort necessario è stato costruito con [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) e il suo plugin `blog`,
 pubblicato su **GitLab Pages**.
 
 - **Sito**: https://koji76.gitlab.io/learning

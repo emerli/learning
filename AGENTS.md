@@ -2,8 +2,8 @@
 
 ## Overview
 
-Blog tecnico personale (contenuti in italiano) costruito con **Material for MkDocs** e il
-plugin `blog`, pubblicato su **GitLab Pages**.
+Ispirato dal second brain ho voluto realizzare questo Blog tecnico personale (contenuti in italiano) per salvare e condividere la mia esperienza.
+Per minimizzare l'effort necessario è stato costruito con **Material for MkDocs** e il plugin `blog`, pubblicato su **GitLab Pages**.
 
 - **Sito**: https://koji76.gitlab.io/learning
 - **Repo**: https://gitlab.com/koji76/learning
