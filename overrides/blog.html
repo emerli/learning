@@ -6,9 +6,11 @@
 {% block container %}
   <div class="md-content" data-md-component="content">
     <div class="md-content__inner">
-      <header class="md-typeset md-blog-masthead">
-        {{ page.content }}
-      </header>
+      {% if page.content | trim %}
+        <header class="md-typeset md-blog-masthead">
+          {{ page.content }}
+        </header>
+      {% endif %}
       <div class="md-post-grid">
         {% for post in posts %}
           {% with featured = loop.first %}
