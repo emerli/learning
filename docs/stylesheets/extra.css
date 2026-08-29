@@ -4,20 +4,13 @@
   display: none;
 }
 
-/* Divider above the category links in the primary nav (Home / About | categories).
-   Border goes on every category item, then is removed from any that follows
-   another one — so only the first category gets the line. */
-.md-nav--primary .md-nav__item:has(> .md-nav__link[href*="category/"]) {
-  margin-top: 0.4rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--md-default-fg-color--lightest);
-}
-.md-nav--primary
-  .md-nav__item:has(> .md-nav__link[href*="category/"])
-  + .md-nav__item:has(> .md-nav__link[href*="category/"]) {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
+/* Divider between Home/About and the flat category links in the primary nav.
+   The hook makes the order fixed: Home (1), About (2), then the categories,
+   so the 3rd top-level item is always the first category. */
+.md-nav--primary > .md-nav__list > .md-nav__item:nth-child(3) {
+  margin-top: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--md-default-fg-color--lighter);
 }
 
 /* ---------------------------------------------------------------------------
