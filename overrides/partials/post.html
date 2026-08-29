@@ -8,12 +8,7 @@
 <article class="md-post-card{% if featured %} md-post-card--featured{% endif %}">
   <a class="md-post-card__cover md-cover--{{ _slug }}" href="{{ post.url | url }}">
     <span class="md-post-card__icon">
-      {%- if _slug == "java" -%}{% include ".icons/material/coffee.svg" %}
-      {%- elif _slug == "ai" -%}{% include ".icons/material/robot-outline.svg" %}
-      {%- elif _slug == "containers" -%}{% include ".icons/material/cube-outline.svg" %}
-      {%- elif _slug == "agile" -%}{% include ".icons/material/sync.svg" %}
-      {%- elif _slug == "sicurezza-informatica" -%}{% include ".icons/material/shield-lock-outline.svg" %}
-      {%- else -%}{% include ".icons/material/tag-outline.svg" %}{%- endif -%}
+      {%- with slug = _slug %}{% include "partials/category-icon.html" %}{% endwith -%}
     </span>
     <span class="md-post-card__cat">{{ _cat }}</span>
   </a>

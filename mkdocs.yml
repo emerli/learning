@@ -61,10 +61,6 @@ nav:
   - Blog: index.md
   - About: about.md
 
-extra:
-  # mirrors the `social` plugin's `cards` toggle, for use in template overrides
-  social_cards: !ENV [MKDOCS_CARDS, true]
-
 extra_css:
   - stylesheets/extra.css
 

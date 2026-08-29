@@ -38,7 +38,6 @@
   padding: 1rem;
   color: #fff;
   text-decoration: none;
-  background: linear-gradient(135deg, #475569, #1e293b);
 }
 
 .md-post-card__icon svg {
@@ -54,12 +53,6 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-
-.md-cover--java                 { background: linear-gradient(135deg, #f59e0b, #b45309); }
-.md-cover--ai                   { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
-.md-cover--containers           { background: linear-gradient(135deg, #06b6d4, #0e7490); }
-.md-cover--agile                { background: linear-gradient(135deg, #10b981, #047857); }
-.md-cover--sicurezza-informatica { background: linear-gradient(135deg, #ef4444, #b91c1c); }
 
 /* Body ------------------------------------------------------------------- */
 
@@ -136,13 +129,48 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Single post: social card as hero  (overrides/partials/content.html)
+   Single post: category banner  (overrides/partials/content.html)
+   Same colour + icon as the post's card cover on the index.
    --------------------------------------------------------------------------- */
 
-.md-post__hero {
-  display: block;
-  width: 100%;
-  height: auto;
+.md-post-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   margin: 0 0 1.5rem;
+  padding: 0.7rem 1rem;
+  color: #fff;
   border-radius: 0.2rem;
 }
+
+.md-post-banner__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: currentColor;
+}
+
+.md-post-banner__cat,
+.md-post-banner__cat:hover {
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.md-post-banner__cat:hover {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------------------
+   Category palettes — applied to both .md-post-card__cover and .md-post-banner.
+   Kept last so they win over the base backgrounds above.
+   --------------------------------------------------------------------------- */
+
+.md-post-card__cover,
+.md-post-banner                  { background: linear-gradient(135deg, #475569, #1e293b); }
+.md-cover--java                  { background: linear-gradient(135deg, #f59e0b, #b45309); }
+.md-cover--ai                    { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.md-cover--containers            { background: linear-gradient(135deg, #06b6d4, #0e7490); }
+.md-cover--agile                 { background: linear-gradient(135deg, #10b981, #047857); }
+.md-cover--sicurezza-informatica { background: linear-gradient(135deg, #ef4444, #b91c1c); }
