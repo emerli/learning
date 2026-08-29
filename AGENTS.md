@@ -1,101 +1,84 @@
-# AGENTS.md - Learning Blog
+# AGENTS.md — Learning Notes
 
 ## Overview
 
-Personal technical blog built with MkDocs using the `simple-blog` theme, hosted on GitLab Pages.
+Blog/wiki tecnico personale (contenuti in italiano) costruito con **MkDocs** e tema
+`simple-blog`, pubblicato su **GitLab Pages**.
 
-- **URL**: https://learning-9b8959.gitlab.io
-- **Repo**: https://gitlab.com/ataru76/learning
-- **Theme**: [mkdocs-simple-blog](https://github.com/FernandoCelmer/mkdocs-simple-blog)
+- **Sito**: https://koji76.gitlab.io/learning
+- **Repo**: https://gitlab.com/koji76/learning
+- **Tema**: [mkdocs-simple-blog](https://github.com/FernandoCelmer/mkdocs-simple-blog)
 
 ---
 
-## Project Structure
+## Struttura
 
 ```
 .
-├── .gitlab-ci.yml          # CI pipeline for GitLab Pages
-├── .gitignore              # Ignores site/ build output
-├── mkdocs.yml              # MkDocs configuration
-├── docs/
-│   ├── index.md            # Homepage
-│   ├── about.md            # About page
-│   └── blog/
-│       ├── index.md        # Blog index with post links
-│       └── posts/          # Blog posts (Markdown files)
-│           ├── clean-code.md
-│           └── principi-solid.md
+├── .gitlab-ci.yml          # pipeline GitLab Pages
+├── .gitignore              # ignora site/
+├── mkdocs.yml              # configurazione + nav
+└── docs/
+    ├── index.md            # homepage
+    ├── about.md
+    ├── blog/index.md       # indice completo (tutte le note per categoria)
+    ├── Java/               # Clean Code, SOLID, Java update, Spring Boot
+    ├── Containers/         # devcontainer.json (devops, quarkus, mono net47)
+    ├── AI/                 # SDD, Spec Kit, OpenSpec, OpenCode, Transformer/ML.NET
+    ├── Agile/              # Open Practice Library, Scrum, GoF
+    └── SicurezzaInformatica/  # recon, information gathering, exploitation, privesc
 ```
 
 ---
 
-## Local Development
+## Sviluppo locale
 
 ```bash
 pip install mkdocs mkdocs-simple-blog pymdown-extensions
-mkdocs serve
+mkdocs serve            # http://localhost:8000
+mkdocs build --strict   # riproduce la CI
 ```
 
-Open http://localhost:8000 to preview.
+---
+
+## Aggiungere una pagina
+
+1. Crea il `.md` nella cartella tematica sotto `docs/`.
+2. Frontmatter YAML opzionale (`title`, `date`, `description`) — presente in gran parte
+   delle pagine Java/AI/Containers, assente in Agile/SicurezzaInformatica. Non è richiesto
+   dal tema.
+3. **Registra la pagina nel `nav` di `mkdocs.yml`.** Obbligatorio: la CI usa
+   `mkdocs build --strict` e fallisce se una pagina in `docs/` non è nel `nav`
+   (o se un link interno è rotto).
+4. Aggiungi il link in `docs/blog/index.md` (indice completo).
+5. Commit + push su `main` → deploy automatico.
 
 ---
 
-## Adding a New Blog Post
+## CI / GitLab Pages
 
-1. Create a new `.md` file in `docs/blog/posts/`
-2. Add YAML frontmatter:
-   ```yaml
-   ---
-   title: "Post Title"
-   date: 2026-04-24
-   description: "Short description"
-   ---
-   ```
-3. Update `docs/blog/index.md` with a link to the new post
-4. Commit and push — the site deploys automatically
+Job `pages` in `.gitlab-ci.yml`, solo su branch di default:
 
----
+1. `pip install mkdocs mkdocs-simple-blog pymdown-extensions`
+2. `mkdocs build --strict`
+3. `mv site public` → artifact `public/` pubblicato su Pages
 
-## GitLab CI Pipeline
-
-On every push to `main`:
-1. Installs dependencies
-2. Builds the static site with `mkdocs build`
-3. Publishes to GitLab Pages
-
-### Pages Settings (Important!)
-- **Project visibility**: Public
-- **Pages visibility**: Everyone (with access)
-- If changes don't apply, toggle Pages off and on in Settings → Pages
+### Impostazioni Pages
+- Project visibility: Public
+- Pages visibility: Everyone
+- Se le modifiche non si applicano: Settings → Pages, disattiva e riattiva.
 
 ---
 
-## Current Content
+## Convenzioni
 
-| Post | File |
-|------|------|
-| Clean Code - Sintesi | `docs/blog/posts/clean-code.md` |
-| Principi SOLID - Sintesi | `docs/blog/posts/principi-solid.md` |
-
----
-
-## Known Issues & Fixes
-
-| Issue | Fix |
-|-------|-----|
-| Pipeline failed: missing markdown extension | Removed unsupported `pymdownx.todo`/`pymdownx.task` |
-| Theme requires no blog plugin | Removed `blog` plugin from `mkdocs.yml` |
-| Pages requires login | Toggle Pages off/on in Settings → Pages after changing visibility |
+- `mkdocs.yml`: `site_url`, `repo_url`, `repo_name` puntano a `koji76/learning`.
+- Nessun plugin `blog`: l'elenco dei contenuti è manuale in `docs/blog/index.md`.
+- `markdown_extensions`: `pymdownx.highlight`, `pymdownx.mark`, `admonition`, `tables`, `toc`.
+  Non aggiungere estensioni non supportate (in passato `pymdownx.todo`/`task` hanno rotto la build).
+- Niente file binari nel repo (in passato erano stati committati un `.pdf` e un `.txt`
+  ridondanti, poi rimossi).
 
 ---
 
-## Future Ideas
-
-- [ ] Add new technical summaries (OOP, Design Patterns, etc.)
-- [ ] Customize theme colors/styles
-- [ ] Add custom domain to GitLab Pages
-
----
-
-**Author**: ataru76
-**Created**: 2026-04-24
+**Autore**: koji76
