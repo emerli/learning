@@ -13,6 +13,7 @@
     <span class="md-post-card__cat">{{ _cat }}</span>
   </a>
   <div class="md-post-card__body">
+    {% if featured %}<span class="md-post-card__latest">più recente</span>{% endif %}
     <div class="md-post-card__meta">
       <time datetime="{{ post.config.date.created }}">
         {{- post.config.date.created | date -}}
