@@ -3,7 +3,6 @@ title: "OpenCode — Agenti, Subagenti, MCP e Workflow"
 date: 2026-08-29
 categories:
   - AI
-draft: true
 slug: ai-opencode
 description: "Architettura degli agenti di OpenCode: primari e subagent, tool MCP, permessi, pattern di orchestrazione e best practice di workflow."
 ---
