@@ -2,7 +2,7 @@
 date: 2026-08-29
 categories:
   - AI
-slug: llm-su-ollama
+slug: ai-ollama-llm-locali
 description: "Quali modelli usare con Ollama?"
 ---
 
