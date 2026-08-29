@@ -298,3 +298,8 @@ Le righe con `-` vengono rimosse, quelle con `+` aggiunte. Questo rende le **PR 
 | Principio | Process-driven, greenfield-first | Leggero, brownfield-first |
 | CLI | `specify init/extension/workflow` | `openspec init/update/config` |
 | Dashboard | No (solo CLI) | Sì (web UI) |
+
+
+## Conclusione
+
+Ho usato OpenSpec per un progetto demo e mi sono trovato molto bene: con pochi passi si ottiene uno sviluppo in pieno stile SDD, riproducibile e ben documentato. La sua leggerezza permette anche di usarlo su progetti già avviati — un vantaggio notevole rispetto a Spec Kit.

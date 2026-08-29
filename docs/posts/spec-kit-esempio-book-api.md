@@ -281,3 +281,7 @@ Stato persistente in `.specify/workflows/runs/<run_id>/`.
 | Automatizzare il ciclo SDD | **Utente** via `specify workflow run` |
 | Eseguire le fasi (specify, plan, tasks, implement) | **Agente AI** leggendo i prompt files |
 | Leggere e seguire le istruzioni | **Agente AI** — non chiama spec-kit, lo consuma |
+
+## Conclusione
+
+Ho usato Spec Kit per un progetto demo. A fronte di una complessità maggiore rispetto a OpenSpec, rende il progetto molto documentato e riproducibile — non a caso porta la firma di GitHub. Il limite principale: è pensato per progetti nuovi, non lo si applica bene a un codebase già avviato.
