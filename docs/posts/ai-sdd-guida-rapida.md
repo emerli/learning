@@ -4,7 +4,7 @@ date: 2026-04-29
 description: "Come usare la spec come fonte della verità: contratto vs logica, quando aggiornarla, scaffolding a build time, e dove entra l'AI."
 categories:
   - AI
-draft: true
+draft: false
 slug: ai-sdd-guida-rapida
 ---
 
