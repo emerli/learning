@@ -132,16 +132,44 @@ Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
 
 ---
 
-## Stato / TODO
+## Stato
 
-- Aggiungere `slug:` e `description:` ai 22 post esistenti (ora gli slug sono derivati
-  dai titoli e vengono lunghi, es. `devcontainerjson--devops-devcontainer`).
-- I contenuti dei post sono appunti di studio da rivedere: linguaggio, accuratezza,
-  estratti `<!-- more -->`.
-- I pulsanti Precedente/Successivo in fondo alle pagine seguono ancora un ordine vecchio
-  (il plugin li cabla prima del hook).
+- Pubblicati (categoria AI): `ai-ollama-llm-locali`, `ai-opencode`, `ai-agents-md`,
+  `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`.
+- ~16 post ancora `draft: true` in `docs/posts/`, da revisionare (`grep -l 'draft: true' docs/posts/*.md`).
+- Convenzione nome file/slug: prefisso categoria (`ai-…`), per ordinare la cartella.
+
+## TODO
+
+### Revisione dei post in draft
+
+Per ogni post: `slug:` corto e definitivo + `description:`; rivedere linguaggio e
+accuratezza; aggiungere `<!-- more -->` dopo il primo paragrafo; se è un walkthrough,
+aggiungere una sezione di chiusura **"Cosa ho notato"** (verdetto reale, non doc). Poi
+`draft: false`. Se il post cross-linka altri draft, pubblicarli nello stesso commit.
+
+### Nuovi articoli dai vecchi repo GitLab (reverse)
+
+L'utente ha molti repo GitLab usati per imparare: trasformarli in articoli.
+
+1. L'utente fornisce la lista (`glab repo list --per-page 100`) + una frase per repo.
+2. Triage: tenere solo quelli con frizione reale / un'opinione maturata / un "aha"
+   fuori dalla doc. Scartare spike e tutorial seguiti alla lettera.
+3. L'utente clona i repo scelti in locale; per ciascuno analizzare
+   **README + `git log` (dead-end, "fix", "revert") + config non ovvia + stack/versioni**.
+4. Bozza articolo: frontmatter completo, corpo = contesto → cosa ho fatto → gotcha →
+   "cosa ho notato" → riferimenti. `draft: true` fino a revisione dell'utente.
+5. Se serve una categoria nuova: aggiornare `categories_allowed` + `.md-cover--<slug>`
+   in `extra.css` + un `elif` in `overrides/partials/category-icon.html`.
+
+### Minori
+
+- I pulsanti Precedente/Successivo in fondo alle pagine seguono un ordine vecchio
+  (il plugin li cabla prima del hook `on_nav`).
 - Valutare una sezione "Reference" separata per i materiali non-articolo (checklist,
   recon report, cheat-sheet).
+- Se il post più recente sarà di categoria Sicurezza (cover rossa), l'anello rosso
+  `--latest-accent` della card featured avrà poco contrasto — eventualmente cambiare tinta.
 
 ---
 
