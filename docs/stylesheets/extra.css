@@ -1,0 +1,20 @@
+/* Social card shown as a hero at the top of a blog post */
+.md-post__hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.2rem;
+  margin: 0 0 1.5rem;
+}
+
+/* Social card shown as a thumbnail in the blog post list */
+.md-post__thumb {
+  display: block;
+  margin: 0 0 1rem;
+}
+
+.md-post__thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.2rem;
+}
