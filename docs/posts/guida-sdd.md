@@ -189,7 +189,34 @@ Questo permette anche di **modificare temporaneamente lo YAML in locale** per fa
 
 ---
 
-## 9. Struttura progetto SDD consigliata
+## 9. Verificare che il codice rispetti la spec
+
+La generazione a build time tiene allineata l'**interfaccia** (gli stub nascono dalla spec), ma non garantisce che il **comportamento** corrisponda. Servono due controlli in CI, complementari:
+
+**1. Contract testing** — genera richieste dalla spec e le lancia contro il servizio in esecuzione, verificando che status e corpo rispettino gli schemi.
+
+```bash
+# il servizio è in piedi (Testcontainers / docker compose)
+schemathesis run api.yaml --url http://localhost:8080 --checks all
+```
+
+- **Schemathesis** — property-based, molto efficace su OpenAPI; trova risposte fuori schema, 500 non dichiarati, validazioni mancanti
+- **Dredd** — più semplice, verifica gli esempi della spec
+- **Pact** — contract testing consumer-driven, quando più servizi si parlano
+
+**2. Diff di compatibilità** — a ogni PR confronta la nuova spec con quella di `main` e blocca i breaking change non dichiarati.
+
+```bash
+oasdiff breaking main:api.yaml api.yaml --fail-on ERR
+```
+
+- `oasdiff`, `openapi-diff` (openapitools)
+
+**Regola:** un endpoint assente dalla spec, o una risposta che non rispetta lo schema, fa **fallire la pipeline**. Così la spec resta davvero la fonte della verità, invece di divergere in silenzio.
+
+---
+
+## 10. Struttura progetto SDD consigliata
 
 ```
 progetto/
@@ -210,7 +237,7 @@ progetto/
 
 ---
 
-## 10. Esempio completo di flusso
+## 11. Esempio completo di flusso
 
 ### Step 1 — Aggiorna la spec (se cambia il contratto)
 ```yaml
@@ -249,7 +276,7 @@ public Libro create(Libro libro) {
 
 ---
 
-## 11. Checklist prima di iniziare a codificare
+## 12. Checklist prima di iniziare a codificare
 
 - [ ] La spec `api.yaml` è aggiornata con il nuovo campo/endpoint?
 - [ ] Lo stub è stato generato o aggiornato?
