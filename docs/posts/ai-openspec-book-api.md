@@ -4,14 +4,14 @@ date: 2026-04-30
 categories:
   - AI
 draft: true
-slug: openspec-book-api
+slug: ai-openspec-book-api
 description: "OpenSpec sullo stesso esempio: propose → apply → archive, le spec delta e il confronto con Spec Kit."
 ---
 
 # OpenSpec — esempio: Book Management REST API
 
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
-A differenza di [Spec Kit](spec-kit-book-api.md), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](sdd-guida-rapida.md).
+A differenza di [Spec Kit](ai-spec-kit-book-api.md), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](ai-sdd-guida-rapida.md).
 
 > **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-openspec
 
@@ -235,7 +235,7 @@ L'agente AI implementa tutti i task:
 /opsx:apply
 ```
 
-Il codice prodotto è lo stesso che genererebbe qualsiasi altro flusso SDD sullo stesso `spec.md` — per il `BookController` completo vedi l'[articolo su Spec Kit](spec-kit-book-api.md#fase-5--implement). Qui la differenza sta nel **processo**, non nell'output: OpenSpec non ha gate obbligatori e, alla fine, archivia il change aggiornando le spec persistenti.
+Il codice prodotto è lo stesso che genererebbe qualsiasi altro flusso SDD sullo stesso `spec.md` — per il `BookController` completo vedi la fase *Implement* nell'[articolo su Spec Kit](ai-spec-kit-book-api.md). Qui la differenza sta nel **processo**, non nell'output: OpenSpec non ha gate obbligatori e, alla fine, archivia il change aggiornando le spec persistenti.
 
 ---
 

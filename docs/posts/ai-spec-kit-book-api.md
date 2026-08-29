@@ -4,13 +4,13 @@ date: 2026-04-30
 categories:
   - AI
 draft: true
-slug: spec-kit-book-api
+slug: ai-spec-kit-book-api
 description: "GitHub Spec Kit su un esempio reale: constitution → specify → plan → tasks → implement, e cosa fa davvero la CLI."
 ---
 
 # Spec Kit — esempio: Book Management REST API
 
-Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](sdd-guida-rapida.md).
+Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](ai-sdd-guida-rapida.md).
 
 > **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit
 

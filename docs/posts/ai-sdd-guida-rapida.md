@@ -5,7 +5,7 @@ description: "Come usare la spec come fonte della verità: contratto vs logica, 
 categories:
   - AI
 draft: true
-slug: sdd-guida-rapida
+slug: ai-sdd-guida-rapida
 ---
 
 # Spec Driven Development (SDD) — Guida Rapida
@@ -17,7 +17,7 @@ Lo **Spec Driven Development** è un approccio in cui la **specifica** viene scr
 Ci sono due scuole, a seconda di cosa sia la "spec":
 
 - **Contratto formale** — un file macchina, tipicamente **OpenAPI** (`api.yaml`), da cui si genera lo scaffolding. È il taglio di questa guida.
-- **Spec in linguaggio naturale** — requisiti e scenari scritti in Markdown, che un **agente AI** legge ed esegue. Vedi gli esempi pratici con [Spec Kit](spec-kit-esempio-book-api.md) e [OpenSpec](openspec-esempio-book-api.md).
+- **Spec in linguaggio naturale** — requisiti e scenari scritti in Markdown, che un **agente AI** legge ed esegue. Vedi gli esempi pratici con [Spec Kit](ai-spec-kit-book-api.md) e [OpenSpec](ai-openspec-book-api.md).
 
 I principi sotto (contratto vs logica, quando aggiornare la spec) valgono per entrambe.
 
