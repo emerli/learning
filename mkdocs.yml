@@ -12,7 +12,7 @@ theme:
   language: it
   font:
     text: IBM Plex Sans
-    code: IBM Plex Mono
+    code: JetBrains Mono
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
