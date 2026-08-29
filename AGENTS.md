@@ -1,101 +1,102 @@
-# AGENTS.md - Learning Blog
+# AGENTS.md — Learning Notes
 
 ## Overview
 
-Personal technical blog built with MkDocs using the `simple-blog` theme, hosted on GitLab Pages.
+Blog tecnico personale (contenuti in italiano) costruito con **Material for MkDocs** e il
+plugin `blog`, pubblicato su **GitLab Pages**.
 
-- **URL**: https://learning-9b8959.gitlab.io
-- **Repo**: https://gitlab.com/ataru76/learning
-- **Theme**: [mkdocs-simple-blog](https://github.com/FernandoCelmer/mkdocs-simple-blog)
+- **Sito**: https://koji76.gitlab.io/learning
+- **Repo**: https://gitlab.com/koji76/learning
+- **Stack**: `mkdocs-material` + plugin `blog` (nativo) + `mkdocs-rss-plugin`
 
 ---
 
-## Project Structure
+## Struttura
 
 ```
 .
-├── .gitlab-ci.yml          # CI pipeline for GitLab Pages
-├── .gitignore              # Ignores site/ build output
-├── mkdocs.yml              # MkDocs configuration
-├── docs/
-│   ├── index.md            # Homepage
-│   ├── about.md            # About page
-│   └── blog/
-│       ├── index.md        # Blog index with post links
-│       └── posts/          # Blog posts (Markdown files)
-│           ├── clean-code.md
-│           └── principi-solid.md
+├── .gitlab-ci.yml          # pipeline GitLab Pages
+├── .gitignore              # ignora site/
+├── mkdocs.yml              # tema + plugin + nav + markdown_extensions
+└── docs/
+    ├── index.md            # landing
+    ├── about.md
+    └── blog/
+        ├── index.md        # indice blog (lista generata dal plugin)
+        └── posts/          # un .md per post, tutti allo stesso livello
 ```
+
+Non ci sono più cartelle tematiche: la tassonomia è data dal campo `categories` nel
+frontmatter di ogni post. Indice, archivio per mese (`blog/archive/<anno>/`), pagine per
+categoria (`blog/category/<slug>/`) e feed RSS (`feed_rss_created.xml`) sono **generati** dal
+plugin — non si mantengono a mano.
 
 ---
 
-## Local Development
+## Frontmatter dei post
+
+```yaml
+---
+date: 2026-08-29          # obbligatorio
+categories:               # obbligatorio, valori ammessi in mkdocs.yml
+  - Java
+tags: [opzionale]
+title: "Titolo opzionale" # se assente usa l'H1
+description: "opzionale"
+---
+```
+
+Categorie ammesse (`categories_allowed` in `mkdocs.yml`):
+`Java`, `AI`, `Containers`, `Agile`, `Sicurezza Informatica`.
+Aggiungerne una nuova = aggiornare `categories_allowed`.
+
+`<!-- more -->` nel corpo definisce l'estratto in homepage/indice (`post_excerpt: optional`).
+
+---
+
+## Sviluppo locale
 
 ```bash
-pip install mkdocs mkdocs-simple-blog pymdown-extensions
+pip install mkdocs-material mkdocs-rss-plugin
 mkdocs serve
+mkdocs build --strict     # come in CI
 ```
 
-Open http://localhost:8000 to preview.
+---
+
+## CI / GitLab Pages
+
+Job `pages` in `.gitlab-ci.yml`, solo su branch di default:
+
+1. `pip install "mkdocs-material==9.7.7" "mkdocs-rss-plugin==1.19.0"` (versioni pinnate)
+2. `mkdocs build --strict`
+3. `mv site public` → artifact `public/`
+
+### Trappole note
+- `--strict` fallisce se un post non ha `date` o ha una categoria non ammessa.
+- `rss` plugin configurato con `use_git: false` + `date_from_meta` → non dipende dalla
+  profondità del clone CI (shallow).
+- Il warning "MkDocs 2.0 / Material" a inizio build è informativo, non blocca.
+- Niente file binari nel repo.
 
 ---
 
-## Adding a New Blog Post
+## Convenzioni
 
-1. Create a new `.md` file in `docs/blog/posts/`
-2. Add YAML frontmatter:
-   ```yaml
-   ---
-   title: "Post Title"
-   date: 2026-04-24
-   description: "Short description"
-   ---
-   ```
-3. Update `docs/blog/index.md` with a link to the new post
-4. Commit and push — the site deploys automatically
+- `mkdocs.yml`: `site_url`, `repo_url`, `repo_name` → `koji76/learning`.
+- `post_url_format: "{slug}"` → URL dei post senza data (`/blog/<slug>/`).
+- `markdown_extensions`: admonition, tables, attr_list, md_in_html, pymdownx
+  (highlight/inlinehilite/snippets/superfences/mark), toc.
 
 ---
 
-## GitLab CI Pipeline
+## Stato / TODO
 
-On every push to `main`:
-1. Installs dependencies
-2. Builds the static site with `mkdocs build`
-3. Publishes to GitLab Pages
-
-### Pages Settings (Important!)
-- **Project visibility**: Public
-- **Pages visibility**: Everyone (with access)
-- If changes don't apply, toggle Pages off and on in Settings → Pages
+- I contenuti dei post sono appunti di studio da rivedere: linguaggio, accuratezza,
+  aggiunta di estratti `<!-- more -->`, tag.
+- Valutare una sezione "Reference" separata dal flusso blog per i materiali non-articolo
+  (checklist, recon report, cheat-sheet).
 
 ---
 
-## Current Content
-
-| Post | File |
-|------|------|
-| Clean Code - Sintesi | `docs/blog/posts/clean-code.md` |
-| Principi SOLID - Sintesi | `docs/blog/posts/principi-solid.md` |
-
----
-
-## Known Issues & Fixes
-
-| Issue | Fix |
-|-------|-----|
-| Pipeline failed: missing markdown extension | Removed unsupported `pymdownx.todo`/`pymdownx.task` |
-| Theme requires no blog plugin | Removed `blog` plugin from `mkdocs.yml` |
-| Pages requires login | Toggle Pages off/on in Settings → Pages after changing visibility |
-
----
-
-## Future Ideas
-
-- [ ] Add new technical summaries (OOP, Design Patterns, etc.)
-- [ ] Customize theme colors/styles
-- [ ] Add custom domain to GitLab Pages
-
----
-
-**Author**: ataru76
-**Created**: 2026-04-24
+**Autore**: koji76

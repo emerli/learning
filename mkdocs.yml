@@ -1,46 +1,83 @@
 site_name: Learning Notes
-site_url: https://emerli.gitlab.io/learning
-site_description: Technical documentation and notes
-site_author: ataru76
+site_url: https://koji76.gitlab.io/learning
+site_description: Appunti e sintesi tecniche
+site_author: koji76
 
-repo_name: ataru76/learning
-repo_url: https://gitlab.com/ataru76/learning
+repo_name: koji76/learning
+repo_url: https://gitlab.com/koji76/learning
 
 theme:
-  name: simple-blog
+  name: material
+  custom_dir: overrides
+  language: it
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Tema scuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Tema chiaro
+  features:
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - search.suggest
+    - toc.follow
 
 plugins:
-  - search
+  - search:
+      lang: it
+  - social:
+      # set MKDOCS_CARDS=false for a fast local `mkdocs serve`
+      cards: !ENV [MKDOCS_CARDS, true]
+      cards_layout_options:
+        background_color: "#0f1b2d"
+        color: "#ffffff"
+  - blog:
+      blog_dir: .
+      post_url_format: "{slug}"
+      post_excerpt: optional
+      archive_date_format: MMMM yyyy
+      categories_allowed:
+        - Java
+        - AI
+        - Containers
+        - Agile
+        - Sicurezza Informatica
+  - rss:
+      match_path: posts/.*
+      use_git: false
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
 
 nav:
-  - Home: index.md
-  - Java:
-    - Clean Code: Java/clean-code.md
-    - Principi SOLID: Java/principi-solid.md
-    - Java Update: Java/java-update.md
-    - Spring Boot Migrazione: Java/spring-boot-migrazione-2.7-to-4.0.md
-    - Spring Boot Update: Java/spring-update.md
-  - Containers:
-    - DevOps DevContainer: Containers/devops-devcontainer.md
-    - Java Quarkus DevContainer: Containers/java-quarkus-devcontainer.md
-    - Mono .NET 4.7 DevContainer: Containers/mono-net47-devcontainer.md
-  - AI:
-    - OpenCode Agents: AI/opencode-agents.md
-    - OpenCode Best Practice: AI/opencode-best-practice.md
-    - CLAUDE.md: AI/claude-md.md
-    - Spec Kit - Esempio Book API: AI/spec-kit-esempio-book-api.md
-    - OpenSpec - Esempio Book API: AI/openspec-esempio-book-api.md
-  - Agile:
-    - Open Practice Library: Agile/open-practice-library.md
-    - Scrum Ripasso: Agile/scrum-ripasso.md
-    - GoF Patterns: Agile/gof-patterns.md
+  - Blog: index.md
   - About: about.md
 
+extra:
+  # mirrors the `social` plugin's `cards` toggle, for use in template overrides
+  social_cards: !ENV [MKDOCS_CARDS, true]
+
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.mark
   - admonition
   - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.mark
   - toc:
       permalink: true
