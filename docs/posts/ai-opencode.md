@@ -1,22 +1,24 @@
 ---
 title: "OpenCode — Agenti, Subagenti, MCP e Workflow"
-date: 2026-04-24
+date: 2026-08-29
 categories:
   - AI
 draft: true
 slug: ai-opencode
-description: "Architettura degli agenti di OpenCode: primari e subagenti, tool MCP, permessi, pattern di orchestrazione e best practice di workflow."
+description: "Architettura degli agenti di OpenCode: primari e subagent, tool MCP, permessi, pattern di orchestrazione e best practice di workflow."
 ---
 
 # OpenCode — Agenti, Subagenti, MCP e Workflow
 
 ## Introduzione
 
-OpenCode ha un'architettura multi-agente: agenti **primari** con cui interagisci direttamente e **subagenti** specializzati, invocati automaticamente o a mano. Capire quando e come usarli — e come configurarne tool e permessi — è ciò che fa la differenza sui task complessi.
+OpenCode ha un'architettura multi-agente: agenti **primari** con cui interagisci direttamente e **subagent** specializzati, invocati automaticamente o a mano. Capire quando e come usarli — e come configurarne tool e permessi — è ciò che fa la differenza sui task complessi.
 
 ---
 
 ## Concetti fondamentali
+
+I pezzi in gioco sono quattro: gli agenti (primari e subagent), i tool che possono usare, i permessi che li vincolano e il modello che ragiona.
 
 ### Tipi di agenti
 
@@ -32,9 +34,49 @@ OpenCode ha un'architettura multi-agente: agenti **primari** con cui interagisci
 | **General** | subagent | Task multi-step generici | Pieno accesso ai tool (tranne `todo`) |
 | **Explore** | subagent | Ricerca ed esplorazione in sola lettura | Solo lettura |
 
+### `@explore` — esplorazione in sola lettura
+
+Ideale per cercare file, pattern o informazioni nel codebase **senza modificare nulla**.
+
+Quando usarlo:
+
+- Trovare dove è definita una funzione
+- Analizzare la struttura del progetto
+- Cercare riferimenti a un servizio o a un'API
+
+```
+@explore dove viene validato l'input dell'utente nel modulo di login?
+@explore trova tutte le funzioni che chiamano l'API di pagamento
+```
+
+### `@general` — task multi-step complessi
+
+Subagent general-purpose con pieno accesso agli strumenti (tranne `todo`). Esegue task multi-step in autonomia.
+
+Quando usarlo:
+
+- Analisi comparativa di più funzioni
+- Refactoring su più file
+- Task paralleli delegati dall'agente primario
+
+```
+@general analizza queste tre funzioni e proponi un'ottimizzazione comune
+```
+
+### Divisione dei ruoli
+
+| Componente | Tipo | Responsabilità |
+|---|---|---|
+| Tool MCP | Codice deterministico | Raccoglie dati, esegue azioni concrete |
+| Modello AI | Ragionamento | Decide quando usare i tool, interpreta i risultati |
+| Subagent | Modello specializzato | Esegue task specifici con tool e permessi dedicati |
+| Primary agent | Orchestratore | Coordina i subagent, mantiene il contesto globale |
+
 ---
 
 ## Tool
+
+Ogni agente ha accesso a un insieme di tool: quelli nativi di OpenCode e quelli custom aggiunti via MCP.
 
 ### Tool built-in
 
@@ -42,7 +84,7 @@ OpenCode include tool nativi: `read`, `write`, `edit`, `bash`, `grep`, `glob`, `
 
 ### Tool MCP (Model Context Protocol)
 
-MCP è il protocollo standard che fa da ponte tra tool custom e modello AI.
+MCP è il protocollo standard con cui un client (OpenCode, Claude Code, …) espone al modello tool e dati forniti da server esterni. Il modello non parla MCP: chiede al client di usare un tool, il client lo inoltra al server MCP.
 
 ```
 Tool (Python/Node/qualsiasi linguaggio)
@@ -134,6 +176,8 @@ Il livello progetto (`.opencode/`) ha priorità su quello globale.
 ---
 
 ## Configurazione agenti
+
+Un agente si definisce nel JSON di config oppure, più comodamente, come singolo file Markdown.
 
 ### Tramite `opencode.json`
 
@@ -227,37 +271,6 @@ description: Verifica che il codice migrato compili e i test passino.
              Usami SEMPRE come ultimo step dopo una migrazione.
 ```
 
-### I subagent built-in nel dettaglio
-
-#### `@explore` — esplorazione in sola lettura
-
-Ideale per cercare file, pattern o informazioni nel codebase **senza modificare nulla**.
-
-Quando usarlo:
-
-- Trovare dove è definita una funzione
-- Analizzare la struttura del progetto
-- Cercare riferimenti a un servizio o a un'API
-
-```
-@explore dove viene validato l'input dell'utente nel modulo di login?
-@explore trova tutte le funzioni che chiamano l'API di pagamento
-```
-
-#### `@general` — task multi-step complessi
-
-Subagente general-purpose con pieno accesso agli strumenti (tranne `todo`). Esegue task multi-step in autonomia.
-
-Quando usarlo:
-
-- Analisi comparativa di più funzioni
-- Refactoring su più file
-- Task paralleli delegati dall'agente primario
-
-```
-@general analizza queste tre funzioni e proponi un'ottimizzazione comune
-```
-
 ---
 
 ## Invocazione subagent
@@ -279,7 +292,9 @@ Quando usarlo:
 
 ## Permessi
 
-```json
+Esempio di blocco `permission` (sintassi JSONC, i commenti sono ammessi):
+
+```jsonc
 "permission": {
   "read": "allow",
   "write": "allow",
@@ -361,18 +376,7 @@ Il piano diventa il **contesto condiviso** per tutti gli agenti coinvolti. Un er
 | Approccio | Uso |
 |---|---|
 | **Plan** | Genera una roadmap con fasi logiche e dipendenze |
-| **Orchestratore** (es. **Sisyphus** in *Oh My Opencode*) | Delega a subagenti specializzati (`@oracle` per l'architettura, `@general` per l'esecuzione), eseguendo in parallelo o in sequenza in base alle dipendenze |
-
----
-
-## Divisione dei ruoli
-
-| Componente | Tipo | Responsabilità |
-|---|---|---|
-| Tool MCP | Codice deterministico | Raccoglie dati, esegue azioni concrete |
-| Modello AI | Ragionamento | Decide quando usare i tool, interpreta i risultati |
-| Subagent | Modello specializzato | Esegue task specifici con tool e permessi dedicati |
-| Primary agent | Orchestratore | Coordina i subagent, mantiene il contesto globale |
+| **Orchestratore** | Un agente che delega a subagent specializzati e schedula i passi in parallelo o in sequenza in base alle dipendenze |
 
 ---
 
@@ -413,21 +417,9 @@ leggi-changelog      → legge i commit git per il contesto storico
 
 ---
 
-## Note pratiche
+## In sintesi
 
-**Pattern plan → build.** Usa sempre `@plan` per generare e rivedere il piano prima di eseguire.
-
-**Permessi conservativi all'inizio.** `bash: ask` ed `edit: ask` durante le prime iterazioni; allenta quando hai fiducia nel template.
-
-**Descrizioni precise.** La qualità del routing automatico dipende dalla qualità delle descrizioni. Descrizione vaga → routing sbagliato → risultati imprevedibili.
-
-**Contesto come valore.** Più contesto strutturato dai al sistema (tool MCP, `AGENTS.md`, rules), meno sorprese nell'output. La pianificazione dettagliata è l'investimento più redditizio.
-
-**Temperatura per compito.** Bassa (0.0–0.2) per analisi e refactoring deterministici, alta (0.6–1.0) per design e brainstorming.
-
----
-
-## Checklist rapida
+Più contesto strutturato dai al sistema (tool MCP, `AGENTS.md`, rules), meno sorprese nell'output: la pianificazione dettagliata è l'investimento più redditizio.
 
 | # | Azione |
 |---|---|
@@ -444,5 +436,4 @@ leggi-changelog      → legge i commit git per il contesto storico
 
 ## Riferimenti
 
-- [Oh My Opencode](https://github.com/ibm/opencode) — estensione con orchestratore Sisyphus per il multi-agente parallelo
 - [Documentazione OpenCode](https://opencode.ai/docs) — documentazione ufficiale
