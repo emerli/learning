@@ -3,7 +3,7 @@ date: 2026-08-29
 categories:
   - AI
 slug: ai-ollama-llm-locali
-description: "Quali modelli usare con Ollama?"
+description: "Cosa possiamo fare con Ollama: comparativa dei modelli che ci possono girare su un hardware consumer"
 ---
 
 # Ollama, OpenCode e la ricerca del setup giusto
