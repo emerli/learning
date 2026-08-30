@@ -183,6 +183,36 @@ Tre articoli:
   `emoji font` ×6, `kmail` ×6, `hyprland` ×5. Eventuale `lab:` o due parti
   (concetti + la settimana a litigare con xdg-desktop-portal / SMB / emoji).
 
+### Lab GitOps: GitLab CE → Tekton → Argo CD → kind (categoria Containers)
+
+Idea nuova (da costruire da zero, **niente specifico del cliente**). Dal lavoro
+in cliente l'utente ha visto la catena GitLab ↔ Tekton (CI) ↔ ArgoCD (CD) su
+OpenShift. Lab `lab: true`: ricostruire parzialmente la catena, **tutto in
+locale su Docker**, per **far vedere come funziona il GitOps end-to-end** — dal
+commit al pod in esecuzione, con Git come unica fonte di verità e Argo CD che
+riconcilia lo stato desiderato (Tekton è la CI che lo alimenta) — a chi non
+l'ha mai visto cablato. In cliente è OpenShift + operator Pipelines/GitOps; qui
+l'equivalente upstream.
+
+- **Stack**: `kind` (cluster k8s in Docker) + container `gitlab/gitlab-ce` +
+  Tekton Pipelines/Triggers + Argo CD, tutti sulla stessa rete Docker.
+- **App**: la più banale possibile (immagine statica), il punto è la catena.
+- **Flusso**: push su GitLab CE → webhook → EventListener Tekton →
+  `PipelineRun` (build + push immagine al registry di GitLab CE) → bump tag nei
+  manifest kustomize → Argo CD sync → pod su kind.
+- **Punti da spiegare**: Trigger/EventListener/TriggerBinding di Tekton; modello
+  *pull* di Argo CD; dove vivono le credenziali (registry, repo Git, cluster).
+- **Attriti attesi da documentare** (è il valore dell'articolo): GitLab CE pesa
+  (~4 GB RAM, boot lento); i nodi kind devono fidarsi del registry di GitLab CE
+  (insecure registry su containerd); raggiungibilità webhook GitLab→EventListener
+  (stessa rete Docker o ingress-nginx con `extraPortMappings`); Argo CD verso il
+  repo in http self-signed.
+- **Formato video**: la catena è dimostrabile a schermo → registrare e pubblicare
+  anche come video. Vincolo repo: niente binari → il video va su host esterno
+  (YouTube/PeerTube/GitLab) ed embeddato nel post. Servirebbe un modo pulito per
+  l'embed (partial/hook o snippet `attr_list` + iframe) — da valutare come
+  feature del blog se il formato video diventa ricorrente.
+
 ### Altri spunti dai repo in `~/Projects/personal/` (categoria Java, priorità bassa)
 
 I repo Java in `debosciaty/` e `koji-java-projects/` sono quasi tutti spike o
@@ -208,6 +238,22 @@ preciso. I tre sotto sono gli unici con un angolo possibile.
   integration test in `src/it/` (harness `maven-invoker-plugin` + `verify.groovy`).
   Idea: generare test Spring intercettando i controller. Angolo se ripreso:
   anatomia di un Mojo + IT con l'invoker plugin.
+- `rest-kotlin-service` — spike per **imparare Kotlin**: porting su Quarkus +
+  Kotlin di un wrapper che l'utente aveva per un cliente (integrazione REST, spec
+  OpenAPI da Apicurio, MapStruct). Nel `pom.xml` è visibile l'attrito nello
+  scegliere le estensioni REST/serializzazione giuste per Kotlin
+  (`rest-kotlin-serialization` vs `resteasy-jackson` vs `jackson-module-kotlin`).
+  Angolo: cosa cambia portando un wrapper Java a Kotlin (data class, null-safety
+  al confine API, MapStruct con Kotlin). **Se scritto: anonimizzare** — il
+  package cita un cliente reale.
+
+- `test-k8` (+ `kube-test1`, fratello che si sovrappone) — spike per capire il
+  **deploy di un pod su k8s e le secrets**. Allo stato è esile: un Deployment
+  base + `secret-regcred` (`imagePullSecrets` per registry GitLab privato) + un
+  file `commands` di kubectl. Da **ampliare o rifare** prima di un articolo:
+  aggiungere Service, probe, `resources`, secret come env / volume, e raccontare
+  i modi di gestire le secret (opaque, docker-registry, `envFrom`, montaggio).
+  Angolo: "cosa ho capito facendo il primo deploy su k8s a mano".
 
 ### Minori
 
