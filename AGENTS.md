@@ -185,10 +185,16 @@ Tre articoli:
 
 ### Altri spunti dai repo in `~/Projects/personal/` (categoria Java, priorità bassa)
 
-- `telemetry-ingress` — gotcha di serializzazione JSON in Quarkus (`BigDecimal`,
-  `java.time`, Jackson + producer Kafka). Pezzo corto e monotematico.
-- `idea-plugin-demo` — plugin IntelliJ che riesegue collection Postman nell'IDE
-  (reimplementa l'oggetto `pm`, console, ricorsione request). Nicchia, originale.
+- `telemetry-ingress` — spike Quarkus **solo producer** (REST → topic
+  `telemetry.takeovers`), client Vert.x Kafka diretto + `ObjectSerializer`
+  custom, gotcha di serializzazione (`BigDecimal`, `java.time`). Java 18 /
+  Quarkus 2.9 (2022). Da finire (manca il consumer) prima di farne un articolo.
+- `idea-plugin-demo` — sperimentazione plugin IntelliJ. Visione: da OpenAPI/Swagger
+  generare codice + documentazione e poi **eseguire quelle API integrandosi con
+  Postman**, tutto dentro l'IDE. Nel repo è arrivato il primo pezzo: un runner di
+  collection Postman (package `it.koji.postman`, reimplementa `pm`/console, action
+  + tool window). Il generatore da OpenAPI è rimasto un'idea. Angolo: imparare
+  l'IntelliJ Platform SDK / cosa serve per rifare il runtime `pm.*`.
 - `newman-reporter-summary` — reporter Newman pubblicato su npm, tabella
   solo-ASCII. Articolo breve.
 
