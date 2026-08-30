@@ -130,6 +130,11 @@ Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
 - Tipografia titoli e stile card/banner: tutto in `docs/stylesheets/extra.css`.
 - `markdown_extensions`: admonition, tables, attr_list, md_in_html, pymdownx
   (highlight/inlinehilite/snippets/superfences/mark), toc.
+- **Screencast**: strumenti = **OBS** per il video dello schermo + **asciinema**
+  per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo; editing dei
+  tempi morti con `asciinema-edit cut`/`quantize`. Per un video: `asciinema play
+  -s 1.5 -i 1` come sorgente in una scena OBS, oppure pre-render con `agg` → GIF
+  → `ffmpeg` mp4. Video finito su host esterno (niente binari nel repo).
 
 ---
 
