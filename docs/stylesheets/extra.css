@@ -267,5 +267,6 @@
 .md-cover--java                  { background: linear-gradient(135deg, #f59e0b, #b45309); }
 .md-cover--ai                    { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
 .md-cover--containers            { background: linear-gradient(135deg, #06b6d4, #0e7490); }
+.md-cover--linux                 { background: linear-gradient(135deg, #3b82f6, #1e40af); }
 .md-cover--agile                 { background: linear-gradient(135deg, #10b981, #047857); }
 .md-cover--sicurezza-informatica { background: linear-gradient(135deg, #ef4444, #b91c1c); }

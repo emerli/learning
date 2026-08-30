@@ -74,7 +74,7 @@ Tre punti da allineare (slug = nome minuscolo, spazi → trattini):
 2. `docs/stylesheets/extra.css` → `.md-cover--<slug>` con il gradiente
 3. `overrides/partials/category-icon.html` → un `elif slug == "<slug>"` con l'icona
 
-Categorie attuali: `Java`, `AI`, `Containers`, `Agile`, `Sicurezza Informatica`.
+Categorie attuali: `Java`, `AI`, `Containers`, `Linux`, `Agile`, `Sicurezza Informatica`.
 
 ---
 

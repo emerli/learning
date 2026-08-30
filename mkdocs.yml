@@ -50,6 +50,7 @@ plugins:
         - Java
         - AI
         - Containers
+        - Linux
         - Agile
         - Sicurezza Informatica
 

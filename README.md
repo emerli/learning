@@ -44,7 +44,7 @@ ricavati categoria, data e il resto:
 tra quelle ammesse.
 
 Categorie ammesse (`categories_allowed` in `mkdocs.yml`):
-`Java`, `AI`, `Containers`, `Agile`, `Sicurezza Informatica`.
+`Java`, `AI`, `Containers`, `Linux`, `Agile`, `Sicurezza Informatica`.
 
 ## Aggiungere un post
 
