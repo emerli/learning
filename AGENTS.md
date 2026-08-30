@@ -208,10 +208,12 @@ l'equivalente upstream.
   (stessa rete Docker o ingress-nginx con `extraPortMappings`); Argo CD verso il
   repo in http self-signed.
 - **Formato video**: la catena è dimostrabile a schermo → registrare e pubblicare
-  anche come video. Vincolo repo: niente binari → il video va su host esterno
-  (YouTube/PeerTube/GitLab) ed embeddato nel post. Servirebbe un modo pulito per
-  l'embed (partial/hook o snippet `attr_list` + iframe) — da valutare come
-  feature del blog se il formato video diventa ricorrente.
+  anche come video. Registrazione con **OBS** (già lo strumento abituale
+  dell'utente); i segmenti solo-terminale meglio con **asciinema** (file di
+  testo, player embeddabile, `agg` per GIF). Vincolo repo: niente binari → il
+  video va su host esterno (YouTube/PeerTube/GitLab) ed embeddato nel post.
+  Servirebbe un modo pulito per l'embed (partial/hook o snippet `attr_list` +
+  iframe) — da valutare come feature del blog se il video diventa ricorrente.
 - **Probabile serie, non un pezzo unico** (da decidere): taglio possibile in
   3 — (1) ambiente: kind + GitLab CE su Docker; (2) CI con Tekton: Task/Pipeline/
   Trigger + webhook + build&push; (3) CD con Argo CD: modello pull, Application,
