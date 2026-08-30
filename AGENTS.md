@@ -185,6 +185,11 @@ Tre articoli:
 
 ### Altri spunti dai repo in `~/Projects/personal/` (categoria Java, priorità bassa)
 
+I repo Java in `debosciaty/` e `koji-java-projects/` sono quasi tutti spike o
+prove tecniche incompiute: nessuna opinione maturata, niente "aha" fuori dalla
+doc → per il triage vanno scartati **finché non vengono finiti** con un taglio
+preciso. I tre sotto sono gli unici con un angolo possibile.
+
 - `telemetry-ingress` — spike Quarkus **solo producer** (REST → topic
   `telemetry.takeovers`), client Vert.x Kafka diretto + `ObjectSerializer`
   custom, gotcha di serializzazione (`BigDecimal`, `java.time`). Java 18 /
@@ -197,6 +202,12 @@ Tre articoli:
   l'IntelliJ Platform SDK / cosa serve per rifare il runtime `pm.*`.
 - `newman-reporter-summary` — reporter Newman pubblicato su npm, tabella
   solo-ASCII. Articolo breve.
+- `spring-test-generator-maven-plugin` — spike per studiare **come si scrive un
+  plugin Maven**. Un solo dump da 1536 righe poi abbandonato, ma con sostanza:
+  Mojo (`GenerateTests`, `ProbeTests`), `ControllerInterceptor`, e gli
+  integration test in `src/it/` (harness `maven-invoker-plugin` + `verify.groovy`).
+  Idea: generare test Spring intercettando i controller. Angolo se ripreso:
+  anatomia di un Mojo + IT con l'invoker plugin.
 
 ### Minori
 
