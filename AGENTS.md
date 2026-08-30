@@ -163,6 +163,35 @@ L'utente ha molti repo GitLab usati per imparare: trasformarli in articoli.
 5. Se serve una categoria nuova: aggiornare `categories_allowed` + `.md-cover--<slug>`
    in `extra.css` + un `elif` in `overrides/partials/category-icon.html`.
 
+### Articoli categoria Linux (da scrivere)
+
+Categoria `Linux` già configurata ma senza post. Repo sorgente in locale:
+`~/Projects/personal/koji76/{arch,debian,suse}-init-ansible` + `nixos-kde`.
+Tre articoli:
+
+- **distro hopping** — pezzo riflessivo "cosa ho notato": il percorso
+  Arch → Debian/Fedora → openSUSE → NixOS. Perché ho smesso di reinstallare.
+- **Ansible cross-distro** (`lab: true`) — lo stesso playbook
+  (`base → podman → dotfiles → flatpak → devcontainers → development → tabaccai`,
+  `hosts: localhost`, vault per le chiavi SSH) portato su 4 distro: cosa resta
+  uguale e cosa si rompe (nomi pacchetti, KDE vs GNOME, btrfs, `ansible_user`).
+  Gotcha già nel repo: `debian-init-ansible` ha committato lo stato IDE dei
+  devcontainer (`.gitignore` mancante nel ruolo `devcontainers`).
+- **NixOS** — articolo a sé ("è un mondo"). `nixos-kde`: 206 commit, README già
+  quasi un tutorial (config dichiarativa, generazioni, home-manager, agenix per
+  i segreti nel Nix store). Storia di attrito: `xdg portal` ×8, `smb` ×8,
+  `emoji font` ×6, `kmail` ×6, `hyprland` ×5. Eventuale `lab:` o due parti
+  (concetti + la settimana a litigare con xdg-desktop-portal / SMB / emoji).
+
+### Altri spunti dai repo in `~/Projects/personal/` (categoria Java, priorità bassa)
+
+- `telemetry-ingress` — gotcha di serializzazione JSON in Quarkus (`BigDecimal`,
+  `java.time`, Jackson + producer Kafka). Pezzo corto e monotematico.
+- `idea-plugin-demo` — plugin IntelliJ che riesegue collection Postman nell'IDE
+  (reimplementa l'oggetto `pm`, console, ricorsione request). Nicchia, originale.
+- `newman-reporter-summary` — reporter Newman pubblicato su npm, tabella
+  solo-ASCII. Articolo breve.
+
 ### Minori
 
 - I pulsanti Precedente/Successivo in fondo alle pagine seguono un ordine vecchio
