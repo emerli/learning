@@ -4,6 +4,7 @@ date: 2026-04-30
 categories:
   - AI
 draft: false
+lab: true
 slug: ai-spec-kit-book-api
 description: "GitHub Spec Kit su un esempio reale: constitution → specify → plan → tasks → implement, e cosa fa davvero la CLI."
 ---

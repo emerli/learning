@@ -13,6 +13,10 @@
       {%- with slug = _slug %}{% include "partials/category-icon.html" %}{% endwith -%}
     </span>
     <a class="md-post-banner__cat" href="{{ _cat.url | url }}">{{ _cat.title }}</a>
+    {% if page.meta.lab %}
+      <span class="md-post-banner__sep" aria-hidden="true">·</span>
+      <span class="md-post-banner__lab">Lab</span>
+    {% endif %}
   </div>
 {% endif %}
 {% if "<h1" not in page.content %}

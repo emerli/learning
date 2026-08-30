@@ -37,6 +37,7 @@ ricavati categoria, data e il resto:
 | `title` (o l'`# H1`) | titolo su card e `<title>`; genera lo `slug` se assente | no |
 | `slug` | URL del post → `/<slug>/` | no (consigliato) |
 | `description` | estratto nella griglia + sottotitolo della social card | no |
+| `lab: true` | badge "LAB" su card e banner del post (contenuto pratico / hands-on) | no |
 | corpo Markdown | il post; `<!-- more -->` taglia l'estratto mostrato in griglia | no |
 
 `mkdocs build --strict` (usato in CI) **fallisce** se manca `date` o se la categoria non è

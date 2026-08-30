@@ -23,8 +23,8 @@ Per minimizzare l'effort necessario è stato costruito con **Material for MkDocs
 ├── overrides/
 │   ├── blog.html                     # lista post come griglia di card
 │   └── partials/
-│       ├── post.html                 # card compatta (cover generata per categoria)
-│       ├── content.html              # banner categoria in cima al post
+│       ├── post.html                 # card compatta (cover per categoria + badge "Lab")
+│       ├── content.html              # banner categoria in cima al post (+ badge "Lab")
 │       └── category-icon.html        # icona Material per slug categoria (condivisa)
 └── docs/
     ├── index.md              # home: SOLO frontmatter → mostra la griglia
@@ -51,6 +51,7 @@ Tutto parte dal singolo file `docs/posts/<nome>.md`. Dal frontmatter:
 | `title` / `# H1` | titolo card + `<title>`; genera lo `slug` se assente | no |
 | `slug` | URL `/<slug>/` — impostarlo alla creazione e non cambiarlo | no (consigliato) |
 | `description` | estratto nella griglia + sottotitolo social card | no |
+| `lab: true` | badge "LAB" su cover della card e banner del post — segnala un contenuto pratico / hands-on | no |
 | `<!-- more -->` nel corpo | taglia l'estratto mostrato in griglia (`post_excerpt: optional`) | no |
 
 ```yaml

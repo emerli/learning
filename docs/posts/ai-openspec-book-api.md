@@ -4,6 +4,7 @@ date: 2026-04-30
 categories:
   - AI
 draft: false
+lab: true
 slug: ai-openspec-book-api
 description: "OpenSpec sullo stesso esempio: propose → apply → archive, le spec delta e il confronto con Spec Kit."
 ---

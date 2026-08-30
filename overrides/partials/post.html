@@ -7,6 +7,7 @@
 {% set _slug = _cat | lower | replace(" ", "-") %}
 <article class="md-post-card{% if featured %} md-post-card--featured{% endif %}">
   <a class="md-post-card__cover md-cover--{{ _slug }}" href="{{ post.url | url }}">
+    {% if post.meta.lab %}<span class="md-post-card__lab">Lab</span>{% endif %}
     <span class="md-post-card__icon">
       {%- with slug = _slug %}{% include "partials/category-icon.html" %}{% endwith -%}
     </span>
