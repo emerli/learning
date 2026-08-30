@@ -212,6 +212,12 @@ l'equivalente upstream.
   (YouTube/PeerTube/GitLab) ed embeddato nel post. Servirebbe un modo pulito per
   l'embed (partial/hook o snippet `attr_list` + iframe) — da valutare come
   feature del blog se il formato video diventa ricorrente.
+- **Probabile serie, non un pezzo unico** (da decidere): taglio possibile in
+  3 — (1) ambiente: kind + GitLab CE su Docker; (2) CI con Tekton: Task/Pipeline/
+  Trigger + webhook + build&push; (3) CD con Argo CD: modello pull, Application,
+  kustomize, chiusura del loop. Eventuale 4º di recap end-to-end + mapping agli
+  operator OpenShift + video. Slug con prefisso comune (`gitops-…`), pubblicati
+  insieme con cross-link.
 
 ### Altri spunti dai repo in `~/Projects/personal/` (categoria Java, priorità bassa)
 
