@@ -188,6 +188,20 @@ Tre articoli:
   `emoji font` ×6, `kmail` ×6, `hyprland` ×5. Eventuale `lab:` o due parti
   (concetti + la settimana a litigare con xdg-desktop-portal / SMB / emoji).
 
+### Lab AI: OpenCode con Ollama — coding agent locale (categoria AI)
+
+La parte pratica dei post pubblicati `ai-ollama-llm-locali` e `ai-opencode`:
+mettere a terra la configurazione reale di OpenCode con Ollama come provider e
+verificare quanto regge un agente di coding completamente locale.
+
+- Config in `opencode.json`: provider Ollama, base URL, modello, context window.
+- Test sui modelli già comparati (Qwen3.5, Qwen2.5-Coder, ecc.) con un task
+  reale piccolo: tool calling, modifiche multi-file, dove si inceppa.
+- Attriti da documentare: supporto tool-calling per modello, context limitato,
+  velocità, thinking on/off, permessi.
+- Chiusura "Cosa ho notato": un agente locale è utilizzabile? Per quali task?
+- Post: `lab: true`, slug `ai-opencode-ollama-lab`, cross-link ai due post.
+
 ### Lab GitOps: GitLab CE → Tekton → Argo CD → kind (categoria Containers)
 
 Idea nuova (da costruire da zero, **niente specifico del cliente**). Dal lavoro

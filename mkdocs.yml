@@ -57,12 +57,22 @@ plugins:
 hooks:
   - hooks.py
 
+watch:
+  - docs/posts
+  - docs/stylesheets
+  - overrides
+  - hooks.py
+
 nav:
   - Home: index.md
   - About: about.md
 
 extra_css:
   - stylesheets/extra.css
+  - https://cdn.jsdelivr.net/npm/asciinema-player@3.8.1/dist/bundle/asciinema-player.min.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/asciinema-player@3.8.1/dist/bundle/asciinema-player.min.js
 
 markdown_extensions:
   - admonition
