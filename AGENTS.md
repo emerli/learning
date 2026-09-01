@@ -131,10 +131,22 @@ Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
 - `markdown_extensions`: admonition, tables, attr_list, md_in_html, pymdownx
   (highlight/inlinehilite/snippets/superfences/mark), toc.
 - **Screencast**: strumenti = **OBS** per il video dello schermo + **asciinema**
-  per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo; editing dei
-  tempi morti con `asciinema-edit cut`/`quantize`. Per un video: `asciinema play
-  -s 1.5 -i 1` come sorgente in una scena OBS, oppure pre-render con `agg` → GIF
-  → `ffmpeg` mp4. Video finito su host esterno (niente binari nel repo).
+  per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo (in
+  `docs/shell/`); editing dei tempi morti con `asciinema-edit cut`/`quantize`.
+  Per un video: `asciinema play -s 1.5 -i 1` come sorgente in una scena OBS,
+  oppure pre-render con `agg` → GIF → `ffmpeg` mp4. Video finito su host
+  esterno (niente binari nel repo).
+  - **Embed nel post**: tag dichiarativo nel markdown
+    `<asciinema-player src="../shell/nome.cast" speed="1.5"></asciinema-player>`
+    (path relativo all'URL del post: i post vivono alla root del sito, i cast
+    sotto `/shell/` → `../shell/...`). Bundle JS+CSS da CDN in `extra_javascript`
+    /`extra_css` + `docs/javascripts/asciinema-init.js` che fa da ponte.
+  - **Gotcha**: asciinema-player **v3 non registra più il custom element**
+    `<asciinema-player>` (era la API v2); la v3 vuole
+    `AsciinemaPlayer.create(src, elemento, opts)`. Lo script ponte traduce i
+    tag nel markdown in chiamate `create()` — senza, il tag resta inerte e
+    nessun XHR parte. Attributi supportati dal ponte: `src`, `speed`, `loop`,
+    `autoplay`.
 
 ---
 
@@ -188,6 +200,30 @@ Tre articoli:
   `emoji font` ×6, `kmail` ×6, `hyprland` ×5. Eventuale `lab:` o due parti
   (concetti + la settimana a litigare con xdg-desktop-portal / SMB / emoji).
 
+### Post DevContainer — guida pratica (categoria Containers)
+
+Post introduttivo + pratico (`lab: true`) su come funzionano i DevContainer,
+con i 3 esempi reali nel repo (DevOps, Java/Quarkus, Mono/.NET 4.7) come
+riferimento per chi vuole approfondire.
+
+- **Contenuto**: cosa sono i DevContainer, struttura (`.devcontainer/`,
+  `devcontainer.json`, `Dockerfile`/`Containerfile`), lifecycle
+  (`postCreateCommand`, `mounts`, `forwardPorts`), integrazione con VS Code
+  e JetBrains.
+- **Angolo**: non un tutorial generico — mostra le config reali usate
+  dall'autore, i gotcha incontrati (mount bind di `.m2`, `.claude.json`,
+  DNS aziendali, hot code replace, estensioni conflittuali), e come
+  risolvere.
+- **Gotcha da documentare**: `.gitignore` mancante per lo stato IDE dei
+  devcontainer (già notato nel repo `debian-init-ansible`), mount di
+  config esterne (`${localEnv:HOME}`), porte e DNS, schema JSON per YAML
+  (Tekton, Kustomize, ArgoCD).
+- **Formato**: `lab: true`, slug `devcontainer-guida-pratica`, categoria
+  `Containers`, cross-link ai 3 draft esistenti come esempi completi.
+- **Nota**: i 3 draft (`devops-devcontainer`, `java-quarkus-devcontainer`,
+  `mono-net47-devcontainer`) restano nel repo come reference. Questo post
+  è l'articolo introduttivo che li inquadra.
+
 ### Lab AI: OpenCode con Ollama — coding agent locale (categoria AI)
 
 La parte pratica dei post pubblicati `ai-ollama-llm-locali` e `ai-opencode`:
@@ -231,8 +267,9 @@ l'equivalente upstream.
   dell'utente); i segmenti solo-terminale meglio con **asciinema** (file di
   testo, player embeddabile, `agg` per GIF). Vincolo repo: niente binari → il
   video va su host esterno (YouTube/PeerTube/GitLab) ed embeddato nel post.
-  Servirebbe un modo pulito per l'embed (partial/hook o snippet `attr_list` +
-  iframe) — da valutare come feature del blog se il video diventa ricorrente.
+  L'embed asciinema è già risolto (vedi Screencast in Convenzioni); per video
+  mp4 servirebbe un modo pulito (partial/hook o snippet `attr_list` + iframe)
+  — da valutare come feature del blog se il video diventa ricorrente.
 - **Probabile serie, non un pezzo unico** (da decidere): taglio possibile in
   3 — (1) ambiente: kind + GitLab CE su Docker; (2) CI con Tekton: Task/Pipeline/
   Trigger + webhook + build&push; (3) CD con Argo CD: modello pull, Application,

@@ -10,8 +10,6 @@ description: "Configurazione di OpenCode con Ollama come provider e test pratici
 
 # OpenCode: come usarlo al meglio
 
-<!-- more -->
-
 ## Introduzione
 
 Vediamo come installare Ollama e Opencode su linux e come configurarli al meglio.
@@ -76,6 +74,7 @@ Per uscire dal run basta inserire
 /bye
 ```
 
+<asciinema-player src="../shell/ollama-setup.cast" speed="1.5"></asciinema-player>
 
 ### OpenCode
 
