@@ -157,6 +157,52 @@ Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
 - ~16 post ancora `draft: true` in `docs/posts/`, da revisionare (`grep -l 'draft: true' docs/posts/*.md`).
 - Convenzione nome file/slug: prefisso categoria (`ai-…`), per ordinare la cartella.
 
+## Promozione
+
+Strategia per portare traffico al blog. Il contenuto forte è AI locale + pratica
+reale (benchmark su hardware consumer, config vere, attriti documentati).
+
+### Canali, in ordine di resa attesa
+
+1. **Reddit — r/LocalLLaMA e r/ollama**: `ai-ollama-llm-locali` (9 modelli su
+   RTX 4060, dati reali) è il formato che funziona lì. Regola d'oro: **postare
+   i dati/le conclusioni nel post stesso**, link al blog come riferimento —
+   il self-promo nudo (solo link) viene downvotato.
+2. **LinkedIn**: canale a maggior resa per il pubblico italiano. Formato
+   "cosa ho notato" con tabella comparativa inline + link. Il cast asciinema
+   renderizzato come GIF è l'hook visivo.
+3. **Mastodon (fosstodon.org, mastodon.uno)**: nicchia Linux/privacy/self-hosting
+   ricettiva al taglio del blog (distro hopping, Ollama, GitOps).
+4. **Link dai repo GitLab**: `configurazioni-utili-ai` e simili → README che
+   linka i post correlati. Chi cerca config arriva lì, costo zero.
+
+Da evitare: Hacker News (barriera linguistica, contenuto in italiano), spam di
+link nei gruppi Telegram.
+
+### Asset: cast → GIF
+
+Il differenziatore del blog è il formato lab con player asciinema — sui social
+si promuove quello, non il testo.
+
+```bash
+agg docs/shell/nome.cast nome.gif --speed 1.5
+# alternativa se la piattaforma comprime male le GIF:
+# agg ... | ffmpeg → mp4
+```
+
+- La GIF/mp4 **non va nel repo** (vincolo "niente binari"): solo sul social
+  o su host esterno.
+- `agg` non è ancora installato sulla macchina di sviluppo (al primo uso:
+  binario dalla release GitHub o `cargo install agg`).
+
+### Piano di lancio
+
+1. Pubblicare `ai-opencode-lab` (prima `draft: false`; il cross-link dal post
+   analitico è già in `main` e punta al lab).
+2. Primo lancio: `ai-ollama-llm-locali` su r/LocalLLaMA — il post con più
+   potenziale del catalogo attuale.
+3. Un post alla volta sui social, mai in blocco.
+
 ## TODO
 
 ### Revisione dei post in draft
