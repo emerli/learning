@@ -240,6 +240,8 @@ Un M1 del 2020 con 8GB di RAM condivisa, testato informalmente, si è comportato
 8. Su architetture non ovvie (es. wrapper a doppia interfaccia), fornire il contesto in anticipo o in due passaggi (prima il quadro generale, poi il dettaglio) compensa gran parte del divario di scala rispetto a un modello enterprise.
 9. I modelli piccoli non colmano il divario di "conoscenza pregressa" di pattern architetturali rari rispetto a modelli di scala enterprise — nessuna configurazione lo elimina, si può solo compensarlo con il proprio contesto.
 
+Per la configurazione pratica (installazione, provider Ollama, context window, temperatura): vedi il [lab OpenCode con Ollama](ai-opencode-lab.md).
+
 ---
 
 *Documento redatto a partire da un'esplorazione pratica condotta in chat, con log reali di Ollama e test ripetuti come fonte primaria dei dati riportati.*
