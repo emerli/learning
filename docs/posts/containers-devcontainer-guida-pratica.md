@@ -164,9 +164,9 @@ Nel `devcontainer.json`:
 
 Ho diversi DevContainer reali, che uso ormai praticamente in ogni progetto che sviluppo, ciascuno per uno stack diverso:
 
-- ArgoCD, KubeCtl, Tekton [DevOps devcontainer](devops-devcontainer.md)
-- Java Quarkus maven [Java/Quarkus devcontainer](java-quarkus-devcontainer.md)
-- Mono 4.7 con configurazioni ad hoc [Mono/.NET 4.7 devcontainer](mono-net47-devcontainer.md)
+- ArgoCD, kubectl, Tekton: [DevContainer DevOps: lab](containers-devcontainer-devops-lab.md)
+- Java, Quarkus, Maven: [DevContainer Java/Quarkus: lab](containers-devcontainer-java-lab.md)
+- Mono 4.7 con configurazioni ad hoc: [DevContainer Mono/.NET 4.7: lab](containers-devcontainer-mono-lab.md)
 
 ## Gotcha
 

@@ -2,17 +2,24 @@
 date: 2026-04-24
 categories:
   - Containers
-slug: devops-devcontainer
+slug: containers-devcontainer-devops-lab
+lab: true
 description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, argocd e kustomize."
 ---
 
-# devcontainer.json — devops devcontainer
+# DevContainer DevOps: lab
 
-Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devcontainer.json):
+Questo devcontainer l'ho scritto per i progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD. Invece di installare kubectl, oc, tkn, argocd e kustomize sull'host, sta tutto nel container.
 
 <!-- more -->
 
-```text
+Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](containers-devcontainer-guida-pratica.md).
+
+## devcontainer.json
+
+Ecco il contenuto del mio file `devcontainer.json` (.devcontainer/devcontainer.json):
+
+```jsonc
 {
   "name": "DevOps - Tekton/OpenShift/ArgoCD",
   "build": {
@@ -56,11 +63,7 @@ Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devco
           "https://raw.githubusercontent.com/redhat-developer/vscode-tekton/refs/heads/main/scheme/tekton.dev/v1_PipelineRun.json": [
             "**/trigger-*.yaml",
             "**/trigger-*.yml"
-          ],
-          // "https://json.schemastore.org/argo-cd-application.json": [
-          //   "apps/**/*.yaml",
-          //   "apps/**/*.yml"
-          // ],
+          ]
           // kubernetes schema non disponibile su schemastore - gestito da ms-kubernetes-tools quando connesso al cluster
         },
         "vs-kubernetes": {
@@ -73,15 +76,24 @@ Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devco
     "PATH": "/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   }
 }
-
-
 ```
 
-# Containerfile — devops container
+## Spiegazione
 
-Ecco il contenuto del mio file `Dockerfile` generico (.devcontainer/Dockerfile):
+Gli elementi del `devcontainer.json` che vale la pena spiegare:
 
-```text
+- **`name`** — il nome del progetto mostrato nell'IDE.
+- **`build`** — punta al `Dockerfile` con Fedora 43 e tutte le CLI (vedi sotto).
+- **`mounts`** — le config di Claude condivise tra host e container. Il mount di `.kube` è commentato: il kubeconfig contiene credenziali e contesti, valuto caso per caso se condividerlo col container.
+- **`extensions`** — YAML con schema store, Kubernetes tools, shellcheck e shell-format per gli script, GitLens.
+- **`yaml.schemas`** — il punto chiave: gli schema JSON per i file YAML di Kustomize e Tekton (Pipeline, Task, PipelineRun). Senza, scrivi YAML di CRD senza autocompletamento né validazione. Lo schema di Kubernetes non è su schemastore: ci pensa l'estensione `ms-kubernetes-tools` quando sei connesso al cluster.
+- **`vs-kubernetes.kubectl-path`** — dice all'estensione Kubernetes dove trovare kubectl nel container.
+
+## Immagine
+
+Il `Dockerfile` parte da Fedora 43 e installa tutte le CLI dal sito ufficiale di ciascuna (.devcontainer/Dockerfile):
+
+```dockerfile
 FROM docker.io/library/fedora:43
 
 RUN dnf install -y \
@@ -123,6 +135,21 @@ RUN KUSTOMIZE_VERSION=$(curl -s https://api.github.com/repos/kubernetes-sigs/kus
     && tar -xzf kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz --no-same-owner \
     && mv kustomize /usr/local/bin/ \
     && rm kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
-
-
 ```
+
+Le CLI installate:
+
+| CLI | A cosa serve |
+|---|---|
+| `kubectl` | Gestire risorse Kubernetes |
+| `oc` | CLI di OpenShift (kubectl + comandi OpenShift) |
+| `tkn` | Gestire Pipeline e Task Tekton |
+| `argocd` | Gestire le Application di Argo CD |
+| `kustomize` | Renderizzare le overlay di Kustomize |
+
+## Cosa ho notato
+
+- Tutte le CLI nel container tengono l'host pulito: per aggiornare le versioni basta un rebuild.
+- Gli schema YAML per Tekton e Kustomize fanno la differenza: senza, scrivi YAML di CRD al buio.
+- Le CLI vengono scaricate "latest" al momento del build: un rebuild a distanza di mesi può cambiare versione. Se serve riproducibilità, conviene pinnare le versioni.
+- Il mount di `.kube` è comodo ma lo lascio commentato di default: il kubeconfig contiene credenziali, meglio decidere esplicitamente quando condividerlo.
