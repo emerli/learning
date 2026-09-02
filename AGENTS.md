@@ -284,6 +284,15 @@ verificare quanto regge un agente di coding completamente locale.
 - Chiusura "Cosa ho notato": un agente locale è utilizzabile? Per quali task?
 - Post: `lab: true`, slug `ai-opencode-ollama-lab`, cross-link ai due post.
 
+### Come scrivere un buon prompt con gli agenti (categoria AI)
+
+Idea nuova. Il tema è emerso lavorando ai lab AI (OpenCode + Ollama): la
+qualità dell'output dell'agente dipende molto da come è scritto il prompt.
+Angolo: prompt engineering pratico per agenti di coding, non teoria da blog
+generico — esempi reali di prompt falliti vs funzionanti, cosa cambia tra
+istruzioni vaghe e contesto esplicito, ruolo di AGENTS.md nel condizionare le
+risposte (vedi gotcha Strangler Fig del lab).
+
 ### Lab GitOps: GitLab CE → Tekton → Argo CD → kind (categoria Containers)
 
 Idea nuova (da costruire da zero, **niente specifico del cliente**). Dal lavoro
