@@ -1,15 +1,16 @@
 ---
-title: "devcontainer.json — mono net47 devcontainer"
 date: 2026-04-24
-description: "Il mio devcontainer per mono dotnet"
 categories:
   - Containers
-draft: true
+slug: mono-net47-devcontainer
+description: "Il mio devcontainer per Mono/.NET 4.7: Debian bookworm, NuGet, NUnit e OmniSharp legacy."
 ---
 
 # devcontainer.json — mono net47 devcontainer
 
 Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devcontainer.json):
+
+<!-- more -->
 
 ```text
 {

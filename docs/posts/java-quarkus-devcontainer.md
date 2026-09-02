@@ -1,15 +1,16 @@
 ---
-title: "devcontainer.json — java quarkus devcontainer"
 date: 2026-04-24
-description: "Il mio devcontainer per java quarkus"
 categories:
   - Containers
-draft: true
+slug: java-quarkus-devcontainer
+description: "Il mio devcontainer per Java/Quarkus: Maven, JDK 17, hot code replace e mount .m2."
 ---
 
 # devcontainer.json — java quarkus devcontainer
 
 Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devcontainer.json):
+
+<!-- more -->
 
 ```text
 {

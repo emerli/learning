@@ -1,15 +1,16 @@
 ---
-title: "devcontainer.json — devops devcontainer"
 date: 2026-04-24
-description: "Il mio devcontainer per devops"
 categories:
   - Containers
-draft: true
+slug: devops-devcontainer
+description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, argocd e kustomize."
 ---
 
 # devcontainer.json — devops devcontainer
 
 Ecco il contenuto del mio file `devcontainer.json` generico (.devcontainer/devcontainer.json):
+
+<!-- more -->
 
 ```text
 {
