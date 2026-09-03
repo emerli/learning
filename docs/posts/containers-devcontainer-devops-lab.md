@@ -9,7 +9,9 @@ description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, ar
 
 # DevContainer DevOps: lab
 
-Questo devcontainer l'ho scritto per i progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD. Invece di installare kubectl, oc, tkn, argocd e kustomize sull'host, sta tutto nel container.
+Il cliente per cui lavoro utilizza Openshift con pipeline che parte da GitLab che chiama Tekton e ArgoCD, varie automatizzazioni con Ansible.
+Per ogniuna di questi tool è richiesta una versione specifica di pyhton,node ecc.
+Ho scritto questo devcontainer progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD e Ansible per le automatizzazioni.Zero Dependecy Hell sull'host. 
 
 <!-- more -->
 
@@ -28,9 +30,8 @@ Ecco il contenuto del mio file `devcontainer.json` (.devcontainer/devcontainer.j
   "remoteUser": "root",
   "containerUser": "root",
   "mounts": [
-    // "source=${localEnv:HOME}/.kube,target=/root/.kube,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.claude,target=/root/.claude,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.claude.json,target=/root/.claude.json,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.kube,target=/root/.kube,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/opencode,target=/root/.config/opencode,type=bind,consistency=cached"
   ],
   "customizations": {
     "vscode": {
@@ -84,14 +85,16 @@ Gli elementi del `devcontainer.json` che vale la pena spiegare:
 
 - **`name`** — il nome del progetto mostrato nell'IDE.
 - **`build`** — punta al `Dockerfile` con Fedora 43 e tutte le CLI (vedi sotto).
-- **`mounts`** — le config di Claude condivise tra host e container. Il mount di `.kube` è commentato: il kubeconfig contiene credenziali e contesti, valuto caso per caso se condividerlo col container.
+- **`mounts`** — le config di Opencode condivise tra host e container. Il mount di `.kube` : il kubeconfig contiene credenziali e contesti
 - **`extensions`** — YAML con schema store, Kubernetes tools, shellcheck e shell-format per gli script, GitLens.
 - **`yaml.schemas`** — il punto chiave: gli schema JSON per i file YAML di Kustomize e Tekton (Pipeline, Task, PipelineRun). Senza, scrivi YAML di CRD senza autocompletamento né validazione. Lo schema di Kubernetes non è su schemastore: ci pensa l'estensione `ms-kubernetes-tools` quando sei connesso al cluster.
 - **`vs-kubernetes.kubectl-path`** — dice all'estensione Kubernetes dove trovare kubectl nel container.
 
 ## Immagine
 
-Il `Dockerfile` parte da Fedora 43 e installa tutte le CLI dal sito ufficiale di ciascuna (.devcontainer/Dockerfile):
+Ho preferito utilizzare come immagine di base Fedora 43 che contiene le ultime versioni di Ansible e dei tool cloud.
+
+Il `Dockerfile`  installa tutte le CLI dal sito ufficiale di ciascuna (.devcontainer/Dockerfile):
 
 ```dockerfile
 FROM docker.io/library/fedora:43

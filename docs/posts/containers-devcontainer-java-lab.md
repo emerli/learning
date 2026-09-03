@@ -133,10 +133,20 @@ Gli elementi del `devcontainer.json` che vale la pena spiegare:
 
 Il devcontainer utilizza l'immagine `maven:3.9-eclipse-temurin-17`, che contiene già tutto il necessario per lo sviluppo Java: niente `Containerfile` o `Dockerfile`, meno manutenzione.
 
+## Video
+
+Come si vede nel filmato, occorre solo aprire il progetto e autorizzare l'esecuzione nel container e parte la creazione del container e il reload dell'ide
+
+<video controls src="../screen/devcontainer-java-lab-create.mp4"></video>
+
+Riaprendo successivamente l'ide si nota come sia immediato il caricamento in quanto il container esistente viene risvegliato.
+
+<video controls src="../screen/devcontainer-java-lab-reopen.mp4"></video>
+
 ## Cosa ho notato
 
 - L'immagine ufficiale Maven basta e avanza: saltare il `Containerfile` dimezza la manutenzione.
 - Il mount di `~/.m2` è il vero risparmio: senza, ogni rebuild del container riscarica tutte le dipendenze.
 - Il `--dns` aziendale è stato il primo gotcha incontrato: senza, il container non risolveva gli host interni del cliente.
 - L'hot code replace sulla 5005 funziona bene: si debugga come in locale.
-- Disabilitare Copilot via `unwanted` + settings evita i conflitti con OpenCode/Continue.
+- Disabilitare Copilot via `unwanted` + settings evita i conflitti con OpenCode/Claude.
