@@ -271,7 +271,7 @@ I dati emersi nell'articolo sulla [comparativa](ai-ollama-llm-locali.md) dei mod
 
 ### Il metodo
 
-Progetto di test: l'adapter Quarkus della comparativa, con le sue due specifiche OpenAPI (quella esposta e quella del provider wrappato). Due domande in italiano, in sequenza, nello stesso giro di conversazione:
+Progetto di test: [l'adapter Quarkus della comparativa](https://gitlab.com/koji-ai-projects/ai-test-project/-/tree/53af05efd52e7d05c872b20aa3c1ebed0de77f6c/), con le sue due specifiche OpenAPI (quella esposta e quella del provider wrappato). Due domande in italiano, in sequenza, nello stesso giro di conversazione:
 
 1. **"descrivimi il progetto"** — richiede esplorazione: il modello deve usare i tool per guardarsi attorno, leggere README e `pom.xml`, sintetizzare.
 2. **"quali api espone"** — richiede di capire quale delle due specifiche OpenAPI è quella giusta e leggerla fino in fondo.
