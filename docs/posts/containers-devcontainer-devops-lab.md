@@ -9,11 +9,13 @@ description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, ar
 
 # DevContainer DevOps: lab
 
-Il cliente per cui lavoro utilizza Openshift con pipeline che parte da GitLab che chiama Tekton e ArgoCD, varie automatizzazioni con Ansible.
-Per ogniuna di questi tool è richiesta una versione specifica di pyhton,node ecc.
-Ho scritto questo devcontainer progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD e Ansible per le automatizzazioni.Zero Dependecy Hell sull'host. 
+Tekton, ArgoCD, OpenShift, Ansible: il Dependency Hell di un ambiente DevOps multi-tool, rinchiuso in un container. Un rebuild e hai le versioni che servono per il cliente — con l'host immacolato.
 
 <!-- more -->
+
+Il cliente per cui lavoro utilizza OpenShift con pipeline che parte da GitLab che chiama Tekton e ArgoCD, varie automatizzazioni con Ansible.
+Per ognuno di questi tool è richiesta una versione specifica di Python, Node ecc.
+Ho scritto questo devcontainer per progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD e Ansible per le automatizzazioni. Zero Dependency Hell sull'host.
 
 Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](containers-devcontainer-guida-pratica.md).
 

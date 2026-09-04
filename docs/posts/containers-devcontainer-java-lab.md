@@ -9,9 +9,11 @@ description: "Il mio devcontainer per Java/Quarkus: Maven, JDK 17, hot code repl
 
 # DevContainer Java/Quarkus: lab
 
-Questo devcontainer l'ho scritto per un cliente con molti progetti Java/Maven/Quarkus molto simili tra loro. Nel tempo è stato perfezionato fino alla versione che vedete qui.
+Moltissimi progetti Java/Maven/Quarkus identici tra loro, un solo setup: mount .m2, generated-sources e hot code replace. La configurazione perfezionata nel tempo, pronta per il team.
 
 <!-- more -->
+
+Questo devcontainer l'ho scritto per un cliente con molti progetti Java/Maven/Quarkus molto simili tra loro. Nel tempo è stato perfezionato fino alla versione che vedete qui.
 
 Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](containers-devcontainer-guida-pratica.md).
 

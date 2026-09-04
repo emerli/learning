@@ -9,9 +9,11 @@ description: "Il mio devcontainer per Mono/.NET 4.7: Debian bookworm, NuGet, NUn
 
 # DevContainer Mono/.NET 4.7: lab
 
-Questo devcontainer l'ho scritto per un cliente quando mi sono trovato a modificare un progetto .NET Framework 4.7.
+.NET Framework 4.7 su Linux non esiste — ecco perché serve Mono, e perché serve un container dedicato per toccare un progetto legacy senza sporcarsi la macchina.
 
 <!-- more -->
+
+Questo devcontainer l'ho scritto per un cliente quando mi sono trovato a modificare un progetto .NET Framework 4.7.
 
 Microsoft non rilascia .NET Framework 4.x per Linux, quindi la community ha sviluppato Mono. Oggi Mono è meno mantenuto e non tutte le distribuzioni Linux lo pacchettizzano in maniera completa — da qui la necessità di un container ad hoc.
 

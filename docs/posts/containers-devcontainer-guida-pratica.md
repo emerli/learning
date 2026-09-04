@@ -8,6 +8,10 @@ description: "Come funzionano i DevContainer: struttura, lifecycle e gotcha real
 
 # DevContainer: guida pratica
 
+Ricostruire l'ambiente di sviluppo a ogni installazione della distro è il trauma di ogni distro hopper. Con i DevContainer il setup diventa codice: censito, replicabile in zero tempo, e "sulla mia macchina funziona" sparisce dal vocabolario del team.
+
+<!-- more -->
+
 Sono anni che utilizzo docker e più volte mi sono chiesto se sia possibile utilizzarlo per containerizzare gli ambienti di sviluppo.
 Nel tempo ho fatto vari esperimenti in questo senso che si sono rivelati poco comodi e soprattutto non risolvevano il trauma di ogni distro hopper seriale ovvero: ricostruire ogni volta gli ambienti.
 
@@ -18,8 +22,6 @@ Con i Devcontainers ho trovato il modo di:
 - Azzerare l'installazione dei vari sdk, tool, utility dopo l'installazione della distro
  
 la soluzione a tutti i problemi.
-
-<!-- more -->
 
 ## Cosa sono
 
