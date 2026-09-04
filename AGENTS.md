@@ -32,11 +32,13 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 ├── i18n/it.toml                    # "Indice" per il TOC
 ├── static/
 │   ├── images/avatar.png
-│   └── *.cast                      # screencast asciinema
+│   ├── *.cast                      # screencast asciinema
+│   └── screen/*.mp4                # video lab (da spostare su host esterno)
 ├── content/
 │   ├── about.md
-│   ├── projects.md                 # pagina Progetti (da riempire)
+│   ├── projects.md                 # card dei progetti
 │   └── posts/                      # UN .md per post, tutti qui
+├── layouts/shortcodes/             # cast.html e video.html (relURL per /learning/)
 └── themes/hugo-coder/              # tema vendored (non modificare)
 ```
 
@@ -128,11 +130,10 @@ Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
   Per un video: `asciinema play -s 1.5 -i 1` come sorgente in una scena OBS,
   oppure pre-render con `agg` → GIF → `ffmpeg` mp4. Video finito su host
   esterno (niente binari nel repo).
-  - **Embed nel post**: tag dichiarativo nel markdown
-    `<asciinema-player src="/nome.cast" speed="1.5"></asciinema-player>`
-    (path assoluto: i cast sono serviti dalla root del sito). Player JS+CSS
-    **vendored** in `assets/` (niente CDN) + `assets/js/custom.js` che fa da
-    ponte.
+  - **Embed nel post**: shortcode `{{< cast src="/nome.cast" speed="1.5" >}}`
+    (il path assoluto viene riscritto con `relURL` → `/learning/nome.cast`).
+    Player JS+CSS **vendored** in `assets/` (niente CDN) + `assets/js/custom.js`
+    che fa da ponte. Per i video: `{{< video src="/screen/nome.mp4" >}}`.
   - **Gotcha**: asciinema-player **v3 non registra più il custom element**
     `<asciinema-player>` (era la API v2); la v3 vuole
     `AsciinemaPlayer.create(src, elemento, opts)`. Lo script ponte traduce i
@@ -144,13 +145,18 @@ Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
 
 ## Stato
 
+- Migrazione da MkDocs a Hugo completata (settembre 2026): tema `hugo-coder`
+  vendored, override in `layouts/`, asciinema vendored in `assets/`, CI con
+  `hugomods/hugo:debian-base-0.165.0` (pinnata, build ~15s).
 - Pubblicati (categoria AI): `ai-ollama-llm-locali`, `ai-opencode`, `ai-agents-md`,
   `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`,
   `ai-opencode-lab`, `containers-devcontainer-guida-pratica`.
 - ~13 post ancora `draft: true` in `content/posts/`, da revisionare
   (`grep -l 'draft: true' content/posts/*.md`).
 - Convenzione nome file/slug: prefisso categoria (`ai-…`), per ordinare la cartella.
-- Pagina `content/projects.md` da riempire con i link dei progetti.
+- Pagina `content/projects.md` con le card dei progetti (hypr-blue, LynisParser,
+  arch-init-ansible, configurazioni-utili-ai, nixos-kde).
+- Categoria `Containers` rinominata in `Docker` (settembre 2026).
 
 ## Promozione
 
@@ -218,7 +224,7 @@ L'utente ha molti repo GitLab usati per imparare: trasformarli in articoli.
    **README + `git log` (dead-end, "fix", "revert") + config non ovvia + stack/versioni**.
 4. Bozza articolo: frontmatter completo, corpo = contesto → cosa ho fatto → gotcha →
    "cosa ho notato" → riferimenti. `draft: true` fino a revisione dell'utente.
-5. Le tag sono libere: nessuna config da aggiornare (a differenza di MkDocs).
+5. Le tag sono libere: nessuna config da aggiornare.
 
 ### Articoli categoria Linux (da scrivere)
 
@@ -317,8 +323,7 @@ l'equivalente upstream.
   testo, player embeddabile, `agg` per GIF). Vincolo repo: niente binari → il
   video va su host esterno (YouTube/PeerTube/GitLab) ed embeddato nel post.
   L'embed asciinema è già risolto (vedi Screencast in Convenzioni); per video
-  mp4 servirebbe un modo pulito (shortcode o iframe) — da valutare come feature
-  del blog se il video diventa ricorrente.
+  mp4 esiste già lo shortcode `video` (vedi Convenzioni).
 - **Probabile serie, non un pezzo unico** (da decidere): taglio possibile in
   3 — (1) ambiente: kind + GitLab CE su Docker; (2) CI con Tekton: Task/Pipeline/
   Trigger + webhook + build&push; (3) CD con Argo CD: modello pull, Application,
@@ -372,7 +377,9 @@ preciso. I tre sotto sono gli unici con un angolo possibile.
 
 - Valutare una sezione "Reference" separata per i materiali non-articolo (checklist,
   recon report, cheat-sheet).
-- Riempire `content/projects.md` con i link dei progetti.
+- Spostare i video in `static/screen/` su host esterno (YouTube/PeerTube) e
+  sostituire gli shortcode `video` con iframe.
+- Landing page: valutare intro breve o ultimi post sotto il profilo.
 
 ---
 
