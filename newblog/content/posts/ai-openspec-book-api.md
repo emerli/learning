@@ -9,6 +9,9 @@ slug: ai-openspec-book-api
 description: "OpenSpec sullo stesso esempio: propose → apply → archive, le spec delta e il confronto con Spec Kit."
 tags:
   - AI
+  - OpenSpec
+  - SDD
+  - Lab
 ---
 
 # OpenSpec — esempio: Book Management REST API

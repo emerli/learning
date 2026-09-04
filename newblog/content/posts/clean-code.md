@@ -7,6 +7,7 @@ categories:
 draft: true
 tags:
   - Java
+  - Clean Code
 ---
 
 # Clean Code - Sintesi

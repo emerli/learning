@@ -1,0 +1,4 @@
+---
+title: "Progetti"
+slug: "projects"
+---

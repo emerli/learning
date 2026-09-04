@@ -5,6 +5,8 @@ categories:
 draft: true
 tags:
   - Sicurezza Informatica
+  - Privilege Escalation
+  - Linux
 title: "Linux Privilege Escalation — Guida Completa"
 
 ---

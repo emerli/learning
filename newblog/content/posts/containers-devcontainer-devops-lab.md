@@ -7,6 +7,12 @@ lab: true
 description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, argocd e kustomize."
 tags:
   - Containers
+  - DevContainer
+  - Kubernetes
+  - Tekton
+  - ArgoCD
+  - Ansible
+  - Lab
 title: "DevContainer DevOps: lab"
 
 ---

@@ -5,6 +5,8 @@ categories:
 draft: true
 tags:
   - Sicurezza Informatica
+  - Kali
+  - Recon
 title: "Information Gathering con Kali Linux"
 
 ---

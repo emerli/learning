@@ -7,6 +7,7 @@ categories:
 draft: true
 tags:
   - Java
+  - Spring Boot
 ---
 
 # Spring Boot 2.7 → 4.0: Cambiamenti rilevanti per lo sviluppo

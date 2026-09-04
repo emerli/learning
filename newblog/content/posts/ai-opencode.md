@@ -7,6 +7,9 @@ slug: ai-opencode
 description: "Architettura degli agenti di OpenCode: primari e subagent, tool MCP, permessi, pattern di orchestrazione e best practice di workflow."
 tags:
   - AI
+  - OpenCode
+  - Agenti
+  - MCP
 ---
 
 # OpenCode — Agenti, Subagenti, MCP e Workflow

@@ -6,6 +6,8 @@ slug: devcontainer-guida-pratica
 description: "Come funzionano i DevContainer: struttura, lifecycle e gotcha reali dai 3 container che uso ogni giorno."
 tags:
   - Containers
+  - DevContainer
+  - VS Code
 title: "DevContainer: guida pratica"
 
 ---

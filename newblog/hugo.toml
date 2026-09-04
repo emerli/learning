@@ -17,16 +17,20 @@ noClasses = false
 unsafe = true
 
 [params]
-author = "koji76"
+author = "Emiliano Merli (Koji76)"
 description = "Appunti e sintesi tecniche: Java, AI, Containers, Linux, Agile, Sicurezza Informatica."
 keywords = "java, ai, ollama, opencode, containers, devcontainer, linux, agile, sicurezza informatica"
-info = ["Java / Spring Boot", "AI locale", "Containers / GitOps"]
+info = ["Cloud Architect", "Senior Developer", "AI-assisted Development"]
 avatarURL = "images/avatar.png"
 dateFormat = "2 January 2006"
 since = 2026
 colorScheme = "auto"
 customCSS = ["css/custom.css"]
 customJS = ["js/custom.js"]
+
+[params.Entry]
+toc = true
+tocOpen = false
 customRemoteJS = [
   "https://cdn.jsdelivr.net/npm/asciinema-player@3.8.1/dist/bundle/asciinema-player.min.js",
 ]
@@ -50,9 +54,15 @@ weight = 3
 url = "https://www.linkedin.com/in/merli/"
 
 [[params.social]]
+name = "Email"
+icon = "fa-solid fa-envelope fa-2x"
+weight = 4
+url = "mailto:emiliano.merli@gmail.com"
+
+[[params.social]]
 name = "RSS"
 icon = "fa-solid fa-rss fa-2x"
-weight = 4
+weight = 5
 url = "index.xml"
 rel = "alternate"
 type = "application/rss+xml"
@@ -75,6 +85,11 @@ weight = 2
 url = "posts/"
 
 [[languages.it.menu.main]]
-name = "About"
+name = "Progetti"
 weight = 3
+url = "projects/"
+
+[[languages.it.menu.main]]
+name = "About"
+weight = 4
 url = "about/"

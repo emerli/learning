@@ -7,6 +7,8 @@ categories:
 draft: true
 tags:
   - Java
+  - Spring Boot
+  - Migrazione
 ---
 
 # Guida alla Migrazione: Spring Boot 2.7 → 4.0

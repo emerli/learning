@@ -5,6 +5,8 @@ categories:
 draft: true
 tags:
   - Sicurezza Informatica
+  - Metasploitable
+  - Recon
 title: "Metasploitable 2 — Information Gathering Report"
 
 ---

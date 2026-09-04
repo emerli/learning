@@ -5,6 +5,7 @@ categories:
 draft: true
 tags:
   - Agile
+  - Scrum
 title: "Ripasso Scrum - Guida strutturata"
 
 ---

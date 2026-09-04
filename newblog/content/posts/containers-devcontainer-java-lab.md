@@ -7,6 +7,10 @@ lab: true
 description: "Il mio devcontainer per Java/Quarkus: Maven, JDK 17, hot code replace e mount .m2."
 tags:
   - Containers
+  - DevContainer
+  - Java
+  - Quarkus
+  - Lab
 title: "DevContainer Java/Quarkus: lab"
 
 ---

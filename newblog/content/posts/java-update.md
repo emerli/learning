@@ -7,6 +7,7 @@ categories:
 draft: true
 tags:
   - Java
+  - JDK
 ---
 
 # Java 8 → 25: Cambiamenti rilevanti per lo sviluppo

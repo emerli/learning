@@ -7,6 +7,7 @@ categories:
 draft: true
 tags:
   - Java
+  - SOLID
 ---
 
 # Principi SOLID - Sintesi

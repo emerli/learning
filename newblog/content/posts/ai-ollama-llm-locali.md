@@ -6,6 +6,10 @@ slug: ai-ollama-llm-locali
 description: "Cosa possiamo fare con Ollama: comparativa dei modelli che ci possono girare su un hardware consumer"
 tags:
   - AI
+  - Ollama
+  - LLM
+  - OpenCode
+  - NVIDIA
 title: "Ollama, OpenCode e la ricerca del setup giusto"
 
 ---

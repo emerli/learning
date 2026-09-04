@@ -5,6 +5,8 @@ categories:
 draft: true
 tags:
   - Agile
+  - Design Pattern
+  - GoF
 title: "Pattern GoF - Recap"
 
 ---

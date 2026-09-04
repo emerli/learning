@@ -5,6 +5,7 @@ categories:
 draft: true
 tags:
   - Agile
+  - Open Practice Library
 title: "Open Practice Library - Sintesi Pattern"
 
 ---

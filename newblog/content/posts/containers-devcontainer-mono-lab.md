@@ -7,6 +7,10 @@ lab: true
 description: "Il mio devcontainer per Mono/.NET 4.7: Debian bookworm, NuGet, NUnit e OmniSharp legacy."
 tags:
   - Containers
+  - DevContainer
+  - .NET
+  - Mono
+  - Lab
 title: "DevContainer Mono/.NET 4.7: lab"
 
 ---

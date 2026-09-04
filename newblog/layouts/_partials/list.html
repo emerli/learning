@@ -11,6 +11,15 @@
     </h1>
   </header>
   {{ .Content }}
+  {{ if not (eq .Kind "term") }}
+  <div class="tag-cloud">
+    {{ range $key, $value := site.Taxonomies.tags.Alphabetical }}
+      {{ with site.GetPage (printf "/tags/%s" $value.Name) }}
+        <a class="entry-tag" href="{{ .Permalink }}">{{ .Name }} <sup>{{ $value.Count }}</sup></a>
+      {{ end }}
+    {{ end }}
+  </div>
+  {{ end }}
   <div class="post-entries">
     {{ range .Paginator.Pages }}
     <article class="post-entry">

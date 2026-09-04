@@ -7,6 +7,10 @@ slug: ai-agents-md
 description: "Cos'è AGENTS.md, cosa scriverci, come si annida in un monorepo e come si rapporta a CLAUDE.md e agli altri file proprietari."
 tags:
   - AI
+  - Agenti
+  - AGENTS.md
+  - CLAUDE.md
+  - OpenCode
 ---
 
 # AGENTS.md — il file di contesto per gli agenti

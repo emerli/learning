@@ -8,6 +8,8 @@ draft: false
 slug: ai-sdd-guida-rapida
 tags:
   - AI
+  - SDD
+  - Spec-Driven Development
 ---
 
 # Spec Driven Development (SDD) — Guida Rapida

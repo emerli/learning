@@ -5,6 +5,8 @@ categories:
 draft: true
 tags:
   - AI
+  - Transformer
+  - ML.NET
 title: "Note su AI moderne, Transformer e progetto ML.NET"
 
 ---

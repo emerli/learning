@@ -132,6 +132,46 @@ asciinema-player {
   color: var(--link-color, #0077cc);
 }
 
+/* Tag cloud */
+.tag-cloud {
+  margin: 2rem 0;
+}
+
+.tag-cloud .entry-tag {
+  display: inline-block;
+  margin: 0 0.8rem 0.8rem 0;
+  padding: 0.3rem 1rem;
+  border: 1px solid var(--border-color, #e5e5e5);
+  border-radius: 2em;
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: var(--fg-color, #212121);
+}
+
+.tag-cloud .entry-tag:hover {
+  border-color: var(--link-color, #0077cc);
+  color: var(--link-color, #0077cc);
+}
+
+.tag-cloud .entry-tag sup {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* Avatar nell'header */
+.navigation-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.navigation-avatar {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* Tabelle */
 .post-content table {
   border-collapse: collapse;

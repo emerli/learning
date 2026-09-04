@@ -9,6 +9,9 @@ slug: ai-spec-kit-book-api
 description: "GitHub Spec Kit su un esempio reale: constitution → specify → plan → tasks → implement, e cosa fa davvero la CLI."
 tags:
   - AI
+  - Spec Kit
+  - SDD
+  - Lab
 ---
 
 # Spec Kit — esempio: Book Management REST API

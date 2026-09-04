@@ -8,6 +8,10 @@ draft: false
 description: "Configurazione di OpenCode con Ollama come provider e test pratici di un agente di coding completamente locale."
 tags:
   - AI
+  - OpenCode
+  - Ollama
+  - Agenti
+  - Lab
 title: "OpenCode: come usarlo al meglio"
 
 ---
