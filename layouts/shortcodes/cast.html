@@ -1,0 +1,1 @@
+<asciinema-player src="{{ .Get "src" | strings.TrimPrefix "/" | relURL }}"{{ with .Get "speed" }} speed="{{ . }}"{{ end }}{{ with .Get "loop" }} loop{{ end }}{{ with .Get "autoplay" }} autoplay{{ end }}></asciinema-player>

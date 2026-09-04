@@ -79,7 +79,7 @@ Per uscire dal run basta inserire
 ```
 
 
-<asciinema-player src="/ollama-setup.cast" speed="1.5"></asciinema-player>
+{{< cast src="/ollama-setup.cast" speed="1.5" >}}
 
 
 ### OpenCode
