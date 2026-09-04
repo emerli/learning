@@ -21,10 +21,10 @@
             </li>
           {{ end }}
         {{ end }}
-        <li class="navigation-item">
-          <a class="navigation-link" href="{{ "search/" | relLangURL }}" aria-label="Cerca">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-          </a>
+        <li class="navigation-item navigation-search">
+          <form class="header-search-form" action="{{ "search/" | relLangURL }}" method="get">
+            <input type="search" name="q" placeholder="Cerca…" aria-label="Cerca">
+          </form>
         </li>
         {{ if hugo.IsMultilingual }}
           {{ $node := . }}

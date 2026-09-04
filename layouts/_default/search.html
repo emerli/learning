@@ -7,10 +7,13 @@
     <div id="search"></div>
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("q") || "";
         new PagefindUI({
           element: "#search",
           showSubResults: true,
           showImages: false,
+          initialQuery: query,
           translations: {
             placeholder: "Cerca nel blog…",
             zero_results: "Nessun risultato per [SEARCH_TERM]",
