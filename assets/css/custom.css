@@ -172,6 +172,45 @@ asciinema-player {
   object-fit: cover;
 }
 
+/* Card progetti */
+.project-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin: 2rem 0;
+}
+
+.project-card {
+  flex: 1 1 28rem;
+  max-width: 100%;
+  border: 1px solid var(--border-color, #e5e5e5);
+  border-radius: 0.6rem;
+  padding: 1.6rem;
+}
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.project-card-header a {
+  color: var(--fg-color, #212121);
+}
+
+.project-card-header a:hover {
+  color: var(--link-color, #0077cc);
+}
+
+.project-card-desc {
+  margin: 0;
+  font-size: 1.4rem;
+  opacity: 0.8;
+}
+
 /* Tabelle */
 .post-content table {
   border-collapse: collapse;
