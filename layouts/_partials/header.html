@@ -21,6 +21,11 @@
             </li>
           {{ end }}
         {{ end }}
+        <li class="navigation-item">
+          <a class="navigation-link" href="{{ "search/" | relLangURL }}" aria-label="Cerca">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          </a>
+        </li>
         {{ if hugo.IsMultilingual }}
           {{ $node := . }}
           {{ .Scratch.Set "separator" true }}

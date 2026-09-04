@@ -172,6 +172,15 @@ asciinema-player {
   object-fit: cover;
 }
 
+/* Pagina di ricerca */
+.search-page {
+  margin-top: 2rem;
+}
+
+.search-page .title {
+  margin-bottom: 2rem;
+}
+
 /* Card progetti */
 .project-cards {
   display: flex;
