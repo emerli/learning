@@ -1,3 +1,4 @@
 site/
 .cache/
 __pycache__/
+newblog/.hugo_build.lock

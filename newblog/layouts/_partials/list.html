@@ -1,0 +1,41 @@
+<section class="container list">
+  <header>
+    <h1 class="title">
+      <a class="title-link" href="{{ .Permalink | safeURL }}">
+        {{- if eq .Kind "term" -}}
+          {{- i18n .Data.Plural 1 | title -}}
+          {{- print ": " -}}
+        {{- end -}}
+        {{- i18n (lower .Title) | default .Title | title -}}
+      </a>
+    </h1>
+  </header>
+  {{ .Content }}
+  <div class="post-entries">
+    {{ range .Paginator.Pages }}
+    <article class="post-entry">
+      <div class="entry-date">
+        <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+          {{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
+        </time>
+      </div>
+      <h3 class="entry-title">
+        <a href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+        {{ if .Params.lab }}<span class="lab-badge">LAB</span>{{ end }}
+      </h3>
+      <div class="entry-content">
+        {{ with .Description }}{{ . }}{{ end }}
+      </div>
+      <div class="entry-footer">
+        {{ with .GetTerms "tags" }}
+        {{ range $tag := . }}
+        <a class="entry-tag" href="{{ $tag.RelPermalink }}">{{ $tag.LinkTitle }}</a>
+        {{ end }}
+        {{ end }}
+      </div>
+    </article>
+    {{ end }}
+  </div>
+  {{ partial "pagination.html" . }}
+</section>
