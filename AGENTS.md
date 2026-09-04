@@ -3,12 +3,12 @@
 ## Overview
 
 Ispirato dal second brain ho voluto realizzare questo Blog tecnico personale (contenuti in italiano) per salvare e condividere la mia esperienza.
-Per minimizzare l'effort necessario è stato costruito con **Material for MkDocs** e il plugin `blog`, pubblicato su **GitLab Pages**.
+Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 
 - **Sito**: https://koji76.gitlab.io/learning
 - **Repo**: https://gitlab.com/koji76/learning
-- **Stack**: `mkdocs-material[imaging]` + plugin nativi `blog` e `social` + `hooks.py` +
-  override di template in `overrides/`. Nessun RSS.
+- **Stack**: Hugo (binario statico) + tema `hugo-coder` vendored in `themes/` +
+  override minimi in `layouts/` + CSS/JS custom in `assets/`. RSS attivo.
 
 ---
 
@@ -16,87 +16,81 @@ Per minimizzare l'effort necessario è stato costruito con **Material for MkDocs
 
 ```
 .
-├── .gitlab-ci.yml   # pipeline GitLab Pages
-├── .gitignore       # site/  .cache/  __pycache__/
-├── mkdocs.yml       # tema + plugin + font + nav
-├── hooks.py         # on_nav: appiattisce il menu (Home / About / categorie)
-├── overrides/
-│   ├── blog.html                     # lista post come lista verticale (stile MLM)
-│   └── partials/
-│       ├── post.html                 # riga post: thumbnail categoria + titolo + byline + estratto (badge "Lab")
-│       ├── content.html              # banner categoria in cima al post (+ badge "Lab")
-│       └── category-icon.html        # icona Material per slug categoria (condivisa)
-└── docs/
-    ├── index.md              # home: SOLO frontmatter → mostra la lista post
-    ├── about.md
-    ├── stylesheets/extra.css # lista post, thumbnail, banner, colori categoria, tipografia
-    └── posts/                # UN .md per post, tutti qui, niente sottocartelle
+├── .gitlab-ci.yml   # pipeline GitLab Pages (hugo --minify)
+├── .gitignore       # public/  resources/  .hugo_build.lock
+├── hugo.toml        # tema + params + menu + tassonomie
+├── assets/
+│   ├── css/custom.css              # stile card lista, badge LAB, tabelle, tag cloud
+│   ├── css/asciinema-player.min.css # vendored (build ermetica, niente CDN)
+│   └── js/custom.js                # ponte asciinema v3 (create())
+│   └── js/asciinema-player.min.js  # vendored
+├── layouts/
+│   ├── _partials/header.html       # avatar tondo + titolo nell'header
+│   ├── _partials/list.html        # lista post stile PaperMod + tag cloud
+│   ├── _partials/head/extensions.html # CSS asciinema
+│   └── posts/single.html          # header post: data, titolo, descrizione, tag
+├── i18n/it.toml                    # "Indice" per il TOC
+├── static/
+│   ├── images/avatar.png
+│   └── *.cast                      # screencast asciinema
+├── content/
+│   ├── about.md
+│   ├── projects.md                 # pagina Progetti (da riempire)
+│   └── posts/                      # UN .md per post, tutti qui
+└── themes/hugo-coder/              # tema vendored (non modificare)
 ```
 
-`blog_dir: .` → il blog **è** la home. Non ci sono cartelle tematiche: la tassonomia è il
-campo `categories` nel frontmatter. Lista verticale in home (stile
-machinelearningmastery.com: thumbnail categoria + titolo + byline + estratto +
-"Continua a leggere", divisori tra le righe, nessun post featured), pagine categoria
-(`/category/<slug>/`), voce di menu e social card sono **generate** — non si mantengono a
-mano. L'archivio per data è disattivato (`archive: false`).
+La home è il profilo (avatar, nome, info, social). La lista post è su `/posts/`
+con tag cloud in cima. Le pagine tag (`/tags/<slug>/`) sono generate dalla
+tassonomia nativa di Hugo — non si mantengono a mano.
 
 ---
 
 ## Modello di un post
 
-Tutto parte dal singolo file `docs/posts/<nome>.md`. Dal frontmatter:
+Tutto parte dal singolo file `content/posts/<nome>.md`. Dal frontmatter:
 
 | Campo | Effetto | Obbligatorio |
 |-------|---------|:---:|
 | `date` | ordinamento + data su card/post | **sì** |
-| `categories` (1º valore) | pagina categoria, **colore + icona** di cover e banner, filtro | **sì** |
-| `title` / `# H1` | titolo card + `<title>`; genera lo `slug` se assente | no |
-| `slug` | URL `/<slug>/` — impostarlo alla creazione e non cambiarlo | no (consigliato) |
-| `description` | estratto nella lista + sottotitolo social card | no |
-| `lab: true` | badge "LAB" su cover della card e banner del post — segnala un contenuto pratico / hands-on | no |
-| `<!-- more -->` nel corpo | taglia l'estratto mostrato in lista (`post_excerpt: optional`) | no |
+| `title` | titolo card + `<title>` (Hugo NON lo prende dall'H1) | **sì** |
+| `slug` | URL `/posts/<slug>/` — impostarlo alla creazione e non cambiarlo | no (consigliato) |
+| `description` | estratto nella lista + sotto il titolo nel post | no |
+| `tags` | pillole su card e post + pagina `/tags/<slug>/`; 1º valore = categoria | **sì** |
+| `categories` | tassonomia separata (per ora non usata nel layout) | no |
+| `lab: true` | badge "LAB" su card e post + tag `Lab` — contenuto pratico / hands-on | no |
+| `draft: true` | escluso dalla build | no |
+| `<!--more-->` nel corpo | taglia il summary (non usato in lista: si usa `description`) | no |
 
 ```yaml
 ---
 date: 2026-08-29
-categories:
-  - Java
+title: "Titolo del post"
 slug: nome-breve
 description: "Frase breve"
+tags:
+  - AI
+  - Ollama
+  - OpenCode
+lab: true
 ---
 ```
 
----
-
-## Aggiungere una categoria
-
-Tre punti da allineare (slug = nome minuscolo, spazi → trattini):
-
-1. `mkdocs.yml` → `plugins.blog.categories_allowed`
-2. `docs/stylesheets/extra.css` → `.md-cover--<slug>` con il gradiente
-3. `overrides/partials/category-icon.html` → un `elif slug == "<slug>"` con l'icona
-
-Categorie attuali: `Java`, `AI`, `Containers`, `Linux`, `Agile`, `Sicurezza Informatica`.
+Convenzione tag: il primo valore è la categoria (`Java`, `AI`, `Containers`,
+`Linux`, `Agile`, `Sicurezza Informatica`), poi 2-4 tag specifici. I post
+`lab: true` hanno anche la tag `Lab`.
 
 ---
 
 ## Sviluppo locale
 
-Sulla macchina di sviluppo manca `pip`; usare un venv dedicato.
+Hugo è un binario singolo in `~/bin/hugo` (v0.165.0 extended, scaricato dalla
+release GitHub — non c'è pip sulla macchina).
 
 ```bash
-pip install "mkdocs-material[imaging]"
-
-# anteprima veloce SENZA social card
-MKDOCS_CARDS=false mkdocs serve
-
-# build completa come la CI (con social card)
-mkdocs build --strict
+~/bin/hugo server          # anteprima su http://localhost:1313/learning/
+~/bin/hugo --minify        # build completa in public/ (come la CI)
 ```
-
-Il plugin `social` va in **crash sul rebuild incrementale** di `mkdocs serve`
-(`AttributeError: card_pool`) → per l'anteprima usare `MKDOCS_CARDS=false`, oppure
-`mkdocs build` + un server statico su `site/`.
 
 ---
 
@@ -104,45 +98,41 @@ Il plugin `social` va in **crash sul rebuild incrementale** di `mkdocs serve`
 
 Job `pages` in `.gitlab-ci.yml`, **solo su branch di default**:
 
-1. `apt-get install` delle librerie di sistema per `social` (Cairo, Pango, freetype, font)
-2. `pip install "mkdocs-material[imaging]==9.7.7"` (pinnato)
-3. `mkdocs build --strict`
-4. `mv site public` → artifact `public/`
-5. `cache: .cache/` — il primo render delle social card è lento (~20-30s), poi cache
+1. Immagine `klakegg/hugo:0.165.0-ext-alpine` (versione pinnata)
+2. `hugo --minify` → genera in `public/` (default Hugo, niente `mv`)
+3. Artifact `public/`
 
-Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
+Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
 
 ### Trappole note
-- `--strict` fallisce se un post non ha `date` o ha una categoria non in `categories_allowed`.
-- `social` richiede librerie di sistema (vedi `before_script`); offline fallisce il fetch
-  del font da Google Fonts.
-- Il warning "MkDocs 2.0 / Material" a inizio build è informativo, non blocca.
-- Niente file binari nel repo.
+- `hugo --minify` non fallisce su post senza `date`/`title` — verificare a mano.
+- Il tema è vendored: aggiornarlo = sostituire `themes/hugo-coder/` e riallineare
+  gli override in `layouts/`.
+- Niente file binari nel repo (i `.cast` sono testo, ok).
 
 ---
 
 ## Convenzioni
 
-- `mkdocs.yml`: `site_url`, `repo_url`, `repo_name` → `koji76/learning`.
-- `post_url_format: "{slug}"` → URL dei post senza data (`/<slug>/`).
-- Font: `theme.font` = `IBM Plex Sans` (testo) / `JetBrains Mono` (codice).
-- Menu piatto via `hooks.py`: `Home · About · ─── · categorie` (la sezione collassabile
-  "Categorie" del plugin viene smontata e le categorie diventano link di primo livello;
-  "About" rispedito in fondo). Divisore in `extra.css` (`nth-child(3)` della nav primaria).
-- Tipografia titoli e stile card/banner: tutto in `docs/stylesheets/extra.css`.
-- `markdown_extensions`: admonition, tables, attr_list, md_in_html, pymdownx
-  (highlight/inlinehilite/snippets/superfences/mark), toc.
+- `hugo.toml`: `baseURL` → `https://koji76.gitlab.io/learning/`, `locale = "it"`.
+- URL dei post: `/posts/<slug>/` (default Hugo con `content/posts/`).
+- Menu: `Home · Blog · Progetti · About` (in `hugo.toml`, `languages.it.menu.main`).
+- Home: profilo con avatar, `info` (Cloud Architect / Senior Developer /
+  AI-assisted Development), social (GitHub, GitLab, LinkedIn, email, RSS).
+- TOC: attivo su tutti i post (`[params.Entry] toc = true`), collassabile
+  sotto "Indice" (i18n in `i18n/it.toml`).
+- Stile card lista, badge LAB, tabelle, tag cloud: tutto in `assets/css/custom.css`.
 - **Screencast**: strumenti = **OBS** per il video dello schermo + **asciinema**
   per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo (in
-  `docs/shell/`); editing dei tempi morti con `asciinema-edit cut`/`quantize`.
+  `static/`); editing dei tempi morti con `asciinema-edit cut`/`quantize`.
   Per un video: `asciinema play -s 1.5 -i 1` come sorgente in una scena OBS,
   oppure pre-render con `agg` → GIF → `ffmpeg` mp4. Video finito su host
   esterno (niente binari nel repo).
   - **Embed nel post**: tag dichiarativo nel markdown
-    `<asciinema-player src="../shell/nome.cast" speed="1.5"></asciinema-player>`
-    (path relativo all'URL del post: i post vivono alla root del sito, i cast
-    sotto `/shell/` → `../shell/...`). Bundle JS+CSS da CDN in `extra_javascript`
-    /`extra_css` + `docs/javascripts/asciinema-init.js` che fa da ponte.
+    `<asciinema-player src="/nome.cast" speed="1.5"></asciinema-player>`
+    (path assoluto: i cast sono serviti dalla root del sito). Player JS+CSS
+    **vendored** in `assets/` (niente CDN) + `assets/js/custom.js` che fa da
+    ponte.
   - **Gotcha**: asciinema-player **v3 non registra più il custom element**
     `<asciinema-player>` (era la API v2); la v3 vuole
     `AsciinemaPlayer.create(src, elemento, opts)`. Lo script ponte traduce i
@@ -155,9 +145,12 @@ Immagine: `python:3.12-slim` (non alpine: Pango su alpine è problematico).
 ## Stato
 
 - Pubblicati (categoria AI): `ai-ollama-llm-locali`, `ai-opencode`, `ai-agents-md`,
-  `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`.
-- ~16 post ancora `draft: true` in `docs/posts/`, da revisionare (`grep -l 'draft: true' docs/posts/*.md`).
+  `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`,
+  `ai-opencode-lab`, `containers-devcontainer-guida-pratica`.
+- ~13 post ancora `draft: true` in `content/posts/`, da revisionare
+  (`grep -l 'draft: true' content/posts/*.md`).
 - Convenzione nome file/slug: prefisso categoria (`ai-…`), per ordinare la cartella.
+- Pagina `content/projects.md` da riempire con i link dei progetti.
 
 ## Promozione
 
@@ -187,7 +180,7 @@ Il differenziatore del blog è il formato lab con player asciinema — sui socia
 si promuove quello, non il testo.
 
 ```bash
-agg docs/shell/nome.cast nome.gif --speed 1.5
+agg static/nome.cast nome.gif --speed 1.5
 # alternativa se la piattaforma comprime male le GIF:
 # agg ... | ffmpeg → mp4
 ```
@@ -210,7 +203,7 @@ agg docs/shell/nome.cast nome.gif --speed 1.5
 ### Revisione dei post in draft
 
 Per ogni post: `slug:` corto e definitivo + `description:`; rivedere linguaggio e
-accuratezza; aggiungere `<!-- more -->` dopo il primo paragrafo; se è un walkthrough,
+accuratezza; aggiungere `<!--more-->` dopo il primo paragrafo; se è un walkthrough,
 aggiungere una sezione di chiusura **"Cosa ho notato"** (verdetto reale, non doc). Poi
 `draft: false`. Se il post cross-linka altri draft, pubblicarli nello stesso commit.
 
@@ -225,13 +218,12 @@ L'utente ha molti repo GitLab usati per imparare: trasformarli in articoli.
    **README + `git log` (dead-end, "fix", "revert") + config non ovvia + stack/versioni**.
 4. Bozza articolo: frontmatter completo, corpo = contesto → cosa ho fatto → gotcha →
    "cosa ho notato" → riferimenti. `draft: true` fino a revisione dell'utente.
-5. Se serve una categoria nuova: aggiornare `categories_allowed` + `.md-cover--<slug>`
-   in `extra.css` + un `elif` in `overrides/partials/category-icon.html`.
+5. Le tag sono libere: nessuna config da aggiornare (a differenza di MkDocs).
 
 ### Articoli categoria Linux (da scrivere)
 
-Categoria `Linux` già configurata ma senza post. Repo sorgente in locale:
-`~/Projects/personal/koji76/{arch,debian,suse}-init-ansible` + `nixos-kde`.
+Categoria `Linux` già usata come tag ma senza post dedicati. Repo sorgente in
+locale: `~/Projects/personal/koji76/{arch,debian,suse}-init-ansible` + `nixos-kde`.
 Tre articoli:
 
 - **distro hopping** — pezzo riflessivo "cosa ho notato": il percorso
@@ -266,7 +258,7 @@ riferimento per chi vuole approfondire.
   devcontainer (già notato nel repo `debian-init-ansible`), mount di
   config esterne (`${localEnv:HOME}`), porte e DNS, schema JSON per YAML
   (Tekton, Kustomize, ArgoCD).
-- **Formato**: `lab: true`, slug `devcontainer-guida-pratica`, categoria
+- **Formato**: `lab: true`, slug `devcontainer-guida-pratica`, tag
   `Containers`, cross-link ai 3 draft esistenti come esempi completi.
 - **Nota**: i 3 draft (`devops-devcontainer`, `java-quarkus-devcontainer`,
   `mono-net47-devcontainer`) restano nel repo come reference. Questo post
@@ -325,8 +317,8 @@ l'equivalente upstream.
   testo, player embeddabile, `agg` per GIF). Vincolo repo: niente binari → il
   video va su host esterno (YouTube/PeerTube/GitLab) ed embeddato nel post.
   L'embed asciinema è già risolto (vedi Screencast in Convenzioni); per video
-  mp4 servirebbe un modo pulito (partial/hook o snippet `attr_list` + iframe)
-  — da valutare come feature del blog se il video diventa ricorrente.
+  mp4 servirebbe un modo pulito (shortcode o iframe) — da valutare come feature
+  del blog se il video diventa ricorrente.
 - **Probabile serie, non un pezzo unico** (da decidere): taglio possibile in
   3 — (1) ambiente: kind + GitLab CE su Docker; (2) CI con Tekton: Task/Pipeline/
   Trigger + webhook + build&push; (3) CD con Argo CD: modello pull, Application,
@@ -378,10 +370,9 @@ preciso. I tre sotto sono gli unici con un angolo possibile.
 
 ### Minori
 
-- I pulsanti Precedente/Successivo in fondo alle pagine seguono un ordine vecchio
-  (il plugin li cabla prima del hook `on_nav`).
 - Valutare una sezione "Reference" separata per i materiali non-articolo (checklist,
   recon report, cheat-sheet).
+- Riempire `content/projects.md` con i link dei progetti.
 
 ---
 

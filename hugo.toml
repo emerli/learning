@@ -26,14 +26,11 @@ dateFormat = "2 January 2006"
 since = 2026
 colorScheme = "auto"
 customCSS = ["css/custom.css"]
-customJS = ["js/custom.js"]
+customJS = ["js/custom.js", "js/asciinema-player.min.js"]
 
 [params.Entry]
 toc = true
 tocOpen = false
-customRemoteJS = [
-  "https://cdn.jsdelivr.net/npm/asciinema-player@3.8.1/dist/bundle/asciinema-player.min.js",
-]
 
 [[params.social]]
 name = "GitHub"
