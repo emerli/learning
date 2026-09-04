@@ -10,7 +10,7 @@ slug: "projects"
     <i class="fa-solid fa-book" aria-hidden="true"></i>
     <a href="https://github.com/emerli/hypr-blue">hypr-blue</a>
   </div>
-  <p class="project-card-desc">Configurazione Hyprland con tema blu.</p>
+  <p class="project-card-desc">Immagine OCI bootc basata su Fedora Atomic, con Hyprland e SwayFX come desktop environment e un setup completo per lo sviluppo con Dev Containers.</p>
 </div>
 
 <div class="project-card">
