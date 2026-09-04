@@ -1,6 +1,6 @@
 pages:
   stage: deploy
-  image: klakegg/hugo:0.165.0-ext-alpine
+  image: hugomods/hugo:debian-base-0.165.0
   script:
     - hugo --minify
   artifacts:
