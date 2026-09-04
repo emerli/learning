@@ -42,7 +42,7 @@ ricavati data, titolo, tag e il resto:
 | `lab: true` | badge "LAB" su card e post + tag `Lab` (contenuto pratico / hands-on) | no |
 | `draft: true` | escluso dalla build | no |
 
-Convenzione tag: il primo valore è la categoria (`Java`, `AI`, `Containers`, `Linux`,
+Convenzione tag: il primo valore è la categoria (`Java`, `AI`, `Docker`, `Linux`,
 `Agile`, `Sicurezza Informatica`), poi 2-4 tag specifici. I post `lab: true` hanno anche
 la tag `Lab`.
 

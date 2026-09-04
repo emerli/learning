@@ -1,12 +1,12 @@
 ---
 date: 2026-04-24
 categories:
-  - Containers
+  - Docker
 slug: containers-devcontainer-java-lab
 lab: true
 description: "Il mio devcontainer per Java/Quarkus: Maven, JDK 17, hot code replace e mount .m2."
 tags:
-  - Containers
+  - Docker
   - DevContainer
   - Java
   - Quarkus

@@ -76,7 +76,7 @@ lab: true
 ---
 ```
 
-Convenzione tag: il primo valore è la categoria (`Java`, `AI`, `Containers`,
+Convenzione tag: il primo valore è la categoria (`Java`, `AI`, `Docker`,
 `Linux`, `Agile`, `Sicurezza Informatica`), poi 2-4 tag specifici. I post
 `lab: true` hanno anche la tag `Lab`.
 
@@ -240,7 +240,7 @@ Tre articoli:
   `emoji font` ×6, `kmail` ×6, `hyprland` ×5. Eventuale `lab:` o due parti
   (concetti + la settimana a litigare con xdg-desktop-portal / SMB / emoji).
 
-### Post DevContainer — guida pratica (categoria Containers)
+### Post DevContainer — guida pratica (categoria Docker)
 
 Post introduttivo + pratico (`lab: true`) su come funzionano i DevContainer,
 con i 3 esempi reali nel repo (DevOps, Java/Quarkus, Mono/.NET 4.7) come
@@ -259,7 +259,7 @@ riferimento per chi vuole approfondire.
   config esterne (`${localEnv:HOME}`), porte e DNS, schema JSON per YAML
   (Tekton, Kustomize, ArgoCD).
 - **Formato**: `lab: true`, slug `devcontainer-guida-pratica`, tag
-  `Containers`, cross-link ai 3 draft esistenti come esempi completi.
+  `Docker`, cross-link ai 3 draft esistenti come esempi completi.
 - **Nota**: i 3 draft (`devops-devcontainer`, `java-quarkus-devcontainer`,
   `mono-net47-devcontainer`) restano nel repo come reference. Questo post
   è l'articolo introduttivo che li inquadra.
@@ -287,7 +287,7 @@ generico — esempi reali di prompt falliti vs funzionanti, cosa cambia tra
 istruzioni vaghe e contesto esplicito, ruolo di AGENTS.md nel condizionare le
 risposte (vedi gotcha Strangler Fig del lab).
 
-### Lab GitOps: GitLab CE → Tekton → Argo CD → kind (categoria Containers)
+### Lab GitOps: GitLab CE → Tekton → Argo CD → kind (categoria Docker)
 
 Idea nuova (da costruire da zero, **niente specifico del cliente**). Dal lavoro
 in cliente l'utente ha visto la catena GitLab ↔ Tekton (CI) ↔ ArgoCD (CD) su

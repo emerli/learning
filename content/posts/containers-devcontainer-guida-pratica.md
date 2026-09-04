@@ -1,11 +1,11 @@
 ---
 date: 2026-09-02
 categories:
-  - Containers
+  - Docker
 slug: devcontainer-guida-pratica
 description: "Come funzionano i DevContainer: struttura, lifecycle e gotcha reali dai 3 container che uso ogni giorno."
 tags:
-  - Containers
+  - Docker
   - DevContainer
   - VS Code
 title: "DevContainer: guida pratica"

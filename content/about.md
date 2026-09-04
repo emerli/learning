@@ -21,7 +21,7 @@ Ciao, sono **Emiliano Merli** (Koji76): Cloud Architect e Senior Developer con o
 ## Argomenti trattati
 
 - **Java** — Clean Code, principi SOLID, evoluzione del linguaggio (Java 8 → 25), migrazione e novità di Spring Boot.
-- **Containers** — configurazioni `devcontainer.json` per ambienti di sviluppo (DevOps, Java/Quarkus, Mono .NET 4.7).
+- **Docker** — configurazioni `devcontainer.json` per ambienti di sviluppo (DevOps, Java/Quarkus, Mono .NET 4.7).
 - **AI** — Spec Driven Development, Spec Kit, OpenSpec, agenti e workflow OpenCode, LLM locali con Ollama, note su Transformer e ML.NET.
 - **Agile** — Open Practice Library, ripasso Scrum, pattern GoF.
 - **Sicurezza Informatica** — information gathering con Kali, recon su Metasploitable 2, exploitation checklist, privilege escalation su Linux.

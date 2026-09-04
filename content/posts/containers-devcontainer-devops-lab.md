@@ -1,12 +1,12 @@
 ---
 date: 2026-04-24
 categories:
-  - Containers
+  - Docker
 slug: containers-devcontainer-devops-lab
 lab: true
 description: "Il mio devcontainer per DevOps: Fedora 43 con kubectl, oc, tkn, argocd e kustomize."
 tags:
-  - Containers
+  - Docker
   - DevContainer
   - Kubernetes
   - Tekton

@@ -1,12 +1,12 @@
 ---
 date: 2026-04-24
 categories:
-  - Containers
+  - Docker
 slug: containers-devcontainer-mono-lab
 lab: true
 description: "Il mio devcontainer per Mono/.NET 4.7: Debian bookworm, NuGet, NUnit e OmniSharp legacy."
 tags:
-  - Containers
+  - Docker
   - DevContainer
   - .NET
   - Mono
