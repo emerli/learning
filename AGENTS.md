@@ -206,6 +206,20 @@ agg static/nome.cast nome.gif --speed 1.5
 
 ## TODO
 
+### Screencast e video mancanti
+
+- **Screencast Ollama** — registrare un cast asciinema per `ai-ollama-llm-locali`
+  (installazione/run di un modello con Ollama) e embeddarlo con lo shortcode
+  `cast`. Il post comparativa è il pezzo forte per i social: il cast renderizzato
+  come GIF è l'hook visivo.
+- **Video lab DevContainer DevOps** — `containers-devcontainer-devops-lab` non ha
+  video: registrare con OBS la creazione/riapertura del container (come fatto per
+  il lab Java) e embeddare con lo shortcode `video`.
+- **Video lab DevContainer Mono/.NET** — idem per
+  `containers-devcontainer-mono-lab`.
+- Vincolo: i video vanno su host esterno (YouTube/PeerTube) appena possibile;
+  nel frattempo `static/screen/` (già nella storia git, non aggiunge peso nuovo).
+
 ### Revisione dei post in draft
 
 Per ogni post: `slug:` corto e definitivo + `description:`; rivedere linguaggio e
