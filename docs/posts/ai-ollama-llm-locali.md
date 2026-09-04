@@ -22,7 +22,7 @@ Il motivo principale per usare un modello locale invece del cloud è la **privac
 | **Modelli di riferimento** | Qwen3.8 Max in cloud: è un modello potente che utilizzo come confronto |
 | **Strumenti** | Ollama · OpenCode · Visual Studio / .NET |
 | **Modelli testati** | Qwen3, Qwen3.5 4b/9b, Qwen2.5-Coder, Gemma4, Llama3.2, Phi4-mini, Ministral 3b/8b, IBM Granite4.2 |
-| **Progetto test** | Servizio Quarkus con 10 API in cui le interfacce sono generate in Maven |
+| **Progetto test** | [Servizio Quarkus con 10 API](https://gitlab.com/koji-ai-projects/ai-test-project/-/tree/53af05efd52e7d05c872b20aa3c1ebed0de77f6c/) in cui le interfacce sono generate in Maven |
 
 ---
 
