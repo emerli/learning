@@ -21,20 +21,22 @@ Per minimizzare l'effort necessario è stato costruito con **Material for MkDocs
 ├── mkdocs.yml       # tema + plugin + font + nav
 ├── hooks.py         # on_nav: appiattisce il menu (Home / About / categorie)
 ├── overrides/
-│   ├── blog.html                     # lista post come griglia di card
+│   ├── blog.html                     # lista post come lista verticale (stile MLM)
 │   └── partials/
-│       ├── post.html                 # card compatta (cover per categoria + badge "Lab")
+│       ├── post.html                 # riga post: thumbnail categoria + titolo + byline + estratto (badge "Lab")
 │       ├── content.html              # banner categoria in cima al post (+ badge "Lab")
 │       └── category-icon.html        # icona Material per slug categoria (condivisa)
 └── docs/
-    ├── index.md              # home: SOLO frontmatter → mostra la griglia
+    ├── index.md              # home: SOLO frontmatter → mostra la lista post
     ├── about.md
-    ├── stylesheets/extra.css # griglia, card, banner, colori categoria, tipografia
+    ├── stylesheets/extra.css # lista post, thumbnail, banner, colori categoria, tipografia
     └── posts/                # UN .md per post, tutti qui, niente sottocartelle
 ```
 
 `blog_dir: .` → il blog **è** la home. Non ci sono cartelle tematiche: la tassonomia è il
-campo `categories` nel frontmatter. Griglia in home, pagine categoria
+campo `categories` nel frontmatter. Lista verticale in home (stile
+machinelearningmastery.com: thumbnail categoria + titolo + byline + estratto +
+"Continua a leggere", divisori tra le righe, nessun post featured), pagine categoria
 (`/category/<slug>/`), voce di menu e social card sono **generate** — non si mantengono a
 mano. L'archivio per data è disattivato (`archive: false`).
 
@@ -50,9 +52,9 @@ Tutto parte dal singolo file `docs/posts/<nome>.md`. Dal frontmatter:
 | `categories` (1º valore) | pagina categoria, **colore + icona** di cover e banner, filtro | **sì** |
 | `title` / `# H1` | titolo card + `<title>`; genera lo `slug` se assente | no |
 | `slug` | URL `/<slug>/` — impostarlo alla creazione e non cambiarlo | no (consigliato) |
-| `description` | estratto nella griglia + sottotitolo social card | no |
+| `description` | estratto nella lista + sottotitolo social card | no |
 | `lab: true` | badge "LAB" su cover della card e banner del post — segnala un contenuto pratico / hands-on | no |
-| `<!-- more -->` nel corpo | taglia l'estratto mostrato in griglia (`post_excerpt: optional`) | no |
+| `<!-- more -->` nel corpo | taglia l'estratto mostrato in lista (`post_excerpt: optional`) | no |
 
 ```yaml
 ---
@@ -380,8 +382,6 @@ preciso. I tre sotto sono gli unici con un angolo possibile.
   (il plugin li cabla prima del hook `on_nav`).
 - Valutare una sezione "Reference" separata per i materiali non-articolo (checklist,
   recon report, cheat-sheet).
-- Se il post più recente sarà di categoria Sicurezza (cover rossa), l'anello rosso
-  `--latest-accent` della card featured avrà poco contrasto — eventualmente cambiare tinta.
 
 ---
 

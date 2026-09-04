@@ -1,41 +1,33 @@
 {#-
   Override of Material's partials/post.html
-  Compact card for the Medium-style grid on blog.html.
-  Cover is generated per category (colour + icon), no image needed.
+  Horizontal list row (machinelearningmastery.com style): category square on
+  the left, title + byline + excerpt + "continue" link on the right.
 -#}
 {% set _cat = (post.categories | first).title if post.categories else "Note" %}
 {% set _slug = _cat | lower | replace(" ", "-") %}
-<article class="md-post-card{% if featured %} md-post-card--featured{% endif %}">
-  <a class="md-post-card__cover md-cover--{{ _slug }}" href="{{ post.url | url }}">
-    {% if post.meta.lab %}<span class="md-post-card__lab">Lab</span>{% endif %}
-    <span class="md-post-card__icon">
-      {%- with slug = _slug %}{% include "partials/category-icon.html" %}{% endwith -%}
-    </span>
-    <span class="md-post-card__cat">{{ _cat }}</span>
+<article class="md-post-row">
+  <a class="md-post-row__thumb md-cover--{{ _slug }}" href="{{ post.url | url }}" aria-hidden="true" tabindex="-1">
+    {%- with slug = _slug %}{% include "partials/category-icon.html" %}{% endwith -%}
   </a>
-  <div class="md-post-card__body">
-    {% if featured %}<span class="md-post-card__latest">più recente</span>{% endif %}
-    <div class="md-post-card__meta">
-      <time datetime="{{ post.config.date.created }}">
-        {{- post.config.date.created | date -}}
-      </time>
-      {% if post.config.readtime %}
-        <span aria-hidden="true">·</span>
-        <span>{{ post.config.readtime }} min</span>
-      {% endif %}
-    </div>
-    <h2 class="md-post-card__title">
+  <div class="md-post-row__body">
+    <h2 class="md-post-row__title">
       <a href="{{ post.url | url }}">
         {{- post.post.title | d(post.meta.title, true) | d(post.title, true) -}}
       </a>
     </h2>
+    <p class="md-post-row__byline">
+      di {{ config.site_author | d("koji76", true) }}
+      <span aria-hidden="true">·</span>
+      <time datetime="{{ post.config.date.created }}">{{ post.config.date.created | date }}</time>
+      <span aria-hidden="true">·</span>
+      <a class="md-post-row__cat" href="{{ (post.categories | first).url | url if post.categories else "#" }}">{{ _cat }}</a>
+      {% if post.meta.lab %}<span class="md-post-row__lab">Lab</span>{% endif %}
+    </p>
     {% set _body = post.content %}
     {% if "</h2>" in _body %}{% set _body = _body.split("</h2>", 1) | last %}
     {% elif "</h1>" in _body %}{% set _body = _body.split("</h1>", 1) | last %}{% endif %}
     {% set _excerpt = post.meta.description or (_body | striptags | truncate(180, true)) %}
-    <p class="md-post-card__excerpt">{{ _excerpt }}</p>
-    <a class="md-post-card__more" href="{{ post.url | url }}">
-      {{ lang.t("blog.continue") }}
-    </a>
+    <p class="md-post-row__excerpt">{{ _excerpt }}</p>
+    <a class="md-post-row__more" href="{{ post.url | url }}">{{ lang.t("blog.continue") }}</a>
   </div>
 </article>

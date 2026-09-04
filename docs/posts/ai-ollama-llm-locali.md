@@ -121,16 +121,23 @@ Come comparazione di correttezza ho comparato le risposte con quelle fornite da 
 
 Provando vari modelli mi sono accorto che una context window troppo piccola causava molti problemi. Dopo averla aumentata ho notato che il consumo di VRAM saliva parecchio: in alcuni casi, come quello di Qwen3.5:9b, si arrivava all'offload parziale, che allungava la durata delle operazioni. Chiaramente occorre trovare il giusto bilanciamento.
 
-A titolo comparativo ho provato a disabilitare la GPU ed eseguire un'operazione solo sulla CPU: i tempi si sono dilatati enormemente.
+I numeri di seguito vengono dai log di Ollama della sessione di test (`journalctl -u ollama`): ogni caricamento stampa quanta memoria servono pesi e KV-cache e quanti layer finiscono su GPU contro RAM. La lezione è che **la context window non è gratis**: ad alzarla cresce la KV-cache, non i pesi, e su 8 GB di VRAM è proprio la KV-cache il primo componente a sforare.
 
-Sotto, la tabella con i risultati.
+| Modello | Context | Pesi (VRAM) | KV-cache | GPU/CPU | Esito |
+|---|---|---|---|---|---|
+| Qwen3.5:4b | 16.384 | 2.5 GB | 0.5 GB | 34/34 GPU | 100% GPU / Stabile |
+| Qwen3.5:4b | 32.768 | 2.5 GB | 1.1 GB | 34/34 GPU | 100% GPU / Stabile |
+| Qwen3.5:9b | 16.384 | 4.7 GB | 1.1 GB | 32/34 GPU | 2 layer in RAM |
+| Qwen3.5:9b | 32.768 | 4.7 GB | 4.6 GB | 33/37 GPU | Offload parziale, più lento |
+| Qwen3.5:9b (num_gpu=0) | 32.768 | RAM (7.2 GB) | — | 100% CPU | 2m35s per compito semplice |
+| IBM Granite4.2:8b | 32.768 | 4.9 GB | 5.1 GB | 26/41 GPU | 10.3 GB in RAM, 15m28s |
 
-| Modello | Context | VRAM/RAM | GPU/CPU | Esito |
-|---|---|---|---|---|
-| Qwen3.5:9b | 16.384 | 5.9 GB | 100% GPU | Stabile |
-| Qwen3.5:9b | 32.768 | 7.1 GB | 87% / 13% | Offload parziale, più lento |
-| Qwen3.5:9b (num_gpu=0) | 32.768 | RAM (7.2 GB) | 100% CPU | 2m35s per compito semplice |
-| Ministral-8b | 16.384 | — | 70% / 30% | Più pesante di Qwen a parità di context |
+Osservazioni:
+- Passando Qwen3.5:9b da 16k a 32k la KV-cache quadruplica (1.1 → 4.6 GB) mentre i pesi restano uguali: il modello esce quasi interamente dalla VRAM e ogni token paga il bus PCIe.
+- Il caso estremo è Granite4.2:8b a 32k: la sola KV-cache (5.1 GB) supera i pesi (4.9 GB), e Ollama scarica in RAM di sistema **10.3 GB** — i suoi tempi lentissimi hanno un colpevole hardware, oltre al comportamento visto oltre.
+- A titolo comparativo ho provato a disabilitare la GPU ed eseguire un'operazione solo sulla CPU: i tempi si sono dilatati enormemente.
+
+Per verificarlo sul proprio setup: `ollama ps` mostra lo split GPU/CPU in tempo reale, oppure `journalctl -u ollama -f | grep offloaded` durante il caricamento.
 
 ### 4. Note sull'architettura di Qwen 3.5
 
@@ -147,7 +154,9 @@ La cosa che non mi è piaciuta molto è il fatto che si perde in molti ragioname
 
 Con prompt più specifici il comportamento migliora sensibilmente (risposta rapida e corretta), a conferma che parte del problema è la genericità della richiesta — ma la tendenza a "non fermarsi mai" resta un tratto di fondo, probabilmente ereditato proprio dal training agentico intensivo.
 
-**Verdetto:** competenza tecnica reale (IBM ha decenni di esperienza nell'ecosistema Java enterprise), ma tempi (minuti anziché secondi) che lo rendono poco pratico per uso interattivo quotidiano. Utile solo per analisi una tantum dove il tempo non è un vincolo. Sarebbe interessante provare tagli più grandi del modello avendo un hardware adeguato a disposizione.
+A questo si somma un colpevole hardware oggettivo, emerso dai log: a context 32k la sola KV-cache di Granite (5.1 GB) supera i pesi (4.9 GB), e Ollama scarica in RAM di sistema **10.3 GB** su 8 GB di VRAM (e 15.3 GB totali). Due terzi dei suoi layer girano a velocità RAM attraverso il bus PCIe: ogni token del suo thinking paga quel pedaggio, il che spiega perché un blocco di ragionamento impieghi 8m35s e una descrizione completa **15m28s**. Non è solo "indecisione": il modello è contemporaneamente sovraccaricato a livello hardware.
+
+**Verdetto:** competenza tecnica reale (IBM ha decenni di esperienza nell'ecosistema Java enterprise), ma tempi (minuti anziché secondi) che lo rendono poco pratico per uso interattivo quotidiano. Utile solo per analisi una tantum dove il tempo non è un vincolo — a condizione di non spingerlo su context window troppo grandi. Sarebbe interessante provare tagli più grandi del modello avendo un hardware adeguato a disposizione.
 
 
 ## Il terzo test: OpenCode e la richiesta complessa
@@ -232,6 +241,7 @@ Un M1 del 2020 con 8GB di RAM condivisa, testato informalmente, si è comportato
 
 1. Il default di context di Ollama (4.096 token) è quasi sempre insufficiente per l'uso con un agente: 16k è un minimo, non un lusso; per progetti architetturalmente complessi (più moduli, doppie interfacce, sub-agenti) **32k è il vero punto di partenza sicuro**.
 2. Verificare sempre con `ollama ps` se un modello gira 100% GPU o se c'è offload: anche un 13% su CPU si traduce in un rallentamento sproporzionato.
+3. La context window non è gratis: ad alzarla cresce la KV-cache (non i pesi), e su 8 GB di VRAM è la prima a sforare. Un valore alto va quindi calibrato per modello, non alzato "a caso".
 3. Un comportamento anomalo va prima verificato nei log (`journalctl -u ollama -f`) prima di concludere che sia un limite del modello.
 4. Chiamare l'API di Ollama direttamente con `curl`, bypassando l'agente, è il modo più rapido per isolare se un problema è nel modello, in Ollama, o nell'integrazione con l'agente.
 5. La stessa richiesta può avere esiti diversi in tentativi identici: prevedere un meccanismo di retry, non aspettarsi determinismo assoluto.
@@ -239,6 +249,7 @@ Un M1 del 2020 con 8GB di RAM condivisa, testato informalmente, si è comportato
 7. La temperatura ottimale non è trasferibile da un modello all'altro come numero, ma il meccanismo con cui agisce (esplorazione vs fedeltà) sì — va riverificata caso per caso.
 8. Su architetture non ovvie (es. wrapper a doppia interfaccia), fornire il contesto in anticipo o in due passaggi (prima il quadro generale, poi il dettaglio) compensa gran parte del divario di scala rispetto a un modello enterprise.
 9. I modelli piccoli non colmano il divario di "conoscenza pregressa" di pattern architetturali rari rispetto a modelli di scala enterprise — nessuna configurazione lo elimina, si può solo compensarlo con il proprio contesto.
+10. Quando un modello grande è lento, prima di tacciarlo di "indecisione" verifica nei log se è in offload: un modello che sfora la VRAM (KV-cache + pesi) paga il bus PCIe a ogni token, e i suoi tempi esplodono per cause hardware prima ancora che di comportamento.
 
 Per la configurazione pratica (installazione, provider Ollama, context window, temperatura): vedi il [lab OpenCode con Ollama](ai-opencode-lab.md).
 

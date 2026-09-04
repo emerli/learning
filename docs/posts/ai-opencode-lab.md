@@ -49,7 +49,7 @@ Scarichiamo il primo modello:
 ollama pull qwen3.5:4b
 ```
 
-per avere una lista dei modelli disponibili e capirne le differenze si può consultare [Ollama official site](https://ollama.com/library?sort=newest) 
+per avere una lista dei modelli disponibili e capirne le differenze si può consultare [Ollama official site](https://ollama.com/library?sort=newest)
 
 Per verificare la lista dei modelli gia installati:
 
@@ -64,7 +64,7 @@ ollama run qwen3.5:4b
 ```
 
 Ora si può inserire prompt nella shell e ottenere le risposte dal modello eseguito localmente.
-Per uscire dal run basta inserire 
+Per uscire dal run basta inserire
 
 ```
 /bye
@@ -142,7 +142,7 @@ incolliamo per questo esempio la configurazione seguente che fa vedere qwen3.5:4
 "qwen3.5:4b": il modello se ne possono mettere diversi
 "permission": configura cosa può fare e cosa no opencode
 
-La configurazione che utilizzo personalmente la trovate al  seguente link [opencode.jsonc](https://gitlab.com/koji-ai-projects/configurazioni-utili-ai/-/blob/428edca91cff5bf7ae147761139cf32dca0a65e3/opencode.jsonc) 
+La configurazione che utilizzo personalmente la trovate al  seguente link [opencode.jsonc](https://gitlab.com/koji-ai-projects/configurazioni-utili-ai/-/blob/428edca91cff5bf7ae147761139cf32dca0a65e3/opencode.jsonc)
 
 
 Riapriamo Opencode
@@ -174,7 +174,7 @@ curl http://localhost:11434/api/create -d '{
 
 Questo comando crea un nuovo modello basato sul precedente ma riconfigurato per una context window di 32k.
 
-Chiudiamo Opencode ed editiano opencode.jsonc  
+Chiudiamo Opencode ed editiano opencode.jsonc
 
 ```bash
 nano ~/.config/opencode/opencode.jsonc
@@ -267,7 +267,7 @@ Con questa configurazione la risposta risultava più prevedibile.
 
 ## Il test: sette modelli a confronto
 
-I risultati della [comparativa](ai-ollama-llm-locali.md) li avevo raccolti un po' durante l'uso quotidiano. Prima di scrivere il post ho rifatto tutto con un metodo fisso, per essere sicuro di non pubblicare cose imprecise: stesso identico progetto, stesse domande, stesso ordine, sessione pulita a ogni run.
+I dati emersi nell'articolo sulla [comparativa](ai-ollama-llm-locali.md) dei modelli sono stati ricavati con un metodo fisso, per essere sicuro di non pubblicare cose imprecise: stesso identico progetto, stesse domande, stesso ordine, sessione pulita a ogni run.
 
 ### Il metodo
 
@@ -276,19 +276,20 @@ Progetto di test: l'adapter Quarkus della comparativa, con le sue due specifiche
 1. **"descrivimi il progetto"** — richiede esplorazione: il modello deve usare i tool per guardarsi attorno, leggere README e `pom.xml`, sintetizzare.
 2. **"quali api espone"** — richiede di capire quale delle due specifiche OpenAPI è quella giusta e leggerla fino in fondo.
 
+
 Sette modelli, tre context window ciascuno (default 4k, 16.384, 32.768).
 
 ### I risultati
 
-| Modello | 4k (default) | 16.384 | 32.768 |
-|---|---|---|---|
-| **qwen3.5:9b** | ✗ 57s — scrive i tool-call come testo, non li esegue | ⚠ 50s — buono, ma nel ragionamento "sente" istruzioni mai date | ✓ 1m58s — **il migliore**: endpoint con parametri e codici d'errore (tempo gonfiato dall'offload: 37% dei layer in RAM, vedi log) |
-| **qwen3.5:4b** | ✗ 51s — si convince che il progetto sia OpenCode stesso | ⚠ 53s — ottima descrizione, ma la seconda risposta si tronca a metà frase | ✓ 9s + 15s — eccellente, al secondo tentativo |
-| **qwen3:4b** | ✗ 2m39s — loop di meta-thinking, risposta vaga | ✓ 1m25s — corretto e conciso | ✗ 2m43s — risponde in inglese senza aprire un file, poi "nessuna API trovata" |
-| **qwen2.5:7b** | ✗ 9s — chiede chiarimenti invece di esplorare | ✗ 10s — chiede a me di passargli il README | ⚠ 26s — esplora l'albero dei file ma non legge nulla |
-| **gemma4:e4b** | ✗ 13s — chiede chiarimenti | ✓ 25s — la sorpresa: accurato e veloce | ✓ 20s — corretto |
-| **granite4.2:8b** | ✗ loop di thinking, nessun risultato | ⚠ 1m52s — corretto ma lento | ⚠ 15m28s — corretto ma inutilizzabile |
-| **ministral-3:3b** | ✗ 16s — risponde con un template generico inventato | ✗ 9s — confonde il progetto con OpenCode | — non provato |
+| Modello            | 4k (default)                                            | 16.384                                                                    | 32.768                                                                                                                            |
+| ------------------ | ------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **qwen3.5:9b**     | ✗ 57s — scrive i tool-call come testo, non li esegue    | ⚠ 50s — buono, ma nel ragionamento "sente" istruzioni mai date            | ✓ 1m58s — **il migliore**: endpoint con parametri e codici d'errore (tempo gonfiato dall'offload: 37% dei layer in RAM, vedi log) |
+| **qwen3.5:4b**     | ✗ 51s — si convince che il progetto sia OpenCode stesso | ⚠ 53s — ottima descrizione, ma la seconda risposta si tronca a metà frase | ✓ 9s + 15s — eccellente, al secondo tentativo                                                                                     |
+| **qwen3:4b**       | ✗ 2m39s — loop di meta-thinking, risposta vaga          | ✓ 1m25s — corretto e conciso                                              | ✗ 2m43s — risponde in inglese senza aprire un file, poi "nessuna API trovata"                                                     |
+| **qwen2.5:7b**     | ✗ 9s — chiede chiarimenti invece di esplorare           | ✗ 10s — chiede a me di passargli il README                                | ⚠ 26s — esplora l'albero dei file ma non legge nulla                                                                              |
+| **gemma4:e4b**     | ✗ 13s — chiede chiarimenti                              | ✓ 25s — la sorpresa: accurato e veloce                                    | ✓ 20s — corretto                                                                                                                  |
+| **granite4.2:8b**  | ✗ loop di thinking, nessun risultato                    | ⚠ 1m52s — corretto ma lento                                               | ⚠ 15m28s — corretto ma inutilizzabile                                                                                             |
+| **ministral-3:3b** | ✗ 16s — risponde con un template generico inventato     | ✗ 9s — confonde il progetto con OpenCode                                  | — non provato                                                                                                                     |
 
 ### I tempi
 
@@ -298,27 +299,27 @@ Le due domande, separate:
 
 **"descrivimi il progetto"** — prima domanda, modello appena caricato:
 
-| Modello | 4k | 16k | 32k |
-|---|---|---|---|
-| qwen3.5:9b | 57s | 50s | 1m58s |
-| qwen3.5:4b | 51s | 53s | 31s → 9s\* |
-| qwen3:4b | 2m39s | 1m25s | 2m43s |
-| qwen2.5:7b | 9s | 10s | 26s |
-| gemma4:e4b | 13s | 25s | 20s |
-| granite4.2:8b | — | 1m52s | 15m28s |
-| ministral-3:3b | 16s | 9s | — |
+| Modello        | 4k    | 16k   | 32k        |
+| -------------- | ----- | ----- | ---------- |
+| qwen3.5:9b     | 57s   | 50s   | 1m58s      |
+| qwen3.5:4b     | 51s   | 53s   | 31s → 9s\* |
+| qwen3:4b       | 2m39s | 1m25s | 2m43s      |
+| qwen2.5:7b     | 9s    | 10s   | 26s        |
+| gemma4:e4b     | 13s   | 25s   | 20s        |
+| granite4.2:8b  | —     | 1m52s | 15m28s     |
+| ministral-3:3b | 16s   | 9s    | —          |
 
 **"quali api espone"** — seconda domanda, stessa sessione:
 
-| Modello | 4k | 16k | 32k |
-|---|---|---|---|
-| qwen3.5:9b | 3s | 31s | 26s |
-| qwen3.5:4b | 2s | 10s | 15s |
-| qwen3:4b | 2m54s | 11s | 1m29s |
-| qwen2.5:7b | — | — | — |
-| gemma4:e4b | 6s | 3s | 2s |
-| granite4.2:8b | — | 23s | — |
-| ministral-3:3b | 3s | 18s | — |
+| Modello        | 4k    | 16k | 32k   |
+| -------------- | ----- | --- | ----- |
+| qwen3.5:9b     | 3s    | 31s | 26s   |
+| qwen3.5:4b     | 2s    | 10s | 15s   |
+| qwen3:4b       | 2m54s | 11s | 1m29s |
+| qwen2.5:7b     | —     | —   | —     |
+| gemma4:e4b     | 6s    | 3s  | 2s    |
+| granite4.2:8b  | —     | 23s | —     |
+| ministral-3:3b | 3s    | 18s | —     |
 
 \* primo tentativo fallito (31s): il modello ha stampato `ls` invece di eseguirlo; il tempo indicato è quello della ripetizione.
 "—" = domanda non posta (run interrotto dopo la prima risposta) o nessuna risposta prodotta (loop).
@@ -329,17 +330,17 @@ I tempi vanno letti anche nella direzione opposta: **basso non significa bravo**
 
 Il `journalctl -u ollama` della sessione di test vale più di ogni impressione: ogni caricamento stampa quanta memoria serve e **quanti layer finiscono su GPU contro RAM**. La tabella che manca a tutti i benchmark:
 
-| Modello | ctx | Pesi (VRAM) | KV-cache ctx | Layer su GPU | Esito |
-|---|---|---|---|---|---|
-| qwen3.5:4b | 16k | 2.5 GB | 0.5 GB | 34/34 | 100% GPU |
-| qwen3.5:4b | 32k | 2.5 GB | 1.1 GB | 34/34 | 100% GPU |
-| qwen3.5:9b | 16k | 4.7 GB | 1.1 GB | 32/34 | 2 layer in RAM |
-| qwen3.5:9b | 32k | 4.7 GB | 4.6 GB | 33/37 | **37% dei layer in RAM** |
-| gemma4:e4b | 32k | 2.8 GB | 0.5 GB | 43/43 | 100% GPU |
-| granite4.2:8b | 16k | 4.9 GB | 2.6 GB | 36/41 | 5 layer in RAM |
-| granite4.2:8b | 32k | 4.9 GB | 5.1 GB | 26/41 | **63% in RAM: 10.3 GB su Host** |
-| qwen3:4b | 32k | 2.4 GB | 4.6 GB | 33/37 | 4 layer in RAM |
-| qwen2.5:7b | 32k | 4.2 GB | 1.8 GB | 29/29 | 100% GPU |
+| Modello       | ctx | Pesi (VRAM) | KV-cache ctx | Layer su GPU | Esito                           |
+| ------------- | --- | ----------- | ------------ | ------------ | ------------------------------- |
+| qwen3.5:4b    | 16k | 2.5 GB      | 0.5 GB       | 34/34        | 100% GPU                        |
+| qwen3.5:4b    | 32k | 2.5 GB      | 1.1 GB       | 34/34        | 100% GPU                        |
+| qwen3.5:9b    | 16k | 4.7 GB      | 1.1 GB       | 32/34        | 2 layer in RAM                  |
+| qwen3.5:9b    | 32k | 4.7 GB      | 4.6 GB       | 33/37        | **37% dei layer in RAM**        |
+| gemma4:e4b    | 32k | 2.8 GB      | 0.5 GB       | 43/43        | 100% GPU                        |
+| granite4.2:8b | 16k | 4.9 GB      | 2.6 GB       | 36/41        | 5 layer in RAM                  |
+| granite4.2:8b | 32k | 4.9 GB      | 5.1 GB       | 26/41        | **63% in RAM: 10.3 GB su Host** |
+| qwen3:4b      | 32k | 2.4 GB      | 4.6 GB       | 33/37        | 4 layer in RAM                  |
+| qwen2.5:7b    | 32k | 4.2 GB      | 1.8 GB       | 29/29        | 100% GPU                        |
 
 La riga di granite spiega i suoi 15m28s meglio di ogni altra considerazione: a 32k il KV-cache da solo (5.1 GB) supera i pesi del modello (4.9 GB), e Ollama scarica in RAM di sistema **10.3 GB** — su un laptop con 15.3 GB totali. Il modello non è solo "indeciso": è che due terzi dei suoi layer girano a velocità RAM attraverso il bus PCIe, e ogni token paga quel pedaggio. È il motivo per cui nel test comparativo i suoi blocchi di thinking erano così lenti: **la context window non è gratis**, cresce il KV-cache, non i pesi, e su 8 GB di VRAM è il KV-cache il primo a sforare.
 
@@ -382,7 +383,8 @@ Nota di coerenza con la comparativa: nel test a freddo (domanda sulle API senza 
 
 Opencode permette di utilizzare modelli locali in Ollama con ottimi risultati, ma le risorse sono limitate dalla VRAM della scheda video. In pratica ci si può fare molte cose, ma non è paragonabile con i modelli cloud, molto più grandi e capaci di elaborazioni complesse.
 
-Nello sviluppo quotidiano io utilizzo il provider "Opencode GO" che a fronte di un costo basso mi permette di utilizzare diversi modelli superando il limite della mia scheda video ma mantenendo un buon livello di privacy; tuttavia utilizzo ollama per task in cui la privacy è fondamentale.
+Nello sviluppo quotidiano io utilizzo il provider "Opencode GO" e "Ollama cloud" che a fronte di un costo basso mi permettono di utilizzare diversi modelli superando il limite della mia scheda video ma mantenendo un buon livello di privacy;
+tuttavia utilizzo ollama per task in cui la privacy è fondamentale.
 
 ## Riferimenti
 
