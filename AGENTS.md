@@ -9,6 +9,7 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 - **Repo**: https://gitlab.com/koji76/learning
 - **Stack**: Hugo (binario statico) + tema `hugo-coder` vendored in `themes/` +
   override minimi in `layouts/` + CSS/JS custom in `assets/`. RSS attivo.
+  Ricerca full-text con **Pagefind** (indice generato in CI).
 
 ---
 
@@ -16,7 +17,7 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 
 ```
 .
-├── .gitlab-ci.yml   # pipeline GitLab Pages (hugo --minify)
+├── .gitlab-ci.yml   # pipeline GitLab Pages (hugo --minify + pagefind)
 ├── .gitignore       # public/  resources/  .hugo_build.lock
 ├── hugo.toml        # tema + params + menu + tassonomie
 ├── assets/
@@ -25,9 +26,10 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 │   └── js/custom.js                # ponte asciinema v3 (create())
 │   └── js/asciinema-player.min.js  # vendored
 ├── layouts/
-│   ├── _partials/header.html       # avatar tondo + titolo nell'header
+│   ├── _partials/header.html       # avatar tondo + titolo + barra di ricerca
 │   ├── _partials/list.html        # lista post stile PaperMod + tag cloud
-│   ├── _partials/head/extensions.html # CSS asciinema
+│   ├── _partials/head/extensions.html # CSS asciinema + Pagefind UI
+│   ├── _default/search.html       # pagina /search/ con PagefindUI (query da ?q=)
 │   └── posts/single.html          # header post: data, titolo, descrizione, tag
 ├── i18n/it.toml                    # "Indice" per il TOC
 ├── static/
@@ -37,6 +39,7 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 ├── content/
 │   ├── about.md
 │   ├── projects.md                 # card dei progetti
+│   ├── search.md                   # pagina di ricerca (layout search)
 │   └── posts/                      # UN .md per post, tutti qui
 ├── layouts/shortcodes/             # cast.html e video.html (relURL per /learning/)
 └── themes/hugo-coder/              # tema vendored (non modificare)
@@ -100,17 +103,24 @@ release GitHub — non c'è pip sulla macchina).
 
 Job `pages` in `.gitlab-ci.yml`, **solo su branch di default**:
 
-1. Immagine `klakegg/hugo:0.165.0-ext-alpine` (versione pinnata)
-2. `hugo --minify` → genera in `public/` (default Hugo, niente `mv`)
-3. Artifact `public/`
+1. Immagine `hugomods/hugo:debian-0.165.0` (versione pinnata)
+2. `apt-get install curl ca-certificates` (l'immagine debian è minimale)
+3. Download di **Pagefind** v1.5.2 (binario musl dalla release GitHub)
+4. `hugo --minify` → genera in `public/` (default Hugo, niente `mv`)
+5. `pagefind --site public` → indice di ricerca in `public/pagefind/`
+6. Artifact `public/`
 
-Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
+Build in ~30s (il grosso è l'`apt-get`).
 
 ### Trappole note
 - `hugo --minify` non fallisce su post senza `date`/`title` — verificare a mano.
 - Il tema è vendored: aggiornarlo = sostituire `themes/hugo-coder/` e riallineare
   gli override in `layouts/`.
 - Niente file binari nel repo (i `.cast` sono testo, ok).
+- Le immagini `hugomods/hugo` `*-base` e `*-ci` non hanno curl/wget (o non
+  esistono per la versione pinnata): usare `debian-<versione>` + apt.
+- Pagefind: l'hash dei file d'indice cambia a ogni build — non referenziare
+  mai i file `pagefind/index/*` a mano, usare solo `pagefind-ui.js`.
 
 ---
 
@@ -124,6 +134,9 @@ Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
 - TOC: attivo su tutti i post (`[params.Entry] toc = true`), collassabile
   sotto "Indice" (i18n in `i18n/it.toml`).
 - Stile card lista, badge LAB, tabelle, tag cloud: tutto in `assets/css/custom.css`.
+- **Ricerca**: barra nell'header (form → `/search/?q=…`) + pagina `/search/`
+  con PagefindUI (query da `?q=` via `initialQuery`). Indice generato in CI,
+  mai a mano. UI in italiano (traduzioni inline in `layouts/_default/search.html`).
 - **Screencast**: strumenti = **OBS** per il video dello schermo + **asciinema**
   per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo (in
   `static/`); editing dei tempi morti con `asciinema-edit cut`/`quantize`.
@@ -147,7 +160,8 @@ Niente pip, niente librerie di sistema, niente cache: build in pochi secondi.
 
 - Migrazione da MkDocs a Hugo completata (settembre 2026): tema `hugo-coder`
   vendored, override in `layouts/`, asciinema vendored in `assets/`, CI con
-  `hugomods/hugo:debian-base-0.165.0` (pinnata, build ~15s).
+  `hugomods/hugo:debian-0.165.0` (pinnata, build ~30s con apt+pagefind).
+- Ricerca full-text con Pagefind attiva (barra nell'header + `/search/`).
 - Pubblicati (categoria AI): `ai-ollama-llm-locali`, `ai-opencode`, `ai-agents-md`,
   `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`,
   `ai-opencode-lab`, `containers-devcontainer-guida-pratica`.
