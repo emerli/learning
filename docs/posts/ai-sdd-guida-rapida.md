@@ -10,6 +10,10 @@ slug: ai-sdd-guida-rapida
 
 # Spec Driven Development (SDD) — Guida Rapida
 
+Prima la spec, poi il codice — a patto che la spec non sia un documento morto. La differenza sta nel renderla eseguibile: stub generati a build time e test che la fanno rispettare.
+
+<!-- more -->
+
 ## 1. Cos'è lo SDD
 
 Lo **Spec Driven Development** è un approccio in cui la **specifica** viene scritta **prima** del codice e funge da **fonte della verità** per tutto il ciclo di sviluppo.

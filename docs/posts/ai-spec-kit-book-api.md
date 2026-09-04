@@ -11,6 +11,10 @@ description: "GitHub Spec Kit su un esempio reale: constitution → specify → 
 
 # Spec Kit — esempio: Book Management REST API
 
+GitHub porta la spec-driven development sul campo: constitution, specify, plan, tasks, implement. L'ho provato su un'API CRUD vera per vedere quanto è repeatable — e dov'è il limite.
+
+<!-- more -->
+
 Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](ai-sdd-guida-rapida.md).
 
 > **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit

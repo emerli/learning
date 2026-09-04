@@ -11,6 +11,10 @@ description: "OpenSpec sullo stesso esempio: propose → apply → archive, le s
 
 # OpenSpec — esempio: Book Management REST API
 
+Spec Kit vs OpenSpec: la differenza sta nel processo. Change proposal e spec delta al posto dei gate: leggero, iterativo e pronto per codebase già avviate. Stesso esempio, confronto diretto.
+
+<!-- more -->
+
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
 A differenza di [Spec Kit](ai-spec-kit-book-api.md), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](ai-sdd-guida-rapida.md).
 

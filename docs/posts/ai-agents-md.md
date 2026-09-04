@@ -9,6 +9,10 @@ description: "Cos'è AGENTS.md, cosa scriverci, come si annida in un monorepo e 
 
 # AGENTS.md — il file di contesto per gli agenti
 
+Il README dice cosa fa il progetto; AGENTS.md dice all'agente come lavorarci. E sta diventando lo standard letto da 60k+ repo.
+
+<!-- more -->
+
 ## Cos'è e perché
 
 `AGENTS.md` è una convenzione aperta e **tool-agnostica**: un file Markdown nella root del repository che dà a un agente di coding il contesto che un README non contiene — come si builda, come si testa, quali convenzioni seguire, quali trappole evitare.

@@ -4,7 +4,7 @@ categories:
   - AI
 slug: ai-opencode-lab
 lab: true
-draft: true
+draft: false
 description: "Configurazione di OpenCode con Ollama come provider e test pratici di un agente di coding completamente locale."
 ---
 
@@ -12,7 +12,7 @@ description: "Configurazione di OpenCode con Ollama come provider e test pratici
 
 ## Introduzione
 
-Vediamo come installare Ollama e Opencode su linux e come configurarli al meglio.
+Configurare OpenCode con Ollama è la parte facile. Azzeccare context window e temperatura è la differenza tra un agente inutile e uno che ti fa risparmiare ore.
 
 <!-- more -->
 
@@ -283,7 +283,7 @@ Sette modelli, tre context window ciascuno (default 4k, 16.384, 32.768).
 
 | Modello            | 4k (default)                                            | 16.384                                                                    | 32.768                                                                                                                            |
 | ------------------ | ------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **qwen3.5:9b**     | ✗ 57s — scrive i tool-call come testo, non li esegue    | ⚠ 50s — buono, ma nel ragionamento "sente" istruzioni mai date            | ✓ 1m58s — **il migliore**: endpoint con parametri e codici d'errore (tempo gonfiato dall'offload: 37% dei layer in RAM, vedi log) |
+| **qwen3.5:9b**     | ✗ 57s — scrive i tool-call come testo, non li esegue    | ⚠ 50s — buono, ma nel ragionamento "sente" istruzioni mai date            | ✓ 1m58s — **il migliore**: endpoint con parametri e codici d'errore (tempo gonfiato dall'offload: 4 layer su 37 in RAM, vedi log) |
 | **qwen3.5:4b**     | ✗ 51s — si convince che il progetto sia OpenCode stesso | ⚠ 53s — ottima descrizione, ma la seconda risposta si tronca a metà frase | ✓ 9s + 15s — eccellente, al secondo tentativo                                                                                     |
 | **qwen3:4b**       | ✗ 2m39s — loop di meta-thinking, risposta vaga          | ✓ 1m25s — corretto e conciso                                              | ✗ 2m43s — risponde in inglese senza aprire un file, poi "nessuna API trovata"                                                     |
 | **qwen2.5:7b**     | ✗ 9s — chiede chiarimenti invece di esplorare           | ✗ 10s — chiede a me di passargli il README                                | ⚠ 26s — esplora l'albero dei file ma non legge nulla                                                                              |
@@ -335,7 +335,7 @@ Il `journalctl -u ollama` della sessione di test vale più di ogni impressione: 
 | qwen3.5:4b    | 16k | 2.5 GB      | 0.5 GB       | 34/34        | 100% GPU                        |
 | qwen3.5:4b    | 32k | 2.5 GB      | 1.1 GB       | 34/34        | 100% GPU                        |
 | qwen3.5:9b    | 16k | 4.7 GB      | 1.1 GB       | 32/34        | 2 layer in RAM                  |
-| qwen3.5:9b    | 32k | 4.7 GB      | 4.6 GB       | 33/37        | **37% dei layer in RAM**        |
+| qwen3.5:9b    | 32k | 4.7 GB      | 4.6 GB       | 33/37        | **4 layer su 37 in RAM**        |
 | gemma4:e4b    | 32k | 2.8 GB      | 0.5 GB       | 43/43        | 100% GPU                        |
 | granite4.2:8b | 16k | 4.9 GB      | 2.6 GB       | 36/41        | 5 layer in RAM                  |
 | granite4.2:8b | 32k | 4.9 GB      | 5.1 GB       | 26/41        | **63% in RAM: 10.3 GB su Host** |
@@ -375,7 +375,7 @@ Nota di coerenza con la comparativa: nel test a freddo (domanda sulle API senza 
 - **A 4k non si salva nessuno**: sette su sette fuori gioco, ognuno col proprio modo. Il primo intervento su un agente locale non è cambiare modello: è alzare `num_ctx`.
 - **16k è il minimo sindacale**, ed è già il punto dolce per gemma e qwen3:4b.
 - **32k è dove i qwen3.5 danno il meglio**, e dove qwen3:4b e granite affogano: il valore di una context window grande dipende dal modello, non solo dai token disponibili.
-- Il migliore in assoluto è **qwen3.5:9b-32k** (descrizione più completa, endpoint con codici d'errore in 26s), col caveat che sulla mia 4060 a 32k sfora e gira con il 37% dei layer in RAM — i suoi tempi ne risentono. Il miglior compromesso resta **qwen3.5:4b-32k**, che conferma la scelta fatta nella comparativa come setup quotidiano. La sorpresa è **gemma4:e4b-16k**: 25s per una descrizione accurata.
+- Il migliore in assoluto è **qwen3.5:9b-32k** (descrizione più completa, endpoint con codici d'errore in 26s), col caveat che sulla mia 4060 a 32k sfora e gira con 4 layer su 37 in RAM — i suoi tempi ne risentono. Il miglior compromesso resta **qwen3.5:4b-32k**, che conferma la scelta fatta nella comparativa come setup quotidiano. La sorpresa è **gemma4:e4b-16k**: 25s per una descrizione accurata.
 - Un agente di coding completamente locale, su una RTX 4060, per analizzare e descrivere un progetto **è utilizzabile davvero** — a condizione di dargli il contesto giusto: context window adeguata e domande in progressione, non una richiesta complessa a freddo.
 
 
@@ -383,7 +383,7 @@ Nota di coerenza con la comparativa: nel test a freddo (domanda sulle API senza 
 
 Opencode permette di utilizzare modelli locali in Ollama con ottimi risultati, ma le risorse sono limitate dalla VRAM della scheda video. In pratica ci si può fare molte cose, ma non è paragonabile con i modelli cloud, molto più grandi e capaci di elaborazioni complesse.
 
-Nello sviluppo quotidiano io utilizzo il provider "Opencode GO" e "Ollama cloud" che a fronte di un costo basso mi permettono di utilizzare diversi modelli superando il limite della mia scheda video ma mantenendo un buon livello di privacy;
+Nello sviluppo quotidiano io utilizzo il provider "Opencode GO" che a fronte di un costo basso mi permette di utilizzare diversi modelli superando il limite della mia scheda video ma mantenendo un buon livello di privacy;
 tuttavia utilizzo ollama per task in cui la privacy è fondamentale.
 
 ## Riferimenti

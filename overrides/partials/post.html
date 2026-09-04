@@ -26,7 +26,7 @@
     {% set _body = post.content %}
     {% if "</h2>" in _body %}{% set _body = _body.split("</h2>", 1) | last %}
     {% elif "</h1>" in _body %}{% set _body = _body.split("</h1>", 1) | last %}{% endif %}
-    {% set _excerpt = post.meta.description or (_body | striptags | truncate(180, true)) %}
+    {% set _excerpt = (post.content | striptags | trim) or post.meta.description or (_body | striptags | truncate(180, true)) %}
     <p class="md-post-row__excerpt">{{ _excerpt }}</p>
     <a class="md-post-row__more" href="{{ post.url | url }}">{{ lang.t("blog.continue") }}</a>
   </div>

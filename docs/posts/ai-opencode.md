@@ -11,6 +11,10 @@ description: "Architettura degli agenti di OpenCode: primari e subagent, tool MC
 
 ## Introduzione
 
+Un coding agent non è un modello: è un'architettura di agenti che si delegano il lavoro. Chi usa OpenCode solo per scrivere prompt sfrutta il 10% dello strumento. Qui si vede come primari, subagent, MCP e permessi si incastrano.
+
+<!-- more -->
+
 OpenCode ha un'architettura multi-agente: agenti **primari** con cui interagisci direttamente e **subagent** specializzati, invocati automaticamente o a mano. Capire quando e come usarli — e come configurarne tool e permessi — è ciò che fa la differenza sui task complessi.
 
 ---

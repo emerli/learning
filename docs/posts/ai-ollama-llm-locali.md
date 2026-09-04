@@ -10,6 +10,10 @@ description: "Cosa possiamo fare con Ollama: comparativa dei modelli che ci poss
 
 ### Introduzione
 
+Un'AI che lavora solo sulla tua macchina: niente cloud, niente dati che escono. Ma su una RTX 4060 quanto regge davvero? Ho messo alla prova 10 modelli tra locali e cloud — ed è emerso un dettaglio che ribalta le aspettative.
+
+<!-- more -->
+
 Il motivo principale per usare un modello locale invece del cloud è la **privacy**: analizzare codice, mail, file e dati personali che non possono uscire dalla macchina. Ci sono altri vantaggi (costo, uso offline, nessun rate limit), ma per capacità pura un modello cloud resta superiore.
 
 ---
