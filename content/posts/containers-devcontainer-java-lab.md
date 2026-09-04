@@ -147,11 +147,11 @@ Il devcontainer utilizza l'immagine `maven:3.9-eclipse-temurin-17`, che contiene
 
 Come si vede nel filmato, occorre solo aprire il progetto e autorizzare l'esecuzione nel container e parte la creazione del container e il reload dell'ide
 
-<video controls src="../screen/devcontainer-java-lab-create.mp4"></video>
+<video controls src="/screen/devcontainer-java-lab-create.mp4"></video>
 
 Riaprendo successivamente l'ide si nota come sia immediato il caricamento in quanto il container esistente viene risvegliato.
 
-<video controls src="../screen/devcontainer-java-lab-reopen.mp4"></video>
+<video controls src="/screen/devcontainer-java-lab-reopen.mp4"></video>
 
 ## Cosa ho notato
 
