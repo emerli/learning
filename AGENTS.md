@@ -2,7 +2,7 @@
 
 ## Overview
 
-Ispirato dal second brain ho voluto realizzare questo Blog tecnico personale (contenuti in italiano) per salvare e condividere la mia esperienza.
+Ispirato dal Second brain di Tiago Forte (e dalla vecchiaia :D) ho pensato di salvare quello che imparo, sperimento, le configurazioni che uso, benchmark su hardware consumer, attriti documentati e condividerlo.
 Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 
 - **Sito**: https://koji76.gitlab.io/learning
@@ -21,23 +21,27 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 ├── .gitignore       # public/  resources/  .hugo_build.lock
 ├── hugo.toml        # tema + params + menu + tassonomie
 ├── assets/
-│   ├── css/custom.css              # stile card lista, badge LAB, tabelle, tag cloud
+│   ├── css/custom.css              # stile card lista, badge LAB, tabelle, tag cloud,
+│   │                                 ricerca dropdown, about card, home topics
 │   ├── css/asciinema-player.min.css # vendored (build ermetica, niente CDN)
 │   └── js/custom.js                # ponte asciinema v3 (create())
 │   └── js/asciinema-player.min.js  # vendored
 ├── layouts/
-│   ├── _partials/header.html       # avatar tondo + titolo + barra di ricerca
+│   ├── baseof.html                 # override: data-pagefind-ignore su taxonomy/term
+│   ├── home.html                   # home: descrizione + argomenti trattati
+│   ├── about/single.html           # about me: card foto + info, CV, contatti
+│   ├── _partials/header.html       # avatar tondo + titolo + ricerca dropdown PagefindUI
 │   ├── _partials/list.html        # lista post stile PaperMod + tag cloud
 │   ├── _partials/head/extensions.html # CSS asciinema + Pagefind UI
 │   ├── _default/search.html       # pagina /search/ con PagefindUI (query da ?q=)
-│   └── posts/single.html          # header post: data, titolo, descrizione, tag
+│   └── posts/single.html           # header post: data, titolo, descrizione, tag
 ├── i18n/it.toml                    # "Indice" per il TOC
 ├── static/
 │   ├── images/avatar.png
 │   ├── *.cast                      # screencast asciinema
 │   └── screen/*.mp4                # video lab (da spostare su host esterno)
 ├── content/
-│   ├── about.md
+│   ├── about.md                    # About Me (type: about, card + CV + contatti)
 │   ├── projects.md                 # card dei progetti
 │   ├── search.md                   # pagina di ricerca (layout search)
 │   └── posts/                      # UN .md per post, tutti qui
@@ -45,9 +49,10 @@ Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 └── themes/hugo-coder/              # tema vendored (non modificare)
 ```
 
-La home è il profilo (avatar, nome, info, social). La lista post è su `/posts/`
+La home mostra la descrizione del blog e gli argomenti trattati. La pagina About Me
+ha una card con foto e info del profilo, il CV e i contatti. La lista post è su `/posts/`
 con tag cloud in cima. Le pagine tag (`/tags/<slug>/`) sono generate dalla
-tassonomia nativa di Hugo — non si mantengono a mano.
+tassonomia nativa di Hugo e sono escluse dalla ricerca (data-pagefind-ignore).
 
 ---
 
@@ -128,15 +133,24 @@ Build in ~30s (il grosso è l'`apt-get`).
 
 - `hugo.toml`: `baseURL` → `https://koji76.gitlab.io/learning/`, `locale = "it"`.
 - URL dei post: `/posts/<slug>/` (default Hugo con `content/posts/`).
-- Menu: `Home · Blog · Progetti · About` (in `hugo.toml`, `languages.it.menu.main`).
-- Home: profilo con avatar, `info` (Cloud Architect / Senior Developer /
-  AI-assisted Development), social (GitHub, GitLab, LinkedIn, email, RSS).
+- Menu: `Home · Blog · Progetti · About Me` (in `hugo.toml`, `languages.it.menu.main`).
+- Home: descrizione del blog + argomenti trattati (layout `layouts/home.html`).
+- About Me: card con foto e info dal profilo (`hugo.toml` params), CV e contatti
+  (layout `layouts/about/single.html`, type `about`).
+- Argomenti trattati in home:
+  - **Java/.NET** — da Senior Developer raccolgo i problemi che ho incontrato e come li ho risolto.
+  - **Docker** — come funziona e come lo uso nello sviluppo quotidiano.
+  - **AI** — da un anno a questa parte compagno insostituibile, aka il mio viaggio nella AI.
+  - **Agile** — ha guidato il mio sviluppo dal 2000: a volte mi ha semplificato la vita, altre no.
+  - **Sicurezza Informatica** — non sono un hacker ma voglio capire come essere al sicuro.
+  - **Linux** — da distro hopper navigato vi racconto le mie impressioni sulle distro.
 - TOC: attivo su tutti i post (`[params.Entry] toc = true`), collassabile
   sotto "Indice" (i18n in `i18n/it.toml`).
 - Stile card lista, badge LAB, tabelle, tag cloud: tutto in `assets/css/custom.css`.
-- **Ricerca**: barra nell'header (form → `/search/?q=…`) + pagina `/search/`
-  con PagefindUI (query da `?q=` via `initialQuery`). Indice generato in CI,
-  mai a mano. UI in italiano (traduzioni inline in `layouts/_default/search.html`).
+- **Ricerca**: dropdown PagefindUI nell'header (input con lente a destra, risultati
+  in popup). Tag esclusi dall'indice (`data-pagefind-ignore` su taxonomy/term nel
+  baseof). Pagina `/search/` come fallback. UI in italiano (traduzioni inline).
+  Solo 18 pagine indicizzate (post e pagine, non i tag).
 - **Screencast**: strumenti = **OBS** per il video dello schermo + **asciinema**
   per i segmenti solo-terminale. Il `.cast` è testo → sta nel repo (in
   `static/`); editing dei tempi morti con `asciinema-edit cut`/`quantize`.
@@ -161,7 +175,11 @@ Build in ~30s (il grosso è l'`apt-get`).
 - Migrazione da MkDocs a Hugo completata (settembre 2026): tema `hugo-coder`
   vendored, override in `layouts/`, asciinema vendored in `assets/`, CI con
   `hugomods/hugo:debian-0.165.0` (pinnata, build ~30s con apt+pagefind).
-- Ricerca full-text con Pagefind attiva (barra nell'header + `/search/`).
+- Restyling home (settembre 2026): descrizione blog + argomenti trattati
+  (non più profilo); About Me con card foto + info dal profilo + CV + contatti.
+- Ricerca dropdown con PagefindUI nell'header (settembre 2026): input con lente
+  a destra, risultati in popup, tag esclusi dall'indice (18 pagine indicizzate).
+- Ricerca full-text con Pagefind attiva (dropdown nell'header + `/search/` fallback).
 - Pubblicati (categoria AI): `ai-ollama-llm-locali`, `ai-opencode`, `ai-agents-md`,
   `ai-sdd-guida-rapida`, `ai-spec-kit-book-api`, `ai-openspec-book-api`,
   `ai-opencode-lab`, `containers-devcontainer-guida-pratica`.
@@ -401,13 +419,35 @@ preciso. I tre sotto sono gli unici con un angolo possibile.
   i modi di gestire le secret (opaque, docker-registry, `envFrom`, montaggio).
   Angolo: "cosa ho capito facendo il primo deploy su k8s a mano".
 
+### Comparativa Java IDE — IntelliJ vs Eclipse vs VS Code (categoria Java)
+
+I tre IDE principali per lo sviluppo Java, visti dagli occhi di un Senior Developer che li ha usati tutti.
+
+- **IntelliJ IDEA** (Community / Ultimate): il riferimento. Refactoring potente, understanding del codice, Spring/Quarkus integration, database tools (Ultimate). Contro: pesante, a pagamento per le feature pro, indice del progetto lento su repo grandi.
+- **Eclipse**: il veterano. Gratuito, plugin ecosystem storico, buono per chi vuole controllo completo (runtime, server, workspace). Contro: UX datata, configurazione verbosa, debugging e refactoring meno fluidi.
+- **VS Code + Extension Pack for Java**: il leggero. Microsoft + Red Hat, Language Server Protocol, velocissimo da aprire, perfetto per quick edit e DevContainer. Contro: non è un IDE Java full (manca il refactor profondo, il understanding del framework), debug meno integrato, progetto "aperto" ma non "capito" come in IntelliJ.
+- **Angolo**: non un benchmark generico di feature — ma la prospettiva di chi sviluppa Java tutti i giorni: cosa cambia davvero nel flusso di lavoro (refactoring, debug, Spring/Quarkus, DevContainer, Maven/Gradle, test), dove ogni IDE brilla e dove fa attrito. Tabella comparativa pragmatica: costo, RAM, tempo di avvio, refactoring, debug, Spring Boot, DevContainer, Maven/Gradle, testing.
+- **Slug**: `java-ide-comparativa`, tag `Java`, `IntelliJ`, `Eclipse`, `VS Code`.
+- **Cross-link**: con il post DevContainer (come si comportano i 3 IDE dentro un DevContainer), con `idea-plugin-demo` (esperienza IntelliJ Platform SDK).
+
+### I modelli AI cloud che uso ogni giorno (categoria AI)
+
+Confronto diretto dei modelli/servizi cloud AI usati nella pratica quotidiana, non una recensione generica ma cosa uso davvero e perché.
+
+- **OpencodeZen**: il principale per lo sviluppo. Agente di coding integrato nel terminale, lo uso su tutti i progetti. Angolo: come si comporta rispetto a Copilot e Claude come coding agent, flusso di lavoro reale (legge AGENTS.md, edit multi-file, tool calling), dove brilla e dove si inceppa.
+- **Claude (Anthropic)**: provato come chat e coding. Qualità del ragionamento alta, ma esperienza d'uso limitata — riportare impressioni oneste senza gonfiare.
+- **GitHub Copilot**: provato come completamento nell'IDE. Confronto rapido con OpencodeZen sull'approccio (suggerimento inline vs agente autonomo) e su quando ha senso l'uno o l'altro.
+- **Ollama cloud**: in fase di valutazione. Il post `ai-ollama-llm-locali` copre i modelli locali; qui l'angolo è il passaggio al cloud Ollama: perché, per quali task, confronto costo/qualità rispetto ai modelli locali su RTX 4060.
+- **Angolo**: non una recensione per lettori generici — la prospettiva di un Senior Developer che ha scelto OpencodeZen come tool principale e valuta le alternative. Tabella pragmatica: tool, modello, task tipico, qualità output, costo, lo uso ancora?. Onestà su cosa non funziona bene.
+- **Slug**: `ai-modelli-cloud-ognigiorno`, tag `AI`, `OpenCode`, `Ollama`, `Claude`, `Copilot`.
+- **Cross-link**: con `ai-ollama-llm-locali` (locale vs cloud), con `ai-opencode` e `ai-opencode-lab` (OpencodeZen in dettaglio).
+
 ### Minori
 
 - Valutare una sezione "Reference" separata per i materiali non-articolo (checklist,
   recon report, cheat-sheet).
 - Spostare i video in `static/screen/` su host esterno (YouTube/PeerTube) e
   sostituire gli shortcode `video` con iframe.
-- Landing page: valutare intro breve o ultimi post sotto il profilo.
 
 ---
 
