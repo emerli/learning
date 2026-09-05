@@ -1,0 +1,46 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container page">
+    <article>
+      <header>
+        <h1 class="title">
+          <a class="title-link" href="{{ .Permalink | safeURL }}">
+            {{ .Title }}
+          </a>
+        </h1>
+      </header>
+
+      <div class="about-card">
+        <div class="about-card-avatar">
+          {{ with .Site.Params.avatarURL }}
+            <div class="avatar"><img src="{{ . | relURL }}" alt="avatar"></div>
+          {{ end }}
+        </div>
+        <div class="about-card-body">
+          <h2 class="about-card-name">{{ .Site.Params.author }}</h2>
+          {{ if reflect.IsSlice .Site.Params.info }}
+            <p class="about-card-info">{{ delimit .Site.Params.info " · " }}</p>
+          {{ else }}
+            <p class="about-card-info">{{ .Site.Params.info }}</p>
+          {{ end }}
+          <div class="about-card-social">
+            {{ range .Site.Menus.main }}
+              {{ if in .Identifier "social" }}
+              {{ end }}
+            {{ end }}
+            {{ range .Site.Params.social }}
+              <a class="social-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer"
+                 title="{{ .name }}"><i class="{{ .icon }}"></i></a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+      <div class="post-content">
+        {{ .Content }}
+      </div>
+    </article>
+  </section>
+{{ end }}

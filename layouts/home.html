@@ -1,0 +1,34 @@
+{{ define "title" }}
+  {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container">
+    <div class="home-intro">
+      <p>
+        Learning Notes è la mia raccolta personale di appunti, progetti e
+        sintesi tecniche, tenuta in italiano e pubblicata come sito statico su
+        GitLab Pages.
+      </p>
+      <p>
+        Ispirato dal Second brain di Tiago Forte (e dalla vecchiaia :D) ho
+        pensato di salvare quello che imparo, sperimento, le configurazioni che
+        uso, benchmark su hardware consumer, attriti documentati e condividerlo.
+      </p>
+      <p>
+        Learning Notes parla un po di <a href="{{ "about/" | relURL }}">me</a>&hellip;
+      </p>
+    </div>
+
+    <div class="home-topics">
+      <h2>Argomenti trattati</h2>
+      <ul>
+        <li><strong>Java</strong> — Clean Code, principi SOLID, evoluzione del linguaggio (Java 8 → 25), migrazione e novità di Spring Boot.</li>
+        <li><strong>Docker</strong> — configurazioni <code>devcontainer.json</code> per ambienti di sviluppo (DevOps, Java/Quarkus, Mono .NET 4.7).</li>
+        <li><strong>AI</strong> — Spec Driven Development, Spec Kit, OpenSpec, agenti e workflow OpenCode, LLM locali con Ollama, note su Transformer e ML.NET.</li>
+        <li><strong>Agile</strong> — Open Practice Library, ripasso Scrum, pattern GoF.</li>
+        <li><strong>Sicurezza Informatica</strong> — information gathering con Kali, recon su Metasploitable 2, exploitation checklist, privilege escalation su Linux.</li>
+        <li><strong>Linux</strong> — da distro hopper navigato vi racconto le mie impressioni sulle distro.</li>
+      </ul>
+    </div>
+  </section>
+{{ end }}

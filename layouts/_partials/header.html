@@ -14,6 +14,9 @@
         <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
+        <li class="navigation-item navigation-search">
+          <div id="header-search"></div>
+        </li>
         {{ with .Site.Menus.main}}
           {{ range sort . }}
             <li class="navigation-item">
@@ -21,11 +24,6 @@
             </li>
           {{ end }}
         {{ end }}
-        <li class="navigation-item navigation-search">
-          <form class="header-search-form" action="{{ "search/" | relLangURL }}" method="get">
-            <input type="search" name="q" placeholder="Cerca…" aria-label="Cerca">
-          </form>
-        </li>
         {{ if hugo.IsMultilingual }}
           {{ $node := . }}
           {{ .Scratch.Set "separator" true }}
@@ -47,3 +45,21 @@
     {{ end }}
   </section>
 </nav>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    new PagefindUI({
+      element: "#header-search",
+      showSubResults: true,
+      showImages: false,
+      translations: {
+        placeholder: "Cerca nel blog…",
+        zero_results: "Nessun risultato per [SEARCH_TERM]",
+        many_results: "[COUNT] risultati per [SEARCH_TERM]",
+        one_result: "1 risultato per [SEARCH_TERM]",
+        alt_search: "Nessun risultato per [SEARCH_TERM]. Mostro invece i risultati per [DIFFERENT_TERM]",
+        search_suggestion: "Nessun risultato per [SEARCH_TERM]. Prova una di queste ricerche:",
+        searching: "Ricerca di [SEARCH_TERM]…",
+      },
+    });
+  });
+</script>
