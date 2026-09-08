@@ -1,4 +1,4 @@
-baseURL = "https://koji76.gitlab.io/learning/"
+baseURL = "https://emerli.github.io/learning/"
 title = "Learning Notes"
 theme = "hugo-coder"
 locale = "it"

@@ -5,8 +5,8 @@
 Ispirato dal Second brain di Tiago Forte (e dalla vecchiaia :D) ho pensato di salvare quello che imparo, sperimento, le configurazioni che uso, benchmark su hardware consumer, attriti documentati e condividerlo.
 Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 
-- **Sito**: https://koji76.gitlab.io/learning
-- **Repo**: https://gitlab.com/koji76/learning
+- **Sito**: https://emerli.github.io/learning
+- **Repo**: https://github.com/emerli/learning
 - **Stack**: Hugo (binario statico) + tema `hugo-coder` vendored in `themes/` +
   override minimi in `layouts/` + CSS/JS custom in `assets/`. RSS attivo.
   Ricerca full-text con **Pagefind** (indice generato in CI).
@@ -104,18 +104,18 @@ release GitHub — non c'è pip sulla macchina).
 
 ---
 
-## CI / GitLab Pages
+## CI / GitHub Pages
 
-Job `pages` in `.gitlab-ci.yml`, **solo su branch di default**:
+Workflow `.github/workflows/hugo.yml`, **solo su branch `main`**:
 
-1. Immagine `hugomods/hugo:debian-0.165.0` (versione pinnata)
-2. `apt-get install curl ca-certificates` (l'immagine debian è minimale)
+1. Runner `ubuntu-latest`
+2. Setup Hugo 0.165.0 extended (azione `peaceiris/actions-hugo@v3`)
 3. Download di **Pagefind** v1.5.2 (binario musl dalla release GitHub)
-4. `hugo --minify` → genera in `public/` (default Hugo, niente `mv`)
+4. `hugo --minify` → genera in `public/`
 5. `pagefind --site public` → indice di ricerca in `public/pagefind/`
-6. Artifact `public/`
+6. Deploy su GitHub Pages tramite `actions/deploy-pages`
 
-Build in ~30s (il grosso è l'`apt-get`).
+Build in ~30s.
 
 ### Trappole note
 - `hugo --minify` non fallisce su post senza `date`/`title` — verificare a mano.
@@ -131,7 +131,7 @@ Build in ~30s (il grosso è l'`apt-get`).
 
 ## Convenzioni
 
-- `hugo.toml`: `baseURL` → `https://koji76.gitlab.io/learning/`, `locale = "it"`.
+- `hugo.toml`: `baseURL` → `https://emerli.github.io/learning/`, `locale = "it"`.
 - URL dei post: `/posts/<slug>/` (default Hugo con `content/posts/`).
 - Menu: `Home · Blog · Progetti · About Me` (in `hugo.toml`, `languages.it.menu.main`).
 - Home: descrizione del blog + argomenti trattati (layout `layouts/home.html`).

@@ -3,14 +3,14 @@
 Ispirato dal second brain ho voluto realizzare questo Blog tecnico personale (contenuti in italiano) per salvare e condividere la mia esperienza.
 Costruito con **Hugo** + tema **hugo-coder**, pubblicato su **GitLab Pages**.
 
-- **Sito**: https://koji76.gitlab.io/learning
-- **Repo**: https://gitlab.com/koji76/learning
+- **Sito**: https://emerli.github.io/learning
+- **Repo**: https://github.com/emerli/learning
 
 ## Struttura
 
 ```
 .
-├── .gitlab-ci.yml   # pipeline GitLab Pages (hugo --minify)
+├── .github/workflows/hugo.yml   # pipeline GitHub Pages (hugo --minify + pagefind)
 ├── hugo.toml        # tema + params + menu + tassonomie
 ├── assets/          # CSS/JS custom + player asciinema vendored
 ├── layouts/         # override minimi del tema (lista post, header, post)
@@ -76,9 +76,8 @@ Hugo è un binario singolo in `~/bin/hugo` (v0.165.0 extended).
 
 ## Deploy
 
-Job `pages` in `.gitlab-ci.yml`, **solo sul branch di default**: immagine
-`klakegg/hugo:0.165.0-ext-alpine` (pinnata), `hugo --minify` → `public/`, pubblicato su
-GitLab Pages. Push su altri branch non fa deploy.
+Workflow `.github/workflows/hugo.yml`, **solo sul branch `main`**: Hugo 0.165.0 extended +
+Pagefind v1.5.2, `hugo --minify` → `public/` → GitHub Pages. Push su altri branch non fa deploy.
 
 ## Personalizzazione
 
