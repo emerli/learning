@@ -263,7 +263,7 @@ Un M1 del 2020 con 8GB di RAM condivisa, testato informalmente, si è comportato
 9. I modelli piccoli non colmano il divario di "conoscenza pregressa" di pattern architetturali rari rispetto a modelli di scala enterprise — nessuna configurazione lo elimina, si può solo compensarlo con il proprio contesto.
 10. Quando un modello grande è lento, prima di tacciarlo di "indecisione" verifica nei log se è in offload: un modello che sfora la VRAM (KV-cache + pesi) paga il bus PCIe a ogni token, e i suoi tempi esplodono per cause hardware prima ancora che di comportamento.
 
-Per la configurazione pratica (installazione, provider Ollama, context window, temperatura): vedi il [lab OpenCode con Ollama](/learning/ai-opencode-lab/).
+Per la configurazione pratica (installazione, provider Ollama, context window, temperatura): vedi il [lab OpenCode con Ollama](/learning/posts/ai-opencode-lab/).
 
 ---
 

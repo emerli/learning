@@ -21,7 +21,7 @@ Spec Kit vs OpenSpec: la differenza sta nel processo. Change proposal e spec del
 <!--more-->
 
 OpenSpec è un framework SDD (Spec-Driven Development) leggero, iterativo e brownfield-first.
-A differenza di [Spec Kit](/learning/ai-spec-kit-book-api/), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](/learning/ai-sdd-guida-rapida/).
+A differenza di [Spec Kit](/learning/posts/ai-spec-kit-book-api/), usa un approccio basato su **change proposal** con **spec delta** per tracciare le modifiche ai requisiti. Per i concetti generali vedi la [guida rapida allo SDD](/learning/posts/ai-sdd-guida-rapida/).
 
 > **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-openspec
 
@@ -245,7 +245,7 @@ L'agente AI implementa tutti i task:
 /opsx:apply
 ```
 
-Il codice prodotto è lo stesso che genererebbe qualsiasi altro flusso SDD sullo stesso `spec.md` — per il `BookController` completo vedi la fase *Implement* nell'[articolo su Spec Kit](/learning/ai-spec-kit-book-api/). Qui la differenza sta nel **processo**, non nell'output: OpenSpec non ha gate obbligatori e, alla fine, archivia il change aggiornando le spec persistenti.
+Il codice prodotto è lo stesso che genererebbe qualsiasi altro flusso SDD sullo stesso `spec.md` — per il `BookController` completo vedi la fase *Implement* nell'[articolo su Spec Kit](/learning/posts/ai-spec-kit-book-api/). Qui la differenza sta nel **processo**, non nell'output: OpenSpec non ha gate obbligatori e, alla fine, archivia il change aggiornando le spec persistenti.
 
 ---
 

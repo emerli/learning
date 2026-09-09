@@ -23,7 +23,7 @@ Moltissimi progetti Java/Maven/Quarkus identici tra loro, un solo setup: mount .
 
 Questo devcontainer l'ho scritto per un cliente con molti progetti Java/Maven/Quarkus molto simili tra loro. Nel tempo è stato perfezionato fino alla versione che vedete qui.
 
-Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/learning/containers-devcontainer-guida-pratica/).
+Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/learning/posts/containers-devcontainer-guida-pratica/).
 
 ## devcontainer.json
 

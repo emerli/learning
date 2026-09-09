@@ -25,7 +25,7 @@ Lo **Spec Driven Development** è un approccio in cui la **specifica** viene scr
 Ci sono due scuole, a seconda di cosa sia la "spec":
 
 - **Contratto formale** — un file macchina, tipicamente **OpenAPI** (`api.yaml`), da cui si genera lo scaffolding. È il taglio di questa guida.
-- **Spec in linguaggio naturale** — requisiti e scenari scritti in Markdown, che un **agente AI** legge ed esegue. Vedi gli esempi pratici con [Spec Kit](/learning/ai-spec-kit-book-api/) e [OpenSpec](/learning/ai-openspec-book-api/).
+- **Spec in linguaggio naturale** — requisiti e scenari scritti in Markdown, che un **agente AI** legge ed esegue. Vedi gli esempi pratici con [Spec Kit](/learning/posts/ai-spec-kit-book-api/) e [OpenSpec](/learning/posts/ai-openspec-book-api/).
 
 I principi sotto (contratto vs logica, quando aggiornare la spec) valgono per entrambe.
 

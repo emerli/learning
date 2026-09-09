@@ -25,7 +25,7 @@ Questo devcontainer l'ho scritto per un cliente quando mi sono trovato a modific
 
 Microsoft non rilascia .NET Framework 4.x per Linux, quindi la community ha sviluppato Mono. Oggi Mono è meno mantenuto e non tutte le distribuzioni Linux lo pacchettizzano in maniera completa — da qui la necessità di un container ad hoc.
 
-Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/learning/containers-devcontainer-guida-pratica/).
+Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/learning/posts/containers-devcontainer-guida-pratica/).
 
 ## devcontainer.json
 

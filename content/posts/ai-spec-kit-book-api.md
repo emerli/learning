@@ -20,7 +20,7 @@ GitHub porta la spec-driven development sul campo: constitution, specify, plan, 
 
 <!--more-->
 
-Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](/learning/ai-sdd-guida-rapida/).
+Spec Kit è un toolkit open source di GitHub per lo **Spec-Driven Development (SDD)** — un approccio dove le specifiche diventano "eseguibili" e guidano direttamente l'implementazione, anziché essere scartate dopo la codifica. Per i concetti generali vedi la [guida rapida allo SDD](/learning/posts/ai-sdd-guida-rapida/).
 
 > **Repo sorgente**: https://gitlab.com/koji-ai-projects/book-api-spec-kit
 
