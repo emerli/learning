@@ -27,7 +27,7 @@ Il cliente per cui lavoro utilizza OpenShift con pipeline che parte da GitLab ch
 Per ognuno di questi tool è richiesta una versione specifica di Python, Node ecc.
 Ho scritto questo devcontainer per progetti DevOps: pipeline Tekton, deploy su OpenShift, GitOps con Argo CD e Ansible per le automatizzazioni. Zero Dependency Hell sull'host.
 
-Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/containers-devcontainer-guida-pratica/).
+Per capire meglio il funzionamento dei DevContainer ho scritto [DevContainer: guida pratica](/learning/containers-devcontainer-guida-pratica/).
 
 ## devcontainer.json
 

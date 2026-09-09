@@ -27,7 +27,7 @@ Configurare OpenCode con Ollama è la parte facile. Azzeccare context window e t
 Vale la pena ricordare che Ollama funziona al meglio in modalità GPU su una scheda nvidia.
 Ollama può funzionare anche in modalità GPU+CPU o CPU nel caso in cui il modello sia più grande della VRAM a disposizione o sia assente penalizzando di molto le performance.
 
-Vedi [Ollama LLM Locali](/ai-ollama-llm-locali/) per i dettagli.
+Vedi [Ollama LLM Locali](/learning/ai-ollama-llm-locali/) per i dettagli.
 
 
 ## Installazione
@@ -275,7 +275,7 @@ Con questa configurazione la risposta risultava più prevedibile.
 
 ## Il test: sette modelli a confronto
 
-I dati emersi nell'articolo sulla [comparativa](/ai-ollama-llm-locali/) dei modelli sono stati ricavati con un metodo fisso, per essere sicuro di non pubblicare cose imprecise: stesso identico progetto, stesse domande, stesso ordine, sessione pulita a ogni run.
+I dati emersi nell'articolo sulla [comparativa](/learning/ai-ollama-llm-locali/) dei modelli sono stati ricavati con un metodo fisso, per essere sicuro di non pubblicare cose imprecise: stesso identico progetto, stesse domande, stesso ordine, sessione pulita a ogni run.
 
 ### Il metodo
 
@@ -400,6 +400,6 @@ Le configurazioni di opencode come da standard nel mondo linux sono /home/$USER/
 
 Per vedere come configurarlo nella pratica potete trovare nel mio repository, le configurazioni che uso per lavoro ai seguenti link [Agents.md](https://gitlab.com/koji-ai-projects/configurazioni-utili-ai/-/blob/0f7b1cb268561799fc6a046efdac05f5d8c0c780/AGENTS.md) e la configurazione degli agenti [agents](https://gitlab.com/koji-ai-projects/configurazioni-utili-ai/-/tree/0f7b1cb268561799fc6a046efdac05f5d8c0c780/agents).
 
-Se volete saperne di piu  sul funzionamento di opencode ho scritto questi articoli [Opencode](/ai-opencode/) e [Agents.md](/ai-agents-md/) .
+Se volete saperne di piu  sul funzionamento di opencode ho scritto questi articoli [Opencode](/learning/ai-opencode/) e [Agents.md](/learning/ai-agents-md/) .
 
 
