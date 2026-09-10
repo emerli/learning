@@ -1,5 +1,35 @@
 /* Learning Notes — customizzazioni hugo-coder */
 
+/* Variabili colore: hugo-coder usa solo variabili SCSS, quindi qui vengono
+   ridefinite come custom properties per light/dark/auto. Senza questo blocco
+   tutti i var(--fg-color, ...) sotto ricadevano sempre sui fallback chiari,
+   rendendo il testo illeggibile in dark mode. */
+:root {
+  --bg-color: #fff;
+  --fg-color: #212121;
+  --alt-bg-color: #f5f5f5;
+  --border-color: #e5e5e5;
+  --link-color: #0077cc;
+}
+
+body.colorscheme-dark {
+  --bg-color: #212121;
+  --fg-color: #dadada;
+  --alt-bg-color: #424242;
+  --border-color: #4f4f4f;
+  --link-color: #42a5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.colorscheme-auto {
+    --bg-color: #212121;
+    --fg-color: #dadada;
+    --alt-bg-color: #424242;
+    --border-color: #4f4f4f;
+    --link-color: #42a5f5;
+  }
+}
+
 /* Badge LAB sui post (param lab: true) */
 .lab-badge {
   display: inline-block;
@@ -185,6 +215,16 @@ asciinema-player {
   --pagefind-ui-scale: 0.7;
   --pagefind-ui-border-radius: 0.4rem;
   --pagefind-ui-border-width: 1px;
+}
+
+/* Pagefind definisce i propri colori su :root e il suo CSS viene caricato dopo
+   custom.css: qui vengono riallineati al tema (specificita' piu' alta). */
+#header-search .pagefind-ui {
+  --pagefind-ui-text: var(--fg-color);
+  --pagefind-ui-background: var(--bg-color);
+  --pagefind-ui-border: var(--border-color);
+  --pagefind-ui-tag: var(--alt-bg-color);
+  --pagefind-ui-primary: var(--link-color);
 }
 
 #header-search .pagefind-ui__form {
@@ -412,16 +452,4 @@ asciinema-player {
 
 .post-content table tr:nth-child(even) td {
   background: var(--alt-bg-color, #f5f5f5);
-}
-
-body.colorscheme-dark .post-content table th,
-body.colorscheme-dark .post-content table tr:nth-child(even) td {
-  background: #424242;
-}
-
-@media (prefers-color-scheme: dark) {
-  body.colorscheme-auto .post-content table th,
-  body.colorscheme-auto .post-content table tr:nth-child(even) td {
-    background: #424242;
-  }
 }
